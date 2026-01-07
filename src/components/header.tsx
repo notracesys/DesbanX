@@ -3,7 +3,7 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
 import { Button } from '@/components/ui/button';
 import { Menu, Home, ShieldCheck } from 'lucide-react';
 
@@ -39,6 +39,9 @@ export default function Header() {
             </Button>
           </SheetTrigger>
           <SheetContent side="right" className="bg-background">
+            <SheetHeader>
+              <SheetTitle className="sr-only">Menu Principal</SheetTitle>
+            </SheetHeader>
             <div className="p-4">
               <Logo />
               <NavLinks />
