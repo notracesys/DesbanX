@@ -15,6 +15,7 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
+import FeedbackCarousel from './feedback-carousel';
 
 
 type Message = {
@@ -42,6 +43,7 @@ export default function ChatInterface() {
   const [isTyping, setIsTyping] = useState(false);
   const [showOptions, setShowOptions] = useState(false);
   const [showImportantNotice, setShowImportantNotice] = useState(false);
+  const [showFeedbacks, setShowFeedbacks] = useState(false);
   const chatEndRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -79,11 +81,9 @@ Descrição do ocorrido:
 
     setMessages([userMessage]);
 
-    // Simula tempo de leitura (1.5s)
     const readingTimer = setTimeout(() => {
         setIsTyping(true);
 
-        // Simula tempo de digitação (4s)
         const typingTimer = setTimeout(() => {
             const teamResponse: Message = {
                 id: 2,
@@ -93,7 +93,6 @@ Descrição do ocorrido:
             setMessages((prev) => [...prev, teamResponse]);
             setIsTyping(false);
 
-            // Inicia a segunda sequência de mensagens
             const readingTimer2 = setTimeout(() => {
               setIsTyping(true);
 
@@ -106,7 +105,6 @@ Descrição do ocorrido:
                 setMessages((prev) => [...prev, teamResponse2]);
                 setIsTyping(false);
 
-                 // Inicia a terceira sequência de mensagens (pergunta)
                  const readingTimer3 = setTimeout(() => {
                     setIsTyping(true);
 
@@ -114,30 +112,30 @@ Descrição do ocorrido:
                         const teamResponse3: Message = {
                             id: 4,
                             sender: 'team',
-                            content: 'Você deseja que a equipe da DesbanX inicie a análise completa do seu caso?',
+                            content: 'Você deseja que a equipe da DesbanX inicie a análise completa do seu caso? 🤔',
                         };
                         setMessages((prev) => [...prev, teamResponse3]);
                         setIsTyping(false);
                         setShowOptions(true);
-                    }, 3000); // 3s digitando
+                    }, 3000); 
 
                     return () => clearTimeout(typingTimer3);
-                }, 5000); // 5s lendo
+                }, 5000); 
                 
                 return () => clearTimeout(readingTimer3);
 
 
-              }, 4000); // 4 segundos digitando
+              }, 4000);
 
               return () => clearTimeout(typingTimer2);
-            }, 5000); // 5 segundos lendo
+            }, 5000);
 
             return () => clearTimeout(readingTimer2);
 
-        }, 4000); // 4 segundos digitando
+        }, 4000); 
 
         return () => clearTimeout(typingTimer);
-    }, 1500); // 1.5 segundos lendo
+    }, 1500); 
 
     return () => clearTimeout(readingTimer);
   }, [searchParams]);
@@ -151,7 +149,7 @@ Descrição do ocorrido:
 
   const handleOptionClick = (option: 'sim' | 'nao') => {
     const content = option === 'sim' 
-        ? 'Sim, quero tentar recuperar minha conta' 
+        ? 'Sim, quero tentar recuperar minha conta 👍' 
         : 'Não, apenas estou me informando';
     
     const userMessage: Message = {
@@ -164,10 +162,9 @@ Descrição do ocorrido:
     setShowOptions(false);
 
     if (option === 'sim') {
-        // Nova sequência para a opção "Sim"
-        setTimeout(() => { // Simula leitura (3s)
+        setTimeout(() => {
             setIsTyping(true);
-            setTimeout(() => { // Simula digitação (3s)
+            setTimeout(() => {
                 const finalResponse: Message = {
                     id: messages.length + 2,
                     sender: 'team',
@@ -175,34 +172,33 @@ Descrição do ocorrido:
                 }
                 setMessages(prev => [...prev, finalResponse]);
                 setIsTyping(false);
-                // Mostra o aviso após a mensagem de "Ótima escolha"
                 setShowImportantNotice(true);
                 
-                setTimeout(() => { // Espera 3s
+                setTimeout(() => {
                     setIsTyping(true);
-                    setTimeout(() => { // Digita por 2s
+                    setTimeout(() => {
                         const finalMessage: Message = {
-                            id: messages.length + 4, // ID único
+                            id: messages.length + 4,
                             sender: 'team',
                             content: 'Agora é o seguinte 👇\nSeu caso não é comum. Ele apresenta sinais claros de banimento automático: e esses são exatamente os casos que ainda valem a tentativa.',
                         };
                         setMessages(prev => [...prev, finalMessage]);
                         setIsTyping(false);
 
-                        setTimeout(() => { // Espera 5s
+                        setTimeout(() => {
                           setIsTyping(true);
-                          setTimeout(() => { // Digita por 2s
+                          setTimeout(() => {
                             const proofMessage: Message = {
-                                id: messages.length + 6, // ID único
+                                id: messages.length + 6,
                                 sender: 'team',
-                                content: 'Várias pessoas chegaram até nós com o mesmo problema, achando que tinham perdido tudo.\nApós a análise e o processo feito pela DesbanX, muitas conseguiram recuperar suas contas.',
+                                content: 'Várias pessoas chegaram até nós com o mesmo problema, achando que tinham perdido tudo.\nApós a análise e o processo feito pela DesbanX, muitas conseguiram recuperar suas contas. ✨',
                             };
                             setMessages(prev => [...prev, proofMessage]);
                             setIsTyping(false);
 
-                            setTimeout(() => { // Espera 3s
+                            setTimeout(() => {
                                 setIsTyping(true);
-                                setTimeout(() => { // Digita por 2s
+                                setTimeout(() => {
                                     const feedbackMessage: Message = {
                                         id: messages.length + 8,
                                         sender: 'team',
@@ -210,6 +206,20 @@ Descrição do ocorrido:
                                     };
                                     setMessages(prev => [...prev, feedbackMessage]);
                                     setIsTyping(false);
+                                    setShowFeedbacks(true);
+
+                                    setTimeout(() => {
+                                        setIsTyping(true);
+                                        setTimeout(() => {
+                                            const finalHook: Message = {
+                                                id: messages.length + 10,
+                                                sender: 'team',
+                                                content: 'Para iniciar, basta finalizar a contratação do serviço de análise no botão abaixo. ⬇️',
+                                            };
+                                            setMessages(prev => [...prev, finalHook]);
+                                            setIsTyping(false);
+                                        }, 3000)
+                                    }, 4000)
                                 }, 2000)
                             }, 3000)
                           }, 2000);
@@ -222,7 +232,6 @@ Descrição do ocorrido:
             }, 3000);
         }, 3000);
     } else {
-        // Simula resposta da equipe para "Não"
         setIsTyping(true);
         setTimeout(() => {
             const finalResponse: Message = {
@@ -314,6 +323,11 @@ Descrição do ocorrido:
                   )}
                    <div ref={chatEndRef} />
               </div>
+              {showFeedbacks && (
+                <div className="max-w-4xl mx-auto pt-4 animate-in fade-in-50 duration-500">
+                    <FeedbackCarousel />
+                </div>
+              )}
           </div>
           <div className="bg-card border-t p-4">
               {showOptions && (
@@ -322,7 +336,7 @@ Descrição do ocorrido:
                           onClick={() => handleOptionClick('sim')}
                           className="flex-1 font-bold bg-green-600 hover:bg-green-700 text-white"
                        >
-                          Sim, quero tentar recuperar minha conta
+                          Sim, quero tentar recuperar minha conta 👍
                       </Button>
                       <Button 
                           onClick={() => handleOptionClick('nao')}
