@@ -21,7 +21,6 @@ type Message = {
   id: number;
   sender: 'user' | 'team';
   content: string;
-  timestamp: string;
   status?: 'sent' | 'delivered' | 'read';
 };
 
@@ -75,7 +74,6 @@ Descrição do ocorrido:
       id: 1,
       sender: 'user',
       content: initialMessageContent,
-      timestamp: new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' }),
       status: 'read',
     };
 
@@ -91,7 +89,6 @@ Descrição do ocorrido:
                 id: 2,
                 sender: 'team',
                 content: '👋 Olá! Recebemos suas informações. Após uma análise preliminar, identificamos que seu caso tem características de um banimento automático, o que significa que existem chances reais de recuperação. Nossa equipe pode preparar uma defesa técnica detalhada para você. 📄',
-                timestamp: new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' }),
             };
             setMessages((prev) => [...prev, teamResponse]);
             setIsTyping(false);
@@ -105,7 +102,6 @@ Descrição do ocorrido:
                   id: 3,
                   sender: 'team',
                   content: `🤔 Muitos banimentos acontecem sem análise humana detalhada.\nQuando o caso é apresentado da forma certa, a plataforma pode reavaliar a decisão.💡\n\nÉ exatamente nesse ponto que a equipe da DesbanX atua. 💪`,
-                  timestamp: new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' }),
                 };
                 setMessages((prev) => [...prev, teamResponse2]);
                 setIsTyping(false);
@@ -119,7 +115,6 @@ Descrição do ocorrido:
                             id: 4,
                             sender: 'team',
                             content: 'Você deseja que a equipe da DesbanX inicie a análise completa do seu caso?',
-                            timestamp: new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' }),
                         };
                         setMessages((prev) => [...prev, teamResponse3]);
                         setIsTyping(false);
@@ -163,7 +158,6 @@ Descrição do ocorrido:
         id: messages.length + 1,
         sender: 'user',
         content,
-        timestamp: new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' }),
         status: 'read',
     };
     setMessages(prev => [...prev, userMessage]);
@@ -178,7 +172,6 @@ Descrição do ocorrido:
                     id: messages.length + 2,
                     sender: 'team',
                     content: 'Ótima escolha. ✅\n\nVocê está dando o passo que a maioria não dá: recorrer da forma correta. 🚀',
-                    timestamp: new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' }),
                 }
                 setMessages(prev => [...prev, finalResponse]);
                 setIsTyping(false);
@@ -192,7 +185,6 @@ Descrição do ocorrido:
                             id: messages.length + 4, // ID único
                             sender: 'team',
                             content: 'Agora é o seguinte 👇\nSeu caso não é comum. Ele apresenta sinais claros de banimento automático: e esses são exatamente os casos que ainda valem a tentativa.',
-                            timestamp: new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' }),
                         };
                         setMessages(prev => [...prev, finalMessage]);
                         setIsTyping(false);
@@ -204,7 +196,6 @@ Descrição do ocorrido:
                                 id: messages.length + 6, // ID único
                                 sender: 'team',
                                 content: 'Várias pessoas chegaram até nós com o mesmo problema, achando que tinham perdido tudo.\nApós a análise e o processo feito pela DesbanX, muitas conseguiram recuperar suas contas.',
-                                timestamp: new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' }),
                             };
                             setMessages(prev => [...prev, proofMessage]);
                             setIsTyping(false);
@@ -216,7 +207,6 @@ Descrição do ocorrido:
                                         id: messages.length + 8,
                                         sender: 'team',
                                         content: 'Veja alguns feedbacks 👇',
-                                        timestamp: new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' }),
                                     };
                                     setMessages(prev => [...prev, feedbackMessage]);
                                     setIsTyping(false);
@@ -239,7 +229,6 @@ Descrição do ocorrido:
                 id: messages.length + 2,
                 sender: 'team',
                 content: 'Entendido. Se mudar de ideia, estaremos por aqui para ajudar. Recomendamos não demorar muito, pois o tempo é um fator importante para a recuperação. Boa sorte! 😉',
-                timestamp: new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' }),
             }
             setMessages(prev => [...prev, finalResponse]);
             setIsTyping(false);
