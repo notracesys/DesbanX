@@ -8,7 +8,7 @@ export default function Home() {
   return (
     <div className="flex min-h-screen flex-col bg-black">
       <Header />
-      <main className="-mt-16">
+      <main className="-mt-8">
         <div className="relative h-[70vh] w-full">
           <BackgroundVideo />
           <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black" />
