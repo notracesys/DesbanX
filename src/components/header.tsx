@@ -14,8 +14,24 @@ const ActiveUsers = () => {
     const [userCount, setUserCount] = useState<number | null>(null);
 
     useEffect(() => {
-        // Gera um número aleatório entre 100 e 500 no lado do cliente
-        setUserCount(Math.floor(Math.random() * 401) + 100);
+        // Define um número inicial aleatório entre 100 e 500
+        const initialCount = Math.floor(Math.random() * 401) + 100;
+        setUserCount(initialCount);
+
+        // Configura um intervalo para atualizar o contador a cada 5 segundos
+        const interval = setInterval(() => {
+            setUserCount(prevCount => {
+                // Flutuação pequena e aleatória (-3 a +3)
+                const fluctuation = Math.floor(Math.random() * 7) - 3;
+                const newCount = (prevCount || initialCount) + fluctuation;
+                
+                // Garante que o número não caia abaixo de 100
+                return Math.max(100, newCount);
+            });
+        }, 5000);
+
+        // Limpa o intervalo quando o componente é desmontado
+        return () => clearInterval(interval);
     }, []);
 
     if (userCount === null) {
