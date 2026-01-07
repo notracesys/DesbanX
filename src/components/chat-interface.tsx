@@ -3,7 +3,7 @@
 import { useSearchParams } from 'next/navigation';
 import { useEffect, useState, useRef } from 'react';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { BadgeCheck, Check, CheckCheck } from 'lucide-react';
+import { Check, CheckCheck } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 type Message = {
@@ -107,7 +107,6 @@ Descrição do ocorrido:
             <div>
                 <div className="flex items-center gap-2">
                     <h2 className="font-bold">Equipe DesbanX</h2>
-                    <BadgeCheck className="h-4 w-4 fill-current text-blue-500" />
                 </div>
                 <p className="text-xs text-muted-foreground">Online</p>
             </div>
