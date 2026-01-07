@@ -15,7 +15,7 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
-import FeedbackCarousel from './feedback-carousel';
+import Image from 'next/image';
 
 
 type Message = {
@@ -48,7 +48,7 @@ export default function ChatInterface() {
 
   useEffect(() => {
     chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-  }, [messages, isTyping]);
+  }, [messages, isTyping, showFeedbacks]);
 
 
   useEffect(() => {
@@ -206,7 +206,10 @@ Descrição do ocorrido:
                                     };
                                     setMessages(prev => [...prev, feedbackMessage]);
                                     setIsTyping(false);
-                                    setShowFeedbacks(true);
+                                    
+                                    setTimeout(() => {
+                                        setShowFeedbacks(true);
+                                    }, 2000);
 
                                     setTimeout(() => {
                                         setIsTyping(true);
@@ -321,13 +324,14 @@ Descrição do ocorrido:
                           </div>
                       </div>
                   )}
+                  {showFeedbacks && (
+                    <div className="max-w-sm mx-auto pt-4 space-y-4 animate-in fade-in-50 duration-500">
+                        <Image src="/feedback1.jpg" alt="Feedback de cliente 1" width={400} height={800} className="rounded-lg object-contain" />
+                        <Image src="/feedback2.jpg" alt="Feedback de cliente 2" width={400} height={800} className="rounded-lg object-contain" />
+                    </div>
+                  )}
                    <div ref={chatEndRef} />
               </div>
-              {showFeedbacks && (
-                <div className="max-w-4xl mx-auto pt-4 animate-in fade-in-50 duration-500">
-                    <FeedbackCarousel />
-                </div>
-              )}
           </div>
           <div className="bg-card border-t p-4">
               {showOptions && (
