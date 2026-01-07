@@ -5,7 +5,6 @@ import { useEffect, useState, useRef } from 'react';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
 import { Check, CheckCheck } from 'lucide-react';
-import Image from 'next/image';
 import { cn } from '@/lib/utils';
 
 type Message = {
@@ -69,10 +68,9 @@ Descrição do ocorrido:
     };
 
     setMessages([userMessage]);
-
     setIsTyping(true);
-    setTimeout(() => {
-        setIsTyping(false);
+
+    const timer = setTimeout(() => {
         const teamResponse: Message = {
             id: 2,
             sender: 'team',
@@ -80,8 +78,10 @@ Descrição do ocorrido:
             timestamp: new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' }),
         };
         setMessages((prev) => [...prev, teamResponse]);
-    }, 3000); // Simulate typing for 3 seconds
+        setIsTyping(false);
+    }, 3000);
 
+    return () => clearTimeout(timer);
   }, [searchParams]);
 
   const MessageStatus = ({ status }: { status: Message['status'] }) => {
