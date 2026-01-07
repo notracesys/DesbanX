@@ -104,10 +104,14 @@ export default function Details({ onGenerateAppeal, appealText, isGenerating, an
   }
 
   return (
-    <div className="w-full max-w-4xl space-y-12 animate-in fade-in-50 duration-1000">
+    <div className="w-full max-w-4xl space-y-8 animate-in fade-in-50 duration-1000">
       {!isUnlocked ? (
       <>
         <section className="text-center">
+          <h2 className="font-headline text-3xl md:text-4xl font-bold">Recupere sua Conta</h2>
+          <p className="mt-2 text-lg text-muted-foreground">
+            Insira o ID da sua conta Free Fire que foi banida ou hackeada para iniciar a análise.
+          </p>
         </section>
 
         <Card className="w-full">
