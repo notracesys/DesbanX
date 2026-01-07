@@ -88,7 +88,7 @@ export default function AnalysisPage() {
                             <Card className="w-full">
                                 <CardHeader className="bg-card-foreground/5 rounded-t-lg border-b p-4">
                                 <CardTitle className="font-bold text-base flex items-center">
-                                    <span className="bg-blue-600 text-primary-foreground rounded-full h-6 w-6 flex items-center justify-center text-sm mr-2">{index + 1}</span> 
+                                    <span className="bg-primary text-primary-foreground rounded-full h-6 w-6 flex items-center justify-center text-sm mr-2">{index + 1}</span> 
                                     {question.label}
                                 </CardTitle>
                                 </CardHeader>
@@ -117,7 +117,7 @@ export default function AnalysisPage() {
                     />
                     ))}
                     <div className="flex justify-end pt-4">
-                        <Button type="submit" size="lg" className="font-bold bg-blue-600 hover:bg-blue-700 text-white">
+                        <Button type="submit" size="lg" className="font-bold bg-primary hover:bg-primary/90 text-primary-foreground">
                             Enviar para Análise
                             <ArrowRight className="ml-2 h-5 w-5" />
                         </Button>
