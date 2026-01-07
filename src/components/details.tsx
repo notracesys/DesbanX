@@ -29,13 +29,6 @@ const accountIdSchema = z.object({
 
 type AccountIdForm = z.infer<typeof accountIdSchema>;
 
-type AccountData = {
-  nickname: string;
-  level: number;
-  server: string;
-  status: string;
-};
-
 interface DetailsProps {
   onGenerateAppeal: (accountId: string) => void;
   appealText?: string;
@@ -44,8 +37,8 @@ interface DetailsProps {
 }
 
 export default function Details({ onGenerateAppeal, appealText, isGenerating, analysisResult }: DetailsProps) {
+  const [isVerifying, setIsVerifying] = useState(false);
   const [isVerified, setIsVerified] = useState(false);
-  const [accountData, setAccountData] = useState<AccountData | null>(null);
   const [isUnlocked, setIsUnlocked] = useState(false);
   const [showResults, setShowResults] = useState(false);
   const [showDialog, setShowDialog] = useState(false);
@@ -56,29 +49,19 @@ export default function Details({ onGenerateAppeal, appealText, isGenerating, an
     defaultValues: { accountId: '' },
   });
 
-  const handleVerify = (data: AccountIdForm) => {
-    // Simulando sucesso já que a API foi removida
-    setAccountData({
-      nickname: `Jogador_${data.accountId.slice(0, 4)}`,
-      level: 50,
-      server: 'BR',
-      status: 'Verificado',
-    });
-    setDialogContent({
-      title: 'Conta Verificada!',
-      description: 'Sua conta foi verificada com sucesso. Prossiga para a próxima etapa.',
-      isError: false,
-    });
-    setShowDialog(true);
+  const handleVerify = () => {
+    setIsVerifying(true);
+
+    // Simulate API call delay
+    setTimeout(() => {
+        setIsVerifying(false);
+        setIsVerified(true);
+    }, 1000);
   };
   
   const onDialogClose = () => {
     setShowDialog(false);
-    if (!dialogContent.isError) {
-      setIsVerified(true);
-    }
   }
-
 
   const handleUnlock = () => {
     setIsUnlocked(true);
@@ -126,8 +109,8 @@ export default function Details({ onGenerateAppeal, appealText, isGenerating, an
           </AlertDialogHeader>
           <AlertDialogFooter>
             <AlertDialogAction onClick={onDialogClose}>
-              {dialogContent.isError ? 'Tentar Novamente' : 'Continuar'}
-              </AlertDialogAction>
+              Tentar Novamente
+            </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
@@ -159,10 +142,29 @@ export default function Details({ onGenerateAppeal, appealText, isGenerating, an
                           <FormLabel className="font-normal text-sm flex items-center text-gray-600">ID do jogador <Info className="w-4 h-4 ml-1" /></FormLabel>
                           <div className="flex gap-2">
                             <FormControl>
-                              <Input placeholder="Insira o ID de jogador aqui" {...field} className="text-base" />
+                              <Input 
+                                placeholder="Insira o ID de jogador aqui" 
+                                {...field} 
+                                className={cn(
+                                  "text-base", 
+                                  isVerified && "border-green-500 focus-visible:ring-green-500"
+                                )} 
+                                disabled={isVerified || isVerifying}
+                              />
                             </FormControl>
-                            <Button type="submit" className="px-8 font-bold">
-                              Login
+                            <Button 
+                              type="submit" 
+                              className="px-8 font-bold w-40"
+                              disabled={isVerified || isVerifying}
+                            >
+                              {isVerifying ? (
+                                <Loader2 className="animate-spin" />
+                              ) : isVerified ? (
+                                <>
+                                  <ShieldCheck />
+                                  Verificado
+                                </>
+                              ) : 'Login'}
                             </Button>
                           </div>
                           <FormMessage hidden />
@@ -171,30 +173,6 @@ export default function Details({ onGenerateAppeal, appealText, isGenerating, an
                     />
                   </form>
                 </Form>
-
-                {accountData && isVerified && (
-                  <Card className="bg-green-50 border-green-200 mt-6">
-                    <CardHeader>
-                      <CardTitle className="flex items-center gap-2 text-green-800">
-                        <ShieldCheck className="text-green-600" /> Conta Verificada
-                      </CardTitle>
-                    </CardHeader>
-                    <CardContent className="grid grid-cols-2 md:grid-cols-3 gap-4 text-sm">
-                      <div>
-                        <p className="text-gray-500">Nickname</p>
-                        <p className="font-bold text-gray-800">{accountData.nickname}</p>
-                      </div>
-                      <div>
-                        <p className="text-gray-500">Servidor</p>
-                        <p className="font-bold text-gray-800">{accountData.server}</p>
-                      </div>
-                      <div>
-                        <p className="text-gray-500">Status</p>
-                        <p className="font-bold text-green-600">{accountData.status}</p>
-                      </div>
-                    </CardContent>
-                  </Card>
-                )}
               </CardContent>
             </Card>
 
