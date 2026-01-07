@@ -8,11 +8,15 @@ export default function Home() {
   return (
     <div className="flex min-h-screen flex-col">
       <Header />
-      <main className="relative flex flex-col min-h-[calc(100vh-5rem)]">
-        <BackgroundVideo />
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/80" />
-        <div className="relative z-10 flex flex-grow flex-col items-center justify-end container mx-auto px-4 py-8 md:py-16 pb-24">
-          <Landing />
+      <main>
+        <div className="relative h-[70vh] w-full">
+          <BackgroundVideo />
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black" />
+        </div>
+        <div className="bg-black py-16">
+          <div className="relative z-10 container mx-auto px-4">
+            <Landing />
+          </div>
         </div>
       </main>
     </div>
