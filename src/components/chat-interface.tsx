@@ -399,7 +399,7 @@ Descrição do ocorrido:
               )}
               {showPurchaseButton && (
                   <div className="flex justify-center max-w-4xl mx-auto animate-in fade-in-50 duration-500">
-                      <Button asChild
+                      <Button
                           size="lg"
                           className="w-full sm:w-auto font-bold relative overflow-hidden
                                      bg-blue-600 hover:bg-blue-700 text-white
@@ -409,10 +409,8 @@ Descrição do ocorrido:
                                      before:bg-gradient-to-r
                                      before:from-transparent before:via-white/50 before:to-transparent"
                       >
-                        <Link href="/obrigado">
                           Quero Recuperar Minha Conta
                           <ArrowRight className="ml-2 h-5 w-5" />
-                        </Link>
                       </Button>
                   </div>
               )}
