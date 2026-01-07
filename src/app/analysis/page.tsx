@@ -128,7 +128,7 @@ export default function AnalysisPage() {
                         )}
                     />
                     ))}
-                    <div className="flex justify-end pt-4">
+                    <div className="flex justify-center pt-4">
                         <Button type="submit" size="lg" className="font-bold bg-primary hover:bg-primary/90 text-primary-foreground">
                             Enviar para Análise
                             <ArrowRight className="ml-2 h-5 w-5" />
