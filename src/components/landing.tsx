@@ -9,7 +9,7 @@ export default function Landing() {
         Recupere sua conta de free fire
       </h1>
       <p className="mt-6 max-w-2xl mx-auto text-lg md:text-xl text-gray-200">
-        Nossa ferramenta de IA faz uma avaliação gratuita baseada em milhares de padrões reais de reversão de banimento. Sem promessas falsas, apenas análise de dados.
+        Muitas vezes, sua conta foi suspensa por um sistema automático, sem qualquer análise humana. Nossa ferramenta identifica essas falhas e abre o caminho para a recuperação.
       </p>
       <div className="mt-10">
         <Button size="lg" asChild className="bg-primary hover:bg-primary/90 text-primary-foreground font-bold">
