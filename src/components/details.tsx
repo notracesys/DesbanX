@@ -166,7 +166,7 @@ export default function Details({ onGenerateAppeal, appealText, isGenerating, an
                               type="submit" 
                               className={cn(
                                 "px-8 font-bold w-40",
-                                isVerified && "bg-green-500 hover:bg-green-600"
+                                isVerified && "bg-green-600 hover:bg-green-700 text-white"
                               )}
                               disabled={isVerified || isVerifying}
                             >
