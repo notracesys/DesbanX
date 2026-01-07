@@ -293,7 +293,6 @@ Descrição do ocorrido:
                               >
                               <p className="text-sm whitespace-pre-wrap">{msg.content}</p>
                               <div className="flex justify-end items-center gap-1 mt-1">
-                                  <span className="text-xs text-white/60">{msg.timestamp}</span>
                                   {msg.sender === 'user' && <MessageStatus status={msg.status} />}
                               </div>
                           </div>
