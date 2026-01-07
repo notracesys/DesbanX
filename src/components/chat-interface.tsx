@@ -157,9 +157,7 @@ Descrição do ocorrido:
             </div>
         </div>
         <div className="bg-card border-t p-4">
-             <div className="text-center text-sm text-muted-foreground">
-                Isso é uma simulação. Continue a conversa para ver a proposta.
-            </div>
+            {/* Input field can be added here in the future */}
         </div>
     </div>
   );
