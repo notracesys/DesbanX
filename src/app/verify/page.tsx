@@ -8,7 +8,6 @@ import { z } from 'zod';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -77,7 +76,7 @@ export default function VerifyPage() {
 
   return (
     <>
-      <div className="flex min-h-screen flex-col">
+      <div className="flex min-h-screen flex-col bg-black">
         <Header />
         <main className="flex-grow container mx-auto px-4 py-8 md:py-16 flex flex-col items-center justify-center">
           <AlertDialog open={showDialog} onOpenChange={setShowDialog}>
@@ -104,14 +103,14 @@ export default function VerifyPage() {
 
           <div className="w-full max-w-4xl space-y-8 animate-in fade-in-50 duration-1000">
             <section className="text-center">
-              <h2 className="font-headline text-3xl md:text-4xl font-bold">Recupere sua Conta</h2>
+              <h2 className="font-headline text-3xl md:text-4xl font-bold text-white">Recupere sua Conta</h2>
               <p className="mt-2 text-lg text-muted-foreground">
                 Insira o ID da sua conta Free Fire para iniciar a análise.
               </p>
             </section>
 
             <Card className="w-full">
-              <CardHeader className="bg-[#f7f7f7] rounded-t-lg border-b p-4">
+              <CardHeader className="bg-[#1c1c1c] rounded-t-lg border-b p-4">
                 <CardTitle className="font-bold text-base flex items-center">
                   <span className="bg-primary text-primary-foreground rounded-full h-6 w-6 flex items-center justify-center text-sm mr-2">1</span> Login
                 </CardTitle>
@@ -124,7 +123,7 @@ export default function VerifyPage() {
                       name="accountId"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel className="font-normal text-sm flex items-center text-gray-600">ID do jogador <Info className="w-4 h-4 ml-1" /></FormLabel>
+                          <FormLabel className="font-normal text-sm flex items-center text-gray-400">ID do jogador <Info className="w-4 h-4 ml-1" /></FormLabel>
                           <div className="flex gap-2">
                             <FormControl>
                               <Input 
