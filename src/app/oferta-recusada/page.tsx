@@ -3,7 +3,7 @@
 import Header from '@/components/header';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Home, XCircle } from 'lucide-react';
+import { Home, AlertTriangle, RefreshCw } from 'lucide-react';
 import Link from 'next/link';
 
 export default function OfertaRecusadaPage() {
@@ -12,24 +12,35 @@ export default function OfertaRecusadaPage() {
       <Header />
       <main className="flex-grow container mx-auto px-4 py-8 md:py-16 flex flex-col items-center justify-center">
         <div className="w-full max-w-2xl space-y-8 animate-in fade-in-50 duration-1000">
-            <Card>
+            <Card className="border-destructive/50">
                 <CardHeader className="items-center text-center">
-                    <XCircle className="w-16 h-16 text-destructive mb-4" />
-                    <CardTitle className="text-3xl font-headline">Oferta Recusada</CardTitle>
+                    <AlertTriangle className="w-16 h-16 text-destructive mb-4" />
+                    <CardTitle className="text-3xl font-headline">Uma Escolha Definitiva?</CardTitle>
                 </CardHeader>
                 <CardContent className="text-center space-y-6">
                     <p className="text-lg text-muted-foreground">
-                        Você optou por não continuar com o serviço de análise. Entendemos sua decisão.
+                        Você está a um passo de desistir. Mas é importante que saiba a verdade: sem uma abordagem técnica, as chances de recuperar uma conta banida por sistema são praticamente nulas.
                     </p>
-                    <p className="text-sm text-muted-foreground">
-                        Se mudar de ideia, você pode refazer o processo de análise a qualquer momento.
+                    <p className="text-foreground">
+                        Continuar sozinho é aceitar a perda. Suas skins, patentes e memórias, perdidas para sempre. A plataforma não vai reavaliar seu caso por conta própria.
                     </p>
-                    <Button asChild>
-                        <Link href="/">
-                            <Home className="mr-2 h-4 w-4" />
-                            Voltar para o Início
-                        </Link>
-                    </Button>
+                    <p className="font-bold text-lg text-primary">
+                        Esta é a sua última chance de lutar pela sua conta. O risco de não tentar é perder tudo.
+                    </p>
+                    <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                        <Button asChild className="bg-blue-600 hover:bg-blue-700 text-white font-bold">
+                            <Link href="/">
+                                <RefreshCw className="mr-2 h-4 w-4" />
+                                Quero Reconsiderar
+                            </Link>
+                        </Button>
+                        <Button asChild variant="outline">
+                            <Link href="/">
+                                <Home className="mr-2 h-4 w-4" />
+                                Desistir e Voltar ao Início
+                            </Link>
+                        </Button>
+                    </div>
                 </CardContent>
             </Card>
         </div>
