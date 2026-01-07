@@ -24,7 +24,7 @@ export default function Landing() {
                      before:from-transparent before:via-white/50 before:to-transparent"
         >
           <Link href="/verify">
-            Iniciar Análise Gratuita
+            Recuperar Conta
             <ArrowRight className="ml-2 h-5 w-5" />
           </Link>
         </Button>
