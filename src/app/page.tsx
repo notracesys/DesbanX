@@ -6,7 +6,6 @@ import { analyzeBanReasoning } from '@/ai/flows/analyze-ban-reasoning';
 import type { GenerateAppealTextOutput } from '@/ai/flows/generate-appeal-text';
 import { generateAppealText } from '@/ai/flows/generate-appeal-text';
 import Details from '@/components/details';
-import Footer from '@/components/footer';
 import Header from '@/components/header';
 import Landing from '@/components/landing';
 import { useToast } from '@/hooks/use-toast';
@@ -90,7 +89,6 @@ export default function Home() {
       <main className="flex-grow container mx-auto px-4 py-8 md:py-16 flex flex-col items-center justify-center">
         {renderStep()}
       </main>
-      <Footer />
     </div>
   );
 }
