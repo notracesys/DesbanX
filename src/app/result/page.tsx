@@ -58,6 +58,9 @@ export default function ResultPage() {
 
             {/* Seção 1: Impacto Inicial */}
             <section className="text-center">
+              <div className="mb-4 flex justify-center">
+                    <span className="bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded-full animate-pulse-badge">🔥 Vagas limitadas para análise hoje</span>
+                </div>
               <h1 className="text-4xl md:text-5xl font-bold mb-4">🎉 Parabéns!</h1>
               <p className="text-2xl font-semibold text-green-400 flex items-center justify-center gap-2">
                 <Check className="h-8 w-8" /> Sua conta TEM chances reais de recuperação
@@ -143,9 +146,6 @@ export default function ResultPage() {
                 <Button size="lg" className="w-full font-bold text-lg h-16 bg-green-500 hover:bg-green-600 text-black shadow-lg shadow-green-500/20 transform hover:scale-105 transition-transform">
                     🚀 QUERO INICIAR MINHA RECUPERAÇÃO 🚀
                 </Button>
-                <div className="mt-4 flex justify-center">
-                    <span className="bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded-full animate-pulse-badge">🔥 Vagas limitadas para análise hoje</span>
-                </div>
             </section>
             
             {/* Seção 7: Transparência */}
