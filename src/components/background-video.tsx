@@ -5,7 +5,7 @@ export default function BackgroundVideo() {
       loop
       muted
       playsInline
-      className="fixed top-0 left-0 w-full h-full object-cover -z-10"
+      className="absolute top-0 left-0 w-full h-full object-cover -z-10"
     >
       <source src="/sasuke.3840x2160.mp4" type="video/mp4" />
       Your browser does not support the video tag.
