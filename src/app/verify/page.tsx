@@ -113,7 +113,7 @@ export default function VerifyPage() {
             <Card className="w-full">
               <CardHeader className="bg-card-foreground/5 rounded-t-lg border-b p-4">
                 <CardTitle className="font-bold text-base flex items-center">
-                  <span className="bg-primary text-primary-foreground rounded-full h-6 w-6 flex items-center justify-center text-sm mr-2">1</span> Login
+                  <span className="bg-blue-600 text-primary-foreground rounded-full h-6 w-6 flex items-center justify-center text-sm mr-2">1</span> Login
                 </CardTitle>
               </CardHeader>
               <CardContent className="p-6 space-y-4">
