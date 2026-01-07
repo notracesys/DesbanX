@@ -12,7 +12,18 @@ export default function Landing() {
         Muitas vezes, sua conta foi suspensa por um sistema automático, sem qualquer análise humana. Nossa ferramenta identifica essas falhas e abre o caminho para a recuperação.
       </p>
       <div className="mt-10">
-        <Button size="lg" asChild className="bg-primary hover:bg-primary/90 text-primary-foreground font-bold">
+        <Button 
+          size="lg" 
+          asChild 
+          className="font-bold relative overflow-hidden
+                     bg-gradient-to-r from-purple-500 via-purple-600 to-indigo-600 
+                     bg-size-200 animate-bg-pan
+                     before:absolute before:inset-0
+                     before:-translate-x-full
+                     before:animate-shine
+                     before:bg-gradient-to-r
+                     before:from-transparent before:via-white/50 before:to-transparent"
+        >
           <Link href="/verify">
             Iniciar Análise Gratuita
             <ArrowRight className="ml-2 h-5 w-5" />
