@@ -4,7 +4,7 @@ import { useSearchParams } from 'next/navigation';
 import { useEffect, useState, useRef } from 'react';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
-import { Check, CheckCheck, AlertTriangle, ArrowRight } from 'lucide-react';
+import { Check, CheckCheck, AlertTriangle, ArrowRight, Home } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import {
   AlertDialog,
@@ -16,6 +16,7 @@ import {
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 import Image from 'next/image';
+import Link from 'next/link';
 
 
 type Message = {
@@ -45,6 +46,7 @@ export default function ChatInterface() {
   const [showOptions, setShowOptions] = useState(false);
   const [showImportantNotice, setShowImportantNotice] = useState(false);
   const [showPurchaseButton, setShowPurchaseButton] = useState(false);
+  const [showGoBackButton, setShowGoBackButton] = useState(false);
   const chatEndRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -279,6 +281,9 @@ Descrição do ocorrido:
             }
             setMessages(prev => [...prev, finalResponse]);
             setIsTyping(false);
+            setTimeout(() => {
+                setShowGoBackButton(true);
+            }, 1000)
         }, 2000);
     }
   }
@@ -346,11 +351,11 @@ Descrição do ocorrido:
                           )}
                           <div
                               className={cn(
-                                'max-w-[85%] md:max-w-lg rounded-lg p-3 text-white break-words',
+                                'rounded-lg p-3 text-white max-w-[85%] md:max-w-lg',
                                 msg.sender === 'user' ? 'bg-primary' : 'bg-secondary'
                               )}
                               >
-                              <p className="text-sm whitespace-pre-wrap">{msg.content}</p>
+                              <p className="text-sm whitespace-pre-wrap break-words">{msg.content}</p>
                               {msg.sender === 'user' && (
                                 <div className="flex justify-end items-center gap-1 mt-1">
                                     <MessageStatus status={msg.status} />
@@ -406,6 +411,20 @@ Descrição do ocorrido:
                       >
                           Quero Recuperar Minha Conta
                           <ArrowRight className="ml-2 h-5 w-5" />
+                      </Button>
+                  </div>
+              )}
+               {showGoBackButton && (
+                  <div className="flex justify-center max-w-4xl mx-auto animate-in fade-in-50 duration-500">
+                      <Button asChild
+                          size="lg"
+                          className="w-full sm:w-auto font-bold"
+                          variant="outline"
+                      >
+                        <Link href="/">
+                            <Home className="mr-2 h-5 w-5" />
+                            Voltar ao Início
+                        </Link>
                       </Button>
                   </div>
               )}
