@@ -9,78 +9,49 @@ import Details from '@/components/details';
 import Footer from '@/components/footer';
 import Header from '@/components/header';
 import Landing from '@/components/landing';
-import Processing from '@/components/processing';
-import QuizForm from '@/components/quiz-form';
-import Results from '@/components/results';
 import { useToast } from '@/hooks/use-toast';
-import type { QuizData } from '@/lib/types';
 
-type Step = 'landing' | 'quiz' | 'processing' | 'results' | 'details';
-
-function parseAppealAttempts(attemptString: string): number {
-  if (attemptString.startsWith('Nenhuma')) return 0;
-  if (attemptString.startsWith('1')) return 1;
-  if (attemptString.startsWith('3')) return 3;
-  if (attemptString.startsWith('Mais')) return 6;
-  return 0;
-}
+type Step = 'landing' | 'details';
 
 export default function Home() {
   const [step, setStep] = useState<Step>('landing');
-  const [quizData, setQuizData] = useState<QuizData | null>(null);
-  const [analysisResult, setAnalysisResult] = useState<AnalyzeBanReasoningOutput | null>(null);
   const [appealText, setAppealText] = useState<GenerateAppealTextOutput | null>(null);
   const [isGenerating, setIsGenerating] = useState(false);
-  const [isAnalyzing, setIsAnalyzing] = useState(false);
+  const [analysisResult, setAnalysisResult] = useState<AnalyzeBanReasoningOutput | null>(null);
+
 
   const { toast } = useToast();
 
   const handleStart = () => {
-    setStep('quiz');
-  };
-
-  const handleQuizSubmit = async (data: QuizData) => {
-    setQuizData(data);
-    setStep('processing');
-    setIsAnalyzing(true);
-
-    try {
-      const result = await analyzeBanReasoning({
-        ...data,
-        appealAttempts: parseAppealAttempts(data.appealAttempts),
-      });
-      setAnalysisResult(result);
-      setTimeout(() => {
-        setStep('results');
-        setIsAnalyzing(false);
-      }, 1000); // Ensures processing screen shows for a bit
-    } catch (error) {
-      console.error('Analysis failed:', error);
-      toast({
-        variant: 'destructive',
-        title: 'Erro na Análise',
-        description: 'Não foi possível completar a análise. Por favor, tente novamente.',
-      });
-      setStep('quiz');
-      setIsAnalyzing(false);
-    }
-  };
-
-  const handleShowDetails = () => {
     setStep('details');
   };
 
   const handleGenerateAppeal = async (accountId: string) => {
-    if (!quizData || !analysisResult) return;
     setIsGenerating(true);
+    
+    // Hardcoded quiz data since the quiz is removed
+    const quizData = {
+      banReason: 'Uso de software de terceiros (hack, script, etc.)',
+      appealAttempts: 'Nenhuma vez, esta é a primeira',
+      accountValue: 'Ambos, o valor sentimental e financeiro são importantes',
+      violationPerception: 'Não, tenho certeza que foi um engano ou mal-entendido.',
+    };
+
     try {
-      const result = await generateAppealText({
+      // Run analysis first (silently)
+      const analysis = await analyzeBanReasoning({
         banReason: quizData.banReason,
-        appealAttempts: quizData.appealAttempts,
+        appealAttempts: 0, // Simplified
         accountValue: quizData.accountValue,
         violationPerception: quizData.violationPerception,
+      });
+      setAnalysisResult(analysis);
+
+      // Then generate appeal text
+      const result = await generateAppealText({
+        ...quizData,
         accountId: accountId,
-        analysisResult: analysisResult.analysisDetails,
+        analysisResult: analysis.analysisDetails,
       });
       setAppealText(result);
     } catch (error) {
@@ -99,18 +70,13 @@ export default function Home() {
     switch (step) {
       case 'landing':
         return <Landing onStart={handleStart} />;
-      case 'quiz':
-        return <QuizForm onSubmit={handleQuizSubmit} />;
-      case 'processing':
-        return <Processing isProcessing={isAnalyzing} />;
-      case 'results':
-        return <Results result={analysisResult} onNext={handleShowDetails} />;
       case 'details':
         return (
           <Details
             onGenerateAppeal={handleGenerateAppeal}
             appealText={appealText?.appealText}
             isGenerating={isGenerating}
+            analysisResult={analysisResult}
           />
         );
       default:

@@ -1,7 +1,7 @@
 'use client';
 
 import type { AnalyzeBanReasoningOutput } from '@/ai/flows/analyze-ban-reasoning';
-import { ArrowRight, ShieldAlert } from 'lucide-react';
+import { ArrowRight, ShieldAlert, Sparkles } from 'lucide-react';
 import Confetti from '@/components/confetti';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -66,7 +66,7 @@ export default function Results({ result, onNext }: ResultsProps) {
         <CardHeader>
           <CardTitle className="font-headline text-2xl">Resumo da Análise de IA</CardTitle>
           <CardDescription>
-            Esta análise é baseada nas suas respostas e em padrões de casos semelhantes.
+            Esta análise é baseada em um conjunto de dados sobre o seu caso.
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-6">
@@ -95,8 +95,8 @@ export default function Results({ result, onNext }: ResultsProps) {
 
       <div className="text-center">
         <Button size="lg" onClick={onNext}>
-          Entendi, ver próximos passos
-          <ArrowRight className="ml-2 h-5 w-5" />
+            <Sparkles className="mr-2 h-4 w-4" />
+            Gerar Texto de Apelação com IA
         </Button>
       </div>
     </div>
