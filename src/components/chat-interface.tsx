@@ -233,7 +233,7 @@ Descrição do ocorrido:
                                                     const finalHook: Message = {
                                                         id: Date.now(),
                                                         sender: 'team',
-                                                        content: 'Para iniciar, basta finalizar a contratação do serviço de análise no botão abaixo. ⬇️',
+                                                        content: 'A diferença não foi sorte.\nFoi recorrer do jeito certo, com quem sabe o que está fazendo.',
                                                         type: 'text',
                                                     };
                                                     setMessages(prev => [...prev, finalHook]);
