@@ -3,7 +3,7 @@ import Link from 'next/link';
 
 const Logo = () => (
     <Link href="/" className="flex items-center gap-4">
-        <Image src="/desbanlogo.png" alt="Desban Logo" width={140} height={40} />
+        <Image src="/desbanlogo.png" alt="Desban Logo" width={120} height={34} />
     </Link>
 );
 
