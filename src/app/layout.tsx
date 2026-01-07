@@ -1,7 +1,6 @@
 import type { Metadata } from 'next';
 import './globals.css';
 import { Toaster } from '@/components/ui/toaster';
-import RecoveryNotification from '@/components/recovery-notification';
 
 export const metadata: Metadata = {
   title: 'Recupere sua conta de free fire',
@@ -26,7 +25,6 @@ export default function RootLayout({
       <body className="font-body antialiased">
         {children}
         <Toaster />
-        <RecoveryNotification />
       </body>
     </html>
   );
