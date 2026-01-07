@@ -54,18 +54,18 @@ export default function Details({ onGenerateAppeal, appealText, isGenerating, an
     setIsVerifying(true);
     // Simulate API call delay
     setTimeout(() => {
-        setIsVerifying(false);
-        const accountId = form.getValues('accountId');
-        if (accountId.length >= 8) {
-            setIsVerified(true);
-        } else {
-            setDialogContent({
-                title: 'ID Inválido',
-                description: 'O ID da conta deve ter pelo menos 8 dígitos.',
-                isError: true,
-            });
-            setShowDialog(true);
-        }
+      setIsVerifying(false);
+      const accountId = form.getValues('accountId');
+      if (accountId.length >= 8) {
+          setIsVerified(true);
+      } else {
+          setDialogContent({
+              title: 'ID Inválido',
+              description: 'O ID da conta deve ter pelo menos 8 dígitos.',
+              isError: true,
+          });
+          setShowDialog(true);
+      }
     }, 1000);
   };
   
@@ -164,7 +164,10 @@ export default function Details({ onGenerateAppeal, appealText, isGenerating, an
                             </FormControl>
                             <Button 
                               type="submit" 
-                              className="px-8 font-bold w-40"
+                              className={cn(
+                                "px-8 font-bold w-40",
+                                isVerified && "bg-green-500 hover:bg-green-600"
+                              )}
                               disabled={isVerified || isVerifying}
                             >
                               {isVerifying ? (
