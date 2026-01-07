@@ -10,7 +10,7 @@ import Confetti from '@/components/confetti';
 
 
 const TOTAL_ANALYSIS_TIME = 10; // seconds
-const CONFETTI_TIME = 5; // seconds
+const CONFETTI_TIME = 6; // seconds
 
 export default function ResultPage() {
   const [analysisProgress, setAnalysisProgress] = useState(0);

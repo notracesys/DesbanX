@@ -78,6 +78,6 @@
     width: 10px;
     height: 20px;
     top: -50px; /* Start above the screen */
-    animation: confetti-fall 5s linear forwards; /* Use 'forwards' to keep final state */
+    animation: confetti-fall 6s linear forwards; /* Use 'forwards' to keep final state */
   }
 }
