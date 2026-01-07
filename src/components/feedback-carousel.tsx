@@ -10,8 +10,8 @@ import {
 } from '@/components/ui/carousel';
 
 const feedbacks = [
-  { src: '/feedback1.png', alt: 'Feedback de cliente 1' },
-  { src: '/feedback2.png', alt: 'Feedback de cliente 2' },
+  { src: '/feedback1.jpg', alt: 'Feedback de cliente 1' },
+  { src: '/feedback2.jpg', alt: 'Feedback de cliente 2' },
 ];
 
 export default function FeedbackCarousel() {
