@@ -11,6 +11,7 @@ import { toast } from '@/hooks/use-toast';
 import Header from '@/components/header';
 import { ArrowRight } from 'lucide-react';
 import { useRouter } from 'next/navigation';
+import { Textarea } from '@/components/ui/textarea';
 
 const quizSchema = z.object({
   suspensionTime: z.string({ required_error: 'Por favor, selecione uma opção.' }),
@@ -19,6 +20,7 @@ const quizSchema = z.object({
   firstOffense: z.string({ required_error: 'Por favor, selecione uma opção.' }),
   hasMadePurchases: z.string({ required_error: 'Por favor, selecione uma opção.' }),
   priorWarnings: z.string({ required_error: 'Por favor, selecione uma opção.' }),
+  banDescription: z.string({ required_error: 'Por favor, descreva o seu banimento.' }).min(10, { message: 'Por favor, forneça uma descrição com pelo menos 10 caracteres.' }),
 });
 
 type QuizFormValues = z.infer<typeof quizSchema>;
@@ -69,10 +71,13 @@ export default function AnalysisPage() {
   }
 
   function onError(errors: any) {
+    const firstError = Object.values(errors)[0];
+    const errorMessage = (firstError as any)?.message || 'Por favor, responda a todas as perguntas para continuar.';
+    
     toast({
         variant: "destructive",
         title: 'Perguntas Incompletas',
-        description: 'Por favor, responda a todas as perguntas para continuar.',
+        description: errorMessage,
     })
   }
 
@@ -127,6 +132,31 @@ export default function AnalysisPage() {
                         )}
                     />
                     ))}
+
+                    <FormField
+                        control={form.control}
+                        name="banDescription"
+                        render={({ field }) => (
+                            <Card className="w-full">
+                                <CardHeader className="bg-card-foreground/5 rounded-t-lg border-b p-4">
+                                <CardTitle className="font-bold text-base flex items-center">
+                                    <span className="bg-primary text-primary-foreground rounded-full h-6 flex items-center justify-center text-sm mr-2 min-w-[1.5rem] px-1">{questions.length + 1}</span> 
+                                    Descreva em detalhes como você acha que seu banimento aconteceu
+                                </CardTitle>
+                                </CardHeader>
+                                <CardContent className="p-6">
+                                <FormControl>
+                                    <Textarea
+                                        placeholder="Ex: Eu estava jogando normalmente quando o jogo fechou e apareceu a mensagem de conta suspensa. Não uso nenhum aplicativo de trapaça..."
+                                        className="min-h-[120px]"
+                                        {...field}
+                                    />
+                                </FormControl>
+                                </CardContent>
+                            </Card>
+                        )}
+                    />
+
                     <div className="flex justify-center pt-4">
                         <Button type="submit" size="lg" className="font-bold bg-primary hover:bg-primary/90 text-primary-foreground">
                             Enviar para Análise
