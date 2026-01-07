@@ -95,7 +95,7 @@ export default function VerifyPage() {
                 </AlertDialogDescription>
               </AlertDialogHeader>
               <AlertDialogFooter>
-                <AlertDialogAction onClick={onDialogClose}>
+                <AlertDialogAction onClick={onDialogClose} className="bg-blue-600 hover:bg-blue-700">
                   Tentar Novamente
                 </AlertDialogAction>
               </AlertDialogFooter>
@@ -140,7 +140,7 @@ export default function VerifyPage() {
                             <Button 
                               type="submit" 
                               className={cn(
-                                "px-8 font-bold w-40",
+                                "px-8 font-bold w-40 bg-blue-600 hover:bg-blue-700 text-white",
                                 isVerified && "bg-green-600 hover:bg-green-700 text-white opacity-100"
                               )}
                               disabled={isVerifying}
