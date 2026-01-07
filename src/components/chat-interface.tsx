@@ -196,6 +196,21 @@ Descrição do ocorrido:
                         };
                         setMessages(prev => [...prev, finalMessage]);
                         setIsTyping(false);
+
+                        setTimeout(() => { // Espera 5s
+                          setIsTyping(true);
+                          setTimeout(() => { // Digita por 2s
+                            const proofMessage: Message = {
+                                id: messages.length + 6, // ID único
+                                sender: 'team',
+                                content: 'Várias pessoas chegaram até nós com o mesmo problema, achando que tinham perdido tudo.\nApós a análise e o processo feito pela DesbanX, muitas conseguiram recuperar suas contas.',
+                                timestamp: new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' }),
+                            };
+                            setMessages(prev => [...prev, proofMessage]);
+                            setIsTyping(false);
+                          }, 2000);
+                        }, 5000);
+
                     }, 2000);
                 }, 3000);
 
