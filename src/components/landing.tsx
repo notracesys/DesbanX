@@ -12,11 +12,12 @@ export default function Landing() {
         Muitas vezes, sua conta foi suspensa por um sistema automático, sem qualquer análise humana. Nossa ferramenta identifica essas falhas e abre o caminho para a recuperação.
       </p>
       <div className="mt-10">
-        <Button 
-          size="lg" 
-          asChild 
+        <Button
+          size="lg"
+          asChild
           className="font-bold relative overflow-hidden
-                     bg-gradient-to-r from-purple-500 via-purple-600 to-indigo-600 
+                     bg-gradient-to-r from-purple-500 via-purple-600 to-indigo-600
+                     text-white
                      bg-size-200 animate-bg-pan
                      before:absolute before:inset-0
                      before:-translate-x-full
