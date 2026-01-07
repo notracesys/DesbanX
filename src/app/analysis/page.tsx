@@ -10,6 +10,7 @@ import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { toast } from '@/hooks/use-toast';
 import Header from '@/components/header';
 import { ArrowRight } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 
 const quizSchema = z.object({
   suspensionTime: z.string({ required_error: 'Por favor, selecione uma opção.' }),
@@ -57,16 +58,14 @@ const questions = [
 
 
 export default function AnalysisPage() {
+  const router = useRouter();
   const form = useForm<QuizFormValues>({
     resolver: zodResolver(quizSchema),
   });
 
   function onSubmit(data: QuizFormValues) {
     console.log(data);
-    toast({
-      title: 'Análise Enviada!',
-      description: 'Suas respostas foram registradas. Em breve você receberá um retorno.',
-    });
+    router.push('/result');
   }
 
   function onError(errors: any) {
