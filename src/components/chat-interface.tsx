@@ -107,10 +107,7 @@ Descrição do ocorrido:
             <div>
                 <div className="flex items-center gap-2">
                     <h2 className="font-bold">Equipe DesbanX</h2>
-                    <div className="flex items-center gap-1 text-blue-500">
-                        <BadgeCheck className="h-4 w-4 fill-current" />
-                        <span className="text-xs font-semibold">Verificado</span>
-                    </div>
+                    <BadgeCheck className="h-4 w-4 fill-current text-blue-500" />
                 </div>
                 <p className="text-xs text-muted-foreground">Online</p>
             </div>
