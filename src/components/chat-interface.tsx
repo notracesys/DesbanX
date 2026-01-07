@@ -82,6 +82,27 @@ Descrição do ocorrido:
             };
             setMessages((prev) => [...prev, teamResponse]);
             setIsTyping(false);
+
+            // Inicia a segunda sequência de mensagens
+            const readingTimer2 = setTimeout(() => {
+              setIsTyping(true);
+
+              const typingTimer2 = setTimeout(() => {
+                const teamResponse2: Message = {
+                  id: 3,
+                  sender: 'team',
+                  content: `Muitos banimentos acontecem sem análise humana detalhada.\nQuando o caso é apresentado da forma certa, a plataforma pode reavaliar a decisão.\n\nÉ exatamente nesse ponto que a equipe da DesbanX atua.`,
+                  timestamp: new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' }),
+                };
+                setMessages((prev) => [...prev, teamResponse2]);
+                setIsTyping(false);
+              }, 4000); // 4 segundos digitando
+
+              return () => clearTimeout(typingTimer2);
+            }, 5000); // 5 segundos lendo
+
+            return () => clearTimeout(readingTimer2);
+
         }, 4000); // 4 segundos digitando
 
         return () => clearTimeout(typingTimer);
@@ -157,7 +178,7 @@ Descrição do ocorrido:
             </div>
         </div>
         <div className="bg-card border-t p-4">
-            {/* Input field can be added here in the future */}
+            
         </div>
     </div>
   );
