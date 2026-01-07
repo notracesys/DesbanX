@@ -10,9 +10,12 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { useToast } from '@/hooks/use-toast';
 
 const accountIdSchema = z.object({
   accountId: z.string().min(8, { message: 'O ID da conta deve ter pelo menos 8 dígitos.' }).regex(/^\d+$/, { message: 'Insira apenas números.' }),
+  region: z.string({ required_error: 'Por favor, selecione uma região.'}),
 });
 
 type AccountIdForm = z.infer<typeof accountIdSchema>;
@@ -30,30 +33,60 @@ interface DetailsProps {
   isGenerating: boolean;
 }
 
+const regions = [
+  { value: 'BR', label: 'Brasil' },
+  { value: 'EU', label: 'Europa' },
+  { value: 'ID', label: 'Indonésia' },
+  { value: 'MENA', label: 'MENA (Oriente Médio e Norte da África)' },
+  { value: 'NA', label: 'América do Norte' },
+  { value: 'SA', label: 'América do Sul (Espanhol)' },
+  { value: 'SG', label: 'Singapura' },
+  { value: 'TH', label: 'Tailândia' },
+  { value: 'TW', label: 'Taiwan' },
+  { value: 'VN', label: 'Vietnã' },
+];
+
+
 export default function Details({ onGenerateAppeal, appealText, isGenerating }: DetailsProps) {
   const [isVerified, setIsVerified] = useState(false);
   const [isVerifying, setIsVerifying] = useState(false);
   const [accountData, setAccountData] = useState<AccountData | null>(null);
   const [isUnlocked, setIsUnlocked] = useState(false);
+  const { toast } = useToast();
 
   const form = useForm<AccountIdForm>({
     resolver: zodResolver(accountIdSchema),
     defaultValues: { accountId: '' },
   });
 
-  const handleVerify = (data: AccountIdForm) => {
+  const handleVerify = async (data: AccountIdForm) => {
     setIsVerifying(true);
-    // Mock API call
-    setTimeout(() => {
+    setAccountData(null);
+    try {
+      const response = await fetch(`https://free-ff-api-src-5plp.onrender.com/api/v1/account?region=${data.region}&uid=${data.accountId}`);
+      if (!response.ok) {
+        throw new Error('Não foi possível verificar a conta. Verifique o ID e a região.');
+      }
+      const result = await response.json();
+
       setAccountData({
-        nickname: 'Player' + data.accountId.slice(0, 4),
-        level: Math.floor(Math.random() * 70) + 10,
-        server: 'Brasil',
-        status: 'Banido',
+        nickname: result.nickname,
+        level: result.level || 0, // API might not return level
+        server: result.region || result.server,
+        status: 'Verificado', // API doesn't provide ban status, assuming verified if found
       });
-      setIsVerifying(false);
       setIsVerified(true);
-    }, 1500);
+    } catch (error: any) {
+        console.error("Verification failed:", error);
+        toast({
+            variant: "destructive",
+            title: "Erro de Verificação",
+            description: error.message || "Não foi possível carregar os dados no momento. Tente novamente.",
+        });
+        setIsVerified(false);
+    } finally {
+        setIsVerifying(false);
+    }
   };
   
   const handleUnlock = () => {
@@ -114,33 +147,55 @@ export default function Details({ onGenerateAppeal, appealText, isGenerating }: 
       <Card className="w-full">
         <CardHeader>
           <CardTitle className="font-headline text-2xl">Passo 1: Verificação da Conta</CardTitle>
-          <CardDescription>Para prosseguir, insira o ID da sua conta do Free Fire. Usamos apenas dados públicos para confirmar as informações.</CardDescription>
+          <CardDescription>Para prosseguir, insira o ID e a região da sua conta do Free Fire. Usamos apenas dados públicos para confirmar as informações.</CardDescription>
         </CardHeader>
         <CardContent>
-          {!isVerified ? (
-            <Form {...form}>
-              <form onSubmit={form.handleSubmit(handleVerify)} className="flex flex-col sm:flex-row gap-4 items-start">
-                <FormField
-                  control={form.control}
-                  name="accountId"
-                  render={({ field }) => (
-                    <FormItem className="w-full">
-                      <FormLabel className="sr-only">ID da Conta</FormLabel>
+          <Form {...form}>
+            <form onSubmit={form.handleSubmit(handleVerify)} className="flex flex-col sm:flex-row gap-4 items-start">
+              <FormField
+                control={form.control}
+                name="accountId"
+                render={({ field }) => (
+                  <FormItem className="w-full">
+                    <FormLabel className="sr-only">ID da Conta</FormLabel>
+                    <FormControl>
+                      <Input placeholder="Insira o ID da sua conta" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="region"
+                render={({ field }) => (
+                  <FormItem className="w-full sm:w-64">
+                    <FormLabel className="sr-only">Região</FormLabel>
+                    <Select onValueChange={field.onChange} defaultValue={field.value}>
                       <FormControl>
-                        <Input placeholder="Insira o ID da sua conta" {...field} />
+                        <SelectTrigger>
+                          <SelectValue placeholder="Selecione a Região" />
+                        </SelectTrigger>
                       </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <Button type="submit" disabled={isVerifying} className="w-full sm:w-auto">
-                  {isVerifying && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                  Verificar Conta
-                </Button>
-              </form>
-            </Form>
-          ) : accountData && (
-            <Card className="bg-background/50 border-primary/50">
+                      <SelectContent>
+                        {regions.map(region => (
+                          <SelectItem key={region.value} value={region.value}>{region.label}</SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <Button type="submit" disabled={isVerifying} className="w-full sm:w-auto">
+                {isVerifying && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                Verificar Conta
+              </Button>
+            </form>
+          </Form>
+          
+          {accountData && isVerified && (
+            <Card className="bg-background/50 border-primary/50 mt-6">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <ShieldCheck className="text-green-500" /> Conta Verificada
@@ -152,16 +207,12 @@ export default function Details({ onGenerateAppeal, appealText, isGenerating }: 
                   <p className="font-bold">{accountData.nickname}</p>
                 </div>
                 <div>
-                  <p className="text-muted-foreground">Nível</p>
-                  <p className="font-bold">{accountData.level}</p>
-                </div>
-                <div>
                   <p className="text-muted-foreground">Servidor</p>
                   <p className="font-bold">{accountData.server}</p>
                 </div>
-                <div>
+                 <div>
                   <p className="text-muted-foreground">Status</p>
-                  <p className="font-bold text-red-500">{accountData.status}</p>
+                  <p className="font-bold text-green-500">{accountData.status}</p>
                 </div>
               </CardContent>
             </Card>
@@ -223,3 +274,5 @@ export default function Details({ onGenerateAppeal, appealText, isGenerating }: 
     </div>
   );
 }
+
+    
