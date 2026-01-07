@@ -1,7 +1,7 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
-import { ShieldCheck, Sparkles, Loader2 } from 'lucide-react';
+import { ShieldCheck, Sparkles, Loader2, Info } from 'lucide-react';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
@@ -90,7 +90,6 @@ export default function Details({ onGenerateAppeal, appealText, isGenerating, an
   
   const handleUnlock = () => {
     setIsUnlocked(true);
-    // When unlocking, we also trigger the appeal generation immediately
     if (form.getValues('accountId')) {
       onGenerateAppeal(form.getValues('accountId'));
     }
@@ -109,59 +108,58 @@ export default function Details({ onGenerateAppeal, appealText, isGenerating, an
       {!isUnlocked ? (
       <>
         <section className="text-center">
-          <h2 className="font-headline text-3xl md:text-4xl font-bold">O Caminho Para a Recuperação</h2>
-          <p className="mt-4 max-w-2xl mx-auto text-lg text-muted-foreground">
-            Siga os passos para gerar um texto de apelação profissional e aumentar suas chances.
-          </p>
         </section>
 
         <Card className="w-full">
-          <CardHeader>
-            <CardTitle className="font-headline text-2xl">Passo 1: Verificação da Conta</CardTitle>
-            <CardDescription>Para prosseguir, insira o ID da sua conta do Free Fire. Nosso sistema buscará em todas as regiões para encontrar seu perfil.</CardDescription>
-          </CardHeader>
-          <CardContent>
+            <CardHeader className="bg-[#f7f7f7] rounded-t-lg border-b p-4">
+                <CardTitle className="font-bold text-base flex items-center">
+                    <span className="bg-primary text-primary-foreground rounded-full h-6 w-6 flex items-center justify-center text-sm mr-2">1</span> Login
+                </CardTitle>
+            </CardHeader>
+          <CardContent className="p-6 space-y-4">
             <Form {...form}>
-              <form onSubmit={form.handleSubmit(handleVerify)} className="flex flex-col sm:flex-row gap-4 items-start">
-                <FormField
+              <form onSubmit={form.handleSubmit(handleVerify)} className="space-y-4">
+                 <FormField
                   control={form.control}
                   name="accountId"
                   render={({ field }) => (
-                    <FormItem className="w-full">
-                      <FormLabel className="sr-only">ID da Conta</FormLabel>
-                      <FormControl>
-                        <Input placeholder="Insira o ID da sua conta" {...field} />
-                      </FormControl>
+                    <FormItem>
+                      <FormLabel className="font-normal text-sm flex items-center text-gray-600">ID do jogador <Info className="w-4 h-4 ml-1" /></FormLabel>
+                      <div className="flex gap-2">
+                        <FormControl>
+                          <Input placeholder="Insira o ID de jogador aqui" {...field} className="text-base" />
+                        </FormControl>
+                        <Button type="submit" disabled={isVerifying} className="px-8 font-bold">
+                          {isVerifying && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                          Login
+                        </Button>
+                      </div>
                       <FormMessage />
                     </FormItem>
                   )}
                 />
-                <Button type="submit" disabled={isVerifying} className="w-full sm:w-auto">
-                  {isVerifying && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                  Verificar Conta
-                </Button>
               </form>
             </Form>
             
             {accountData && isVerified && (
-              <Card className="bg-background/50 border-primary/50 mt-6">
+              <Card className="bg-green-50 border-green-200 mt-6">
                 <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <ShieldCheck className="text-green-500" /> Conta Verificada
+                  <CardTitle className="flex items-center gap-2 text-green-800">
+                    <ShieldCheck className="text-green-600" /> Conta Verificada
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
                   <div>
-                    <p className="text-muted-foreground">Nickname</p>
-                    <p className="font-bold">{accountData.nickname}</p>
+                    <p className="text-gray-500">Nickname</p>
+                    <p className="font-bold text-gray-800">{accountData.nickname}</p>
                   </div>
                   <div>
-                    <p className="text-muted-foreground">Servidor</p>
-                    <p className="font-bold">{accountData.server}</p>
+                    <p className="text-gray-500">Servidor</p>
+                    <p className="font-bold text-gray-800">{accountData.server}</p>
                   </div>
                   <div>
-                    <p className="text-muted-foreground">Status</p>
-                    <p className="font-bold text-green-500">{accountData.status}</p>
+                    <p className="text-gray-500">Status</p>
+                    <p className="font-bold text-green-600">{accountData.status}</p>
                   </div>
                 </CardContent>
               </Card>

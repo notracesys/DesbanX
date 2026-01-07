@@ -4,25 +4,25 @@
 
 @layer base {
   :root {
-    --background: 240 6% 10%;
-    --foreground: 210 40% 98%;
-    --card: 240 5% 15%;
-    --card-foreground: 210 40% 98%;
-    --popover: 240 6% 10%;
-    --popover-foreground: 210 40% 98%;
-    --primary: 33 100% 50%;
-    --primary-foreground: 240 6% 10%;
-    --secondary: 240 4% 20%;
-    --secondary-foreground: 210 40% 98%;
-    --muted: 240 4% 20%;
+    --background: 0 0% 98%;
+    --foreground: 240 6% 10%;
+    --card: 0 0% 100%;
+    --card-foreground: 240 6% 10%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 6% 10%;
+    --primary: 12 86% 57%; /* Vermelho Garena */
+    --primary-foreground: 0 0% 100%;
+    --secondary: 240 4% 90%;
+    --secondary-foreground: 240 6% 10%;
+    --muted: 240 4% 90%;
     --muted-foreground: 240 5% 65%;
-    --accent: 0 80% 40%;
-    --accent-foreground: 210 40% 98%;
+    --accent: 240 4% 95%;
+    --accent-foreground: 240 6% 10%;
     --destructive: 0 63% 31%;
     --destructive-foreground: 210 40% 98%;
-    --border: 240 4% 20%;
-    --input: 240 4% 20%;
-    --ring: 33 100% 50%;
+    --border: 240 4% 85%;
+    --input: 240 4% 85%;
+    --ring: 12 86% 57%;
     --radius: 0.5rem;
   }
 
@@ -33,19 +33,19 @@
     --card-foreground: 210 40% 98%;
     --popover: 240 6% 10%;
     --popover-foreground: 210 40% 98%;
-    --primary: 33 100% 50%;
-    --primary-foreground: 240 6% 10%;
+    --primary: 12 86% 57%;
+    --primary-foreground: 0 0% 100%;
     --secondary: 240 4% 20%;
     --secondary-foreground: 210 40% 98%;
     --muted: 240 4% 20%;
     --muted-foreground: 240 5% 65%;
-    --accent: 0 80% 40%;
+    --accent: 240 4% 15%;
     --accent-foreground: 210 40% 98%;
     --destructive: 0 63% 31%;
     --destructive-foreground: 210 40% 98%;
     --border: 240 4% 20%;
     --input: 240 4% 20%;
-    --ring: 33 100% 50%;
+    --ring: 12 86% 57%;
   }
 }
 
