@@ -4,7 +4,7 @@ import { useSearchParams } from 'next/navigation';
 import { useEffect, useState, useRef } from 'react';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
-import { Check, CheckCheck, AlertTriangle } from 'lucide-react';
+import { Check, CheckCheck, AlertTriangle, ArrowRight } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import {
   AlertDialog,
@@ -44,6 +44,7 @@ export default function ChatInterface() {
   const [isTyping, setIsTyping] = useState(false);
   const [showOptions, setShowOptions] = useState(false);
   const [showImportantNotice, setShowImportantNotice] = useState(false);
+  const [showPurchaseButton, setShowPurchaseButton] = useState(false);
   const chatEndRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -238,6 +239,21 @@ Descrição do ocorrido:
                                                     };
                                                     setMessages(prev => [...prev, finalHook]);
                                                     setIsTyping(false);
+
+                                                    setTimeout(() => {
+                                                        setIsTyping(true);
+                                                        setTimeout(() => {
+                                                            const urgencyMessage: Message = {
+                                                                id: Date.now(),
+                                                                sender: 'team',
+                                                                content: 'Se você quer tentar recuperar sua conta enquanto ainda existe chance, esse é o momento.',
+                                                                type: 'text',
+                                                            };
+                                                            setMessages(prev => [...prev, urgencyMessage]);
+                                                            setIsTyping(false);
+                                                            setShowPurchaseButton(true);
+                                                        }, 2000);
+                                                    }, 4000);
                                                 }, 3000)
                                             }, 4000)
                                         }, 2000);
@@ -330,8 +346,8 @@ Descrição do ocorrido:
                           )}
                           <div
                               className={cn(
-                                  'max-w-[85%] md:max-w-lg rounded-lg p-3 text-white break-words',
-                                  msg.sender === 'user' ? 'bg-primary' : 'bg-secondary'
+                                'max-w-[85%] md:max-w-lg rounded-lg p-3 text-white break-words',
+                                msg.sender === 'user' ? 'bg-primary' : 'bg-secondary'
                               )}
                               >
                               <p className="text-sm whitespace-pre-wrap">{msg.content}</p>
@@ -373,6 +389,23 @@ Descrição do ocorrido:
                           className="flex-1 font-semibold"
                       >
                          Não, apenas estou me informando
+                      </Button>
+                  </div>
+              )}
+              {showPurchaseButton && (
+                  <div className="flex justify-center max-w-4xl mx-auto animate-in fade-in-50 duration-500">
+                      <Button
+                          size="lg"
+                          className="w-full sm:w-auto font-bold relative overflow-hidden
+                                     bg-blue-600 hover:bg-blue-700 text-white
+                                     before:absolute before:inset-0
+                                     before:-translate-x-full
+                                     before:animate-shine
+                                     before:bg-gradient-to-r
+                                     before:from-transparent before:via-white/50 before:to-transparent"
+                      >
+                          Quero Recuperar Minha Conta
+                          <ArrowRight className="ml-2 h-5 w-5" />
                       </Button>
                   </div>
               )}
