@@ -6,16 +6,13 @@ import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { ArrowRight, ShieldCheck, Gem, BarChart } from 'lucide-react';
-import Confetti from '@/components/confetti';
 
 
 const TOTAL_ANALYSIS_TIME = 10; // seconds
-const CONFETTI_TIME = 6; // seconds
 
 export default function ResultPage() {
   const [analysisProgress, setAnalysisProgress] = useState(0);
   const [isAnalyzing, setIsAnalyzing] = useState(true);
-  const [showConfetti, setShowConfetti] = useState(false);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -24,7 +21,6 @@ export default function ResultPage() {
         if (next >= 100) {
           clearInterval(interval);
           setIsAnalyzing(false);
-          setShowConfetti(true);
           return 100;
         }
         return next;
@@ -33,15 +29,6 @@ export default function ResultPage() {
 
     return () => clearInterval(interval);
   }, []);
-
-  useEffect(() => {
-    if (showConfetti) {
-      const timer = setTimeout(() => {
-        setShowConfetti(false);
-      }, CONFETTI_TIME * 1000);
-      return () => clearTimeout(timer);
-    }
-  }, [showConfetti]);
 
   const loadingMessages = [
     'Analisando respostas...',
@@ -68,7 +55,6 @@ export default function ResultPage() {
           </div>
         ) : (
           <div className="w-full max-w-4xl text-center animate-in fade-in-50 duration-1000">
-            {showConfetti && <Confetti />}
             <h1 className="font-headline text-4xl md:text-5xl font-bold text-green-400">Boas notícias!</h1>
             <p className="mt-4 text-xl md:text-2xl text-muted-foreground">
               Sua conta tem potencial para ser recuperada com a ajuda da equipe <span className="font-bold text-primary">Desban X</span>.
