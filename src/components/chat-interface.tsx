@@ -290,7 +290,7 @@ Descrição do ocorrido:
                           )}
                           <div
                               className={cn(
-                                  'max-w-md md:max-w-lg rounded-lg p-3 text-white break-words',
+                                  'max-w-[85%] md:max-w-lg rounded-lg p-3 text-white break-words',
                                   msg.sender === 'user' ? 'bg-primary' : 'bg-secondary'
                               )}
                               >
