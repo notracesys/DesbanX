@@ -6,10 +6,10 @@ import BackgroundVideo from '@/components/background-video';
 
 export default function Home() {
   return (
-    <div className="flex min-h-screen flex-col">
-      <Header />
+    <div className="flex min-h-screen flex-col bg-black">
       <main>
         <div className="relative h-[70vh] w-full">
+          <Header />
           <BackgroundVideo />
           <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black" />
         </div>
