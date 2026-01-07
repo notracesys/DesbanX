@@ -21,7 +21,8 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-} from "@/components/ui/alert-dialog"
+} from "@/components/ui/alert-dialog";
+import { cn } from '@/lib/utils';
 
 const accountIdSchema = z.object({
   accountId: z.string().min(8, { message: 'O ID da conta deve ter pelo menos 8 dígitos.' }).regex(/^\d+$/, { message: 'Insira apenas números.' }),
@@ -51,11 +52,20 @@ export default function Details({ onGenerateAppeal, appealText, isGenerating, an
 
   const handleVerify = () => {
     setIsVerifying(true);
-
     // Simulate API call delay
     setTimeout(() => {
         setIsVerifying(false);
-        setIsVerified(true);
+        const accountId = form.getValues('accountId');
+        if (accountId.length >= 8) {
+            setIsVerified(true);
+        } else {
+            setDialogContent({
+                title: 'ID Inválido',
+                description: 'O ID da conta deve ter pelo menos 8 dígitos.',
+                isError: true,
+            });
+            setShowDialog(true);
+        }
     }, 1000);
   };
   
