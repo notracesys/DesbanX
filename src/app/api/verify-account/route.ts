@@ -19,21 +19,27 @@ export async function GET(request: Request) {
 
     clearTimeout(timeoutId);
 
-    if (apiResponse.ok) {
-      const data = await apiResponse.json();
-      
-      if (data && data.basicInfo && data.basicInfo.nickname) {
-          return NextResponse.json({ 
-            nickname: data.basicInfo.nickname,
-            level: data.basicInfo.level,
-            server: data.basicInfo.region || region
-          });
-      }
+    const responseText = await apiResponse.text();
+    let data;
+    try {
+        data = JSON.parse(responseText);
+    } catch (e) {
+        // Se a resposta não for um JSON válido, é um erro.
+        console.error("API externa retornou resposta não-JSON:", responseText);
+        return NextResponse.json({ message: 'A API externa não respondeu como esperado. Tente mais tarde.' }, { status: 502 });
+    }
+
+    if (apiResponse.ok && data && data.basicInfo && data.basicInfo.nickname) {
+        return NextResponse.json({ 
+          nickname: data.basicInfo.nickname,
+          level: data.basicInfo.level,
+          server: data.basicInfo.region || region
+        });
     }
     
     // Se a resposta da API não for OK ou não tiver os dados esperados.
-    const errorData = await apiResponse.json().catch(() => ({ message: 'A API externa não respondeu como esperado.' }));
-    return NextResponse.json({ message: errorData.message || 'Conta não encontrada no servidor brasileiro com o ID fornecido.' }, { status: apiResponse.status });
+    const errorMessage = data.message || 'Conta não encontrada no servidor brasileiro com o ID fornecido.';
+    return NextResponse.json({ message: errorMessage }, { status: apiResponse.status < 500 ? apiResponse.status : 404 });
 
   } catch (error: any) {
     // Trata erros de rede, como timeout
