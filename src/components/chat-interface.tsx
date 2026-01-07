@@ -68,20 +68,27 @@ Descrição do ocorrido:
     };
 
     setMessages([userMessage]);
-    setIsTyping(true);
 
-    const timer = setTimeout(() => {
-        const teamResponse: Message = {
-            id: 2,
-            sender: 'team',
-            content: 'Olá! Recebemos suas informações. Após uma análise preliminar do nosso sistema, identificamos que seu caso tem características de um banimento automático, o que significa que existem chances reais de recuperação se o processo de contestação for feito corretamente. Nossa equipe pode preparar uma defesa técnica detalhada para ser enviada à plataforma.',
-            timestamp: new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' }),
-        };
-        setMessages((prev) => [...prev, teamResponse]);
-        setIsTyping(false);
-    }, 3000);
+    // Simula tempo de leitura (1.5s)
+    const readingTimer = setTimeout(() => {
+        setIsTyping(true);
 
-    return () => clearTimeout(timer);
+        // Simula tempo de digitação (4s)
+        const typingTimer = setTimeout(() => {
+            const teamResponse: Message = {
+                id: 2,
+                sender: 'team',
+                content: 'Olá! Recebemos suas informações. Após uma análise preliminar do nosso sistema, identificamos que seu caso tem características de um banimento automático, o que significa que existem chances reais de recuperação se o processo de contestação for feito corretamente. Nossa equipe pode preparar uma defesa técnica detalhada para ser enviada à plataforma.',
+                timestamp: new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' }),
+            };
+            setMessages((prev) => [...prev, teamResponse]);
+            setIsTyping(false);
+        }, 4000); // 4 segundos digitando
+
+        return () => clearTimeout(typingTimer);
+    }, 1500); // 1.5 segundos lendo
+
+    return () => clearTimeout(readingTimer);
   }, [searchParams]);
 
   const MessageStatus = ({ status }: { status: Message['status'] }) => {
