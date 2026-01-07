@@ -71,7 +71,7 @@ export default function VerifyPage() {
 
   return (
     <>
-      <div className="flex min-h-screen flex-col">
+      <div className="flex min-h-full flex-col">
         <Header />
         <main className="flex-grow container mx-auto px-4 py-8 md:py-16 flex flex-col items-center justify-center">
           <AlertDialog open={showDialog} onOpenChange={setShowDialog}>

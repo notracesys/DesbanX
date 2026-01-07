@@ -82,7 +82,7 @@ export default function AnalysisPage() {
   }
 
   return (
-    <div className="flex min-h-screen flex-col">
+    <div className="flex min-h-full flex-col">
       <Header />
       <main className="flex-grow container mx-auto px-4 py-8 md:py-16">
         <section className="text-center mb-12 animate-in fade-in-50 duration-1000">

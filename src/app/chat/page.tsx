@@ -6,7 +6,7 @@ import { Suspense } from 'react';
 
 function ChatPageContent() {
   return (
-    <div className="flex min-h-screen flex-col bg-muted/20">
+    <div className="flex flex-col bg-muted/20 h-full">
       <Header />
       <main className="flex-grow flex flex-col">
         <ChatInterface />
