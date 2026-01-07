@@ -51,6 +51,8 @@ export default function Details({ onGenerateAppeal, appealText, isGenerating, an
   });
 
   const handleVerify = () => {
+    if (isVerified) return; // Impede novo clique se já verificado
+
     setIsVerifying(true);
     // Simulate API call delay
     setTimeout(() => {
@@ -166,9 +168,9 @@ export default function Details({ onGenerateAppeal, appealText, isGenerating, an
                               type="submit" 
                               className={cn(
                                 "px-8 font-bold w-40",
-                                isVerified && "bg-green-600 hover:bg-green-700 text-white"
+                                isVerified && "bg-green-600 hover:bg-green-700 text-white opacity-100"
                               )}
-                              disabled={isVerified || isVerifying}
+                              disabled={isVerifying}
                             >
                               {isVerifying ? (
                                 <Loader2 className="animate-spin" />
