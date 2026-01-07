@@ -14,7 +14,8 @@ export async function GET(request: Request) {
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), 8000); // 8 segundos de timeout
 
-    const apiResponse = await fetch(`https://ffdvinh09-info.vercel.app/player-info?region=${region}&uid=${uid}`, {
+    // Endpoint correto conforme a documentação da API
+    const apiResponse = await fetch(`https://free-ff-api.onrender.com/api/v1/account?region=${region}&uid=${uid}`, {
       signal: controller.signal
     });
 
@@ -22,20 +23,19 @@ export async function GET(request: Request) {
 
     const data = await apiResponse.json();
 
-    if (apiResponse.ok && data && data.nickname) {
+    // Verificação correta baseada na estrutura de resposta da nova API
+    if (apiResponse.ok && data && data.basicInfo && data.basicInfo.nickname) {
         return NextResponse.json({ 
-          nickname: data.nickname,
-          level: data.level,
-          server: data.region || region
+          nickname: data.basicInfo.nickname,
+          level: data.basicInfo.level,
+          server: data.basicInfo.region || region
         });
     }
     
-    // Se a resposta da API não for OK ou não tiver os dados esperados.
     const errorMessage = data.message || 'Conta não encontrada no servidor brasileiro com o ID fornecido.';
     return NextResponse.json({ message: errorMessage }, { status: apiResponse.status < 500 ? apiResponse.status : 404 });
 
   } catch (error: any) {
-    // Trata erros de rede, como timeout
     if (error.name === 'AbortError') {
       return NextResponse.json({ message: 'A verificação da conta demorou demais para responder. Tente novamente.' }, { status: 408 });
     }
