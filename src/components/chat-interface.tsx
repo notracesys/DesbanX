@@ -189,7 +189,7 @@ Descrição do ocorrido:
                             const finalMessage: Message = {
                                 id: Date.now(),
                                 sender: 'team',
-                                content: 'Agora é o seguinte 👇\nSeu caso não é comum. Ele apresenta sinais claros de banimento automático: e esses são exatamente os casos que ainda valem a tentativa.',
+                                content: 'Agora é o seguinte 👇\nSeu caso não é comum. Ele apresenta sinais claros de banimento automático: e esses são exatamente os casos que ainda valem a tentativa. ⚠️',
                                 type: 'text',
                             };
                             setMessages(prev => [...prev, finalMessage]);
@@ -234,7 +234,7 @@ Descrição do ocorrido:
                                                     const finalHook: Message = {
                                                         id: Date.now(),
                                                         sender: 'team',
-                                                        content: 'A diferença não foi sorte.\nFoi recorrer do jeito certo, com quem sabe o que está fazendo.',
+                                                        content: 'A diferença não foi sorte.\nFoi recorrer do jeito certo, com quem sabe o que está fazendo. 💪',
                                                         type: 'text',
                                                     };
                                                     setMessages(prev => [...prev, finalHook]);
@@ -246,7 +246,7 @@ Descrição do ocorrido:
                                                             const urgencyMessage: Message = {
                                                                 id: Date.now(),
                                                                 sender: 'team',
-                                                                content: 'Se você quer tentar recuperar sua conta enquanto ainda existe chance, esse é o momento.',
+                                                                content: 'Se você quer tentar recuperar sua conta enquanto ainda existe chance, esse é o momento. ⏳',
                                                                 type: 'text',
                                                             };
                                                             setMessages(prev => [...prev, urgencyMessage]);
@@ -255,13 +255,13 @@ Descrição do ocorrido:
                                                         }, 2000);
                                                     }, 4000);
                                                 }, 3000)
-                                            }, 4000)
+                                            }, 2000)
                                         }, 2000);
 
                                     }, 2000)
-                                }, 5000)
+                                }, 3000)
                               }, 2000);
-                            }, 3000);
+                            }, 5000);
 
                         }, 2000);
                     }, 3000);
