@@ -3,8 +3,10 @@
 import { useSearchParams } from 'next/navigation';
 import { useEffect, useState, useRef } from 'react';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Check, CheckCheck } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Check, CheckCheck, Send } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import Link from 'next/link';
 
 type Message = {
   id: number;
@@ -30,6 +32,7 @@ export default function ChatInterface() {
   const searchParams = useSearchParams();
   const [messages, setMessages] = useState<Message[]>([]);
   const [isTyping, setIsTyping] = useState(false);
+  const [showOptions, setShowOptions] = useState(false);
   const chatEndRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -96,6 +99,29 @@ Descrição do ocorrido:
                 };
                 setMessages((prev) => [...prev, teamResponse2]);
                 setIsTyping(false);
+
+                 // Inicia a terceira sequência de mensagens (pergunta)
+                 const readingTimer3 = setTimeout(() => {
+                    setIsTyping(true);
+
+                    const typingTimer3 = setTimeout(() => {
+                        const teamResponse3: Message = {
+                            id: 4,
+                            sender: 'team',
+                            content: 'Você deseja que a equipe da DesbanX inicie a análise completa do seu caso?',
+                            timestamp: new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' }),
+                        };
+                        setMessages((prev) => [...prev, teamResponse3]);
+                        setIsTyping(false);
+                        setShowOptions(true);
+                    }, 3000); // 3s digitando
+
+                    return () => clearTimeout(typingTimer3);
+                }, 5000); // 5s lendo
+                
+                return () => clearTimeout(readingTimer3);
+
+
               }, 4000); // 4 segundos digitando
 
               return () => clearTimeout(typingTimer2);
@@ -117,6 +143,41 @@ Descrição do ocorrido:
     if (status === 'read') return <CheckCheck className="h-4 w-4 text-blue-500" />;
     return null;
   }
+
+  const handleOptionClick = (option: 'sim' | 'nao') => {
+    const content = option === 'sim' 
+        ? 'Sim, quero tentar recuperar minha conta' 
+        : 'Não, apenas estou me informando';
+    
+    const userMessage: Message = {
+        id: messages.length + 1,
+        sender: 'user',
+        content,
+        timestamp: new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' }),
+        status: 'read',
+    };
+    setMessages(prev => [...prev, userMessage]);
+    setShowOptions(false);
+
+    if (option === 'sim') {
+        // Redireciona para o WhatsApp
+        window.location.href = 'https://wa.me/5511999999999?text=Ol%C3%A1%2C%20vim%20pelo%20site%20e%20quero%20iniciar%20a%20an%C3%A1lise%20da%20minha%20conta.';
+    } else {
+        // Simula resposta da equipe
+        setIsTyping(true);
+        setTimeout(() => {
+            const finalResponse: Message = {
+                id: messages.length + 2,
+                sender: 'team',
+                content: 'Entendido. Se mudar de ideia, estaremos por aqui para ajudar. Recomendamos não demorar muito, pois o tempo é um fator importante para a recuperação. Boa sorte!',
+                timestamp: new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' }),
+            }
+            setMessages(prev => [...prev, finalResponse]);
+            setIsTyping(false);
+        }, 2000);
+    }
+  }
+
 
   return (
     <div className="flex flex-col h-[calc(100vh-4rem)]">
@@ -151,7 +212,7 @@ Descrição do ocorrido:
                         )}
                         <div
                             className={cn(
-                                'max-w-md rounded-lg p-3 text-white',
+                                'max-w-md md:max-w-lg rounded-lg p-3 text-white',
                                 msg.sender === 'user' ? 'bg-primary' : 'bg-secondary'
                             )}
                             >
@@ -178,7 +239,23 @@ Descrição do ocorrido:
             </div>
         </div>
         <div className="bg-card border-t p-4">
-            
+            {showOptions && (
+                <div className="flex flex-col sm:flex-row gap-2 max-w-4xl mx-auto animate-in fade-in-50 duration-500">
+                     <Button 
+                        onClick={() => handleOptionClick('sim')}
+                        className="flex-1 font-bold bg-green-600 hover:bg-green-700 text-white"
+                     >
+                        Sim, quero tentar recuperar minha conta
+                    </Button>
+                    <Button 
+                        onClick={() => handleOptionClick('nao')}
+                        variant="secondary"
+                        className="flex-1 font-semibold"
+                    >
+                       Não, apenas estou me informando
+                    </Button>
+                </div>
+            )}
         </div>
     </div>
   );
