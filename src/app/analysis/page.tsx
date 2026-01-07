@@ -14,8 +14,10 @@ import { ArrowRight } from 'lucide-react';
 const quizSchema = z.object({
   suspensionTime: z.string({ required_error: 'Por favor, selecione uma opção.' }),
   thirdPartySoftware: z.string({ required_error: 'Por favor, selecione uma opção.' }),
-  accountSharing: z.string({ required_error: 'Por favor, selecione uma opção.' }),
-  refundAbuse: z.string({ required_error: 'Por favor, selecione uma opção.' }),
+  banReason: z.string({ required_error: 'Por favor, selecione uma opção.' }),
+  firstOffense: z.string({ required_error: 'Por favor, selecione uma opção.' }),
+  hasMadePurchases: z.string({ required_error: 'Por favor, selecione uma opção.' }),
+  priorWarnings: z.string({ required_error: 'Por favor, selecione uma opção.' }),
 });
 
 type QuizFormValues = z.infer<typeof quizSchema>;
@@ -32,14 +34,24 @@ const questions = [
     options: ['Sim', 'Não', 'Não tenho certeza'],
   },
   {
-    id: 'accountSharing',
-    label: 'Você já compartilhou os dados de login da sua conta com outra pessoa?',
+    id: 'banReason',
+    label: 'Qual foi o motivo que apareceu na mensagem de banimento?',
+    options: ['Uso de software/aplicativo não oficial', 'Abuso de bugs ou falhas', 'Comportamento tóxico (ofensas)', 'Reembolso indevido (chargeback)', 'Não havia motivo especificado', 'Outro'],
+  },
+  {
+    id: 'firstOffense',
+    label: 'Esta é a primeira vez que sua conta é suspensa?',
+    options: ['Sim', 'Não, já fui suspenso antes'],
+  },
+  {
+    id: 'hasMadePurchases',
+    label: 'Você já fez alguma compra de diamantes ou outros itens na conta?',
     options: ['Sim', 'Não'],
   },
-    {
-    id: 'refundAbuse',
-    label: 'Você já solicitou reembolso (chargeback) de alguma compra de diamantes?',
-    options: ['Sim', 'Não'],
+  {
+    id: 'priorWarnings',
+    label: 'Antes do banimento, você recebeu avisos por comportamento inadequado (ex: ofensas no chat)?',
+    options: ['Sim', 'Não', 'Não me lembro'],
   },
 ];
 
