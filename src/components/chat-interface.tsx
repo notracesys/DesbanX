@@ -4,7 +4,7 @@ import { useSearchParams } from 'next/navigation';
 import { useEffect, useState, useRef } from 'react';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
-import { Check, CheckCheck, Send } from 'lucide-react';
+import { Check, CheckCheck } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
 
@@ -160,10 +160,28 @@ Descrição do ocorrido:
     setShowOptions(false);
 
     if (option === 'sim') {
-        // Redireciona para o WhatsApp
-        window.location.href = 'https://wa.me/5511999999999?text=Ol%C3%A1%2C%20vim%20pelo%20site%20e%20quero%20iniciar%20a%20an%C3%A1lise%20da%20minha%20conta.';
+        // Nova sequência para a opção "Sim"
+        setTimeout(() => { // Simula leitura (3s)
+            setIsTyping(true);
+            setTimeout(() => { // Simula digitação (3s)
+                const finalResponse: Message = {
+                    id: messages.length + 3, // ID único
+                    sender: 'team',
+                    content: 'Ótima escolha.\n\nVocê está dando o passo que a maioria não dá — recorrer da forma correta.',
+                    timestamp: new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' }),
+                }
+                setMessages(prev => [...prev, finalResponse]);
+                setIsTyping(false);
+
+                // Redireciona para o WhatsApp após a mensagem final
+                setTimeout(() => {
+                   window.location.href = 'https://wa.me/5511999999999?text=Ol%C3%A1%2C%20vim%20pelo%20site%20e%20quero%20iniciar%20a%20an%C3%A1lise%20da%20minha%20conta.';
+                }, 1000);
+
+            }, 3000);
+        }, 3000);
     } else {
-        // Simula resposta da equipe
+        // Simula resposta da equipe para "Não"
         setIsTyping(true);
         setTimeout(() => {
             const finalResponse: Message = {
