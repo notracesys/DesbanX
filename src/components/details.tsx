@@ -50,22 +50,27 @@ export default function Details({ onGenerateAppeal, appealText, isGenerating, an
   const handleVerify = async (data: AccountIdForm) => {
     setIsVerifying(true);
     setAccountData(null);
+    form.clearErrors('accountId');
     try {
       const response = await fetch(`/api/verify-account?uid=${data.accountId}`);
-      
       const result = await response.json();
 
       if (!response.ok) {
-        throw new Error(result.message || 'Não foi possível verificar a conta.');
+        if (response.status === 404) {
+          form.setError('accountId', { type: 'manual', message: result.message });
+        } else {
+          throw new Error(result.message || 'Não foi possível verificar a conta.');
+        }
+        setIsVerified(false);
+      } else {
+        setAccountData({
+          nickname: result.nickname,
+          level: result.level || 0,
+          server: result.region || result.server,
+          status: 'Verificado',
+        });
+        setIsVerified(true);
       }
-      
-      setAccountData({
-        nickname: result.nickname,
-        level: result.level || 0,
-        server: result.region || result.server,
-        status: 'Verificado',
-      });
-      setIsVerified(true);
     } catch (error: any) {
         console.error("Verification failed:", error);
         toast({
