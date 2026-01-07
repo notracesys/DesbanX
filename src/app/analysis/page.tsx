@@ -100,7 +100,7 @@ export default function AnalysisPage() {
                             <Card className="w-full">
                                 <CardHeader className="bg-card-foreground/5 rounded-t-lg border-b p-4">
                                 <CardTitle className="font-bold text-base flex items-center">
-                                    <span className="bg-primary text-primary-foreground rounded-full h-6 w-6 flex items-center justify-center text-sm mr-2">{index + 1}</span> 
+                                    <span className="bg-primary text-primary-foreground rounded-full h-6 flex items-center justify-center text-sm mr-2 min-w-[1.5rem] px-1">{index + 1}</span> 
                                     {question.label}
                                 </CardTitle>
                                 </CardHeader>
