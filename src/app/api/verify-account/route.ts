@@ -1,26 +1,33 @@
 import { NextResponse } from 'next/server';
 
+const regions = ['BR', 'EU', 'ID', 'MENA', 'NA', 'SA', 'SG', 'TH', 'TW', 'VN'];
+
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
-  const region = searchParams.get('region');
   const uid = searchParams.get('uid');
 
-  if (!region || !uid) {
-    return NextResponse.json({ message: 'Region and UID are required' }, { status: 400 });
+  if (!uid) {
+    return NextResponse.json({ message: 'UID da conta é obrigatório.' }, { status: 400 });
   }
 
-  try {
-    const apiResponse = await fetch(`https://free-ff-api-src-5plp.onrender.com/api/v1/account?region=${region}&uid=${uid}`);
-    
-    if (!apiResponse.ok) {
-        const errorData = await apiResponse.json().catch(() => ({ message: 'A API externa não respondeu corretamente. Tente novamente mais tarde.' }));
-        return NextResponse.json({ message: errorData.message || 'Ocorreu um erro durante a verificação.' }, { status: apiResponse.status });
+  for (const region of regions) {
+    try {
+      const apiResponse = await fetch(`https://free-ff-api-src-5plp.onrender.com/api/v1/account?region=${region}&uid=${uid}`);
+      
+      if (apiResponse.ok) {
+        const data = await apiResponse.json();
+        // A API pode retornar sucesso mesmo sem encontrar, então verificamos se tem nickname
+        if(data && data.nickname) {
+            return NextResponse.json(data);
+        }
+      }
+      // Se a resposta não for ok, ou não tiver nickname, continuamos para a próxima região
+    } catch (error) {
+      // Ignoramos erros individuais de fetch para uma região e continuamos tentando as outras
+      console.log(`Erro ao verificar região ${region} para o UID ${uid}:`, error);
     }
-
-    const data = await apiResponse.json();
-    return NextResponse.json(data);
-  } catch (error) {
-    console.error('API proxy error:', error);
-    return NextResponse.json({ message: 'Erro interno ao tentar verificar a conta.' }, { status: 500 });
   }
+
+  // Se o loop terminar e nenhuma conta for encontrada
+  return NextResponse.json({ message: 'Conta não encontrada em nenhuma região com o ID fornecido.' }, { status: 404 });
 }

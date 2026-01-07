@@ -1,14 +1,15 @@
 'use client';
 
 import type { AnalyzeBanReasoningOutput } from '@/ai/flows/analyze-ban-reasoning';
-import { ArrowRight, ShieldAlert, Sparkles } from 'lucide-react';
+import { Sparkles } from 'lucide-react';
 import Confetti from '@/components/confetti';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 
 interface ResultsProps {
-  result: AnalyzeBanReasoningOutput | null;
+  result: AnalyzeBanReasoningOutput;
   onNext: () => void;
 }
 
@@ -26,18 +27,7 @@ const getLikelihoodProps = (likelihood: string | undefined) => {
 };
 
 export default function Results({ result, onNext }: ResultsProps) {
-  if (!result) {
-    return (
-      <div className="text-center">
-        <h2 className="font-headline text-2xl font-bold">Nenhum resultado para exibir.</h2>
-        <p className="text-muted-foreground">Por favor, volte e complete a análise.</p>
-        <Button onClick={() => window.location.reload()} className="mt-4">
-          Tentar Novamente
-        </Button>
-      </div>
-    );
-  }
-
+  
   const likelihoodProps = getLikelihoodProps(result.recoveryLikelihood);
   const isPositiveResult = result.recoveryLikelihood?.toLowerCase() === 'high' || result.recoveryLikelihood?.toLowerCase() === 'medium';
 
@@ -83,15 +73,13 @@ export default function Results({ result, onNext }: ResultsProps) {
         </CardContent>
       </Card>
 
-      <div className="p-4 rounded-lg bg-yellow-900/20 border border-yellow-700/50 text-yellow-300 flex items-start gap-4">
-        <ShieldAlert className="h-6 w-6 mt-1 flex-shrink-0" />
-        <div>
-          <h4 className="font-bold">Aviso Legal Importante</h4>
-          <p className="text-sm">
-            Esta análise é uma estimativa baseada em dados e não uma garantia de recuperação. O sucesso da apelação depende exclusivamente da avaliação final da Garena. Nosso serviço visa maximizar suas chances através de um recurso bem fundamentado e profissional.
-          </p>
-        </div>
-      </div>
+      <Alert variant="destructive">
+        <AlertTitle>Aviso Legal Importante</AlertTitle>
+        <AlertDescription>
+          Esta análise é uma estimativa baseada em dados e não uma garantia de recuperação. O sucesso da apelação depende exclusivamente da avaliação final da Garena. Nosso serviço visa maximizar suas chances através de um recurso bem fundamentado e profissional.
+        </AlertDescription>
+      </Alert>
+
 
       <div className="text-center">
         <Button size="lg" onClick={onNext}>

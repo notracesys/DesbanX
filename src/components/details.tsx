@@ -1,7 +1,7 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
-import { FileScan, Loader2, MessageSquareQuote, Send, ShieldCheck, Sparkles, ArrowRight } from 'lucide-react';
+import { ShieldCheck, Sparkles, Loader2 } from 'lucide-react';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
@@ -10,14 +10,12 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useToast } from '@/hooks/use-toast';
 import type { AnalyzeBanReasoningOutput } from '@/ai/flows/analyze-ban-reasoning';
 import Results from '@/components/results';
 
 const accountIdSchema = z.object({
   accountId: z.string().min(8, { message: 'O ID da conta deve ter pelo menos 8 dígitos.' }).regex(/^\d+$/, { message: 'Insira apenas números.' }),
-  region: z.string({ required_error: 'Por favor, selecione uma região.'}),
 });
 
 type AccountIdForm = z.infer<typeof accountIdSchema>;
@@ -36,20 +34,6 @@ interface DetailsProps {
   analysisResult: AnalyzeBanReasoningOutput | null;
 }
 
-const regions = [
-  { value: 'BR', label: 'Brasil' },
-  { value: 'EU', label: 'Europa' },
-  { value: 'ID', label: 'Indonésia' },
-  { value: 'MENA', label: 'MENA (Oriente Médio e Norte da África)' },
-  { value: 'NA', label: 'América do Norte' },
-  { value: 'SA', label: 'América do Sul (Espanhol)' },
-  { value: 'SG', label: 'Singapura' },
-  { value: 'TH', label: 'Tailândia' },
-  { value: 'TW', label: 'Taiwan' },
-  { value: 'VN', label: 'Vietnã' },
-];
-
-
 export default function Details({ onGenerateAppeal, appealText, isGenerating, analysisResult }: DetailsProps) {
   const [isVerified, setIsVerified] = useState(false);
   const [isVerifying, setIsVerifying] = useState(false);
@@ -67,20 +51,19 @@ export default function Details({ onGenerateAppeal, appealText, isGenerating, an
     setIsVerifying(true);
     setAccountData(null);
     try {
-      const response = await fetch(`/api/verify-account?region=${data.region}&uid=${data.accountId}`);
-      
-      if (!response.ok) {
-        const errorResult = await response.json().catch(() => ({ message: 'Ocorreu um erro inesperado. Verifique os dados e tente novamente.' }));
-        throw new Error(errorResult.message || 'Não foi possível verificar a conta. Verifique o ID e a região.');
-      }
+      const response = await fetch(`/api/verify-account?uid=${data.accountId}`);
       
       const result = await response.json();
 
+      if (!response.ok) {
+        throw new Error(result.message || 'Não foi possível verificar a conta.');
+      }
+      
       setAccountData({
         nickname: result.nickname,
-        level: result.level || 0, // API might not return level
+        level: result.level || 0,
         server: result.region || result.server,
-        status: 'Verificado', // API doesn't provide ban status, assuming verified if found
+        status: 'Verificado',
       });
       setIsVerified(true);
     } catch (error: any) {
@@ -99,7 +82,7 @@ export default function Details({ onGenerateAppeal, appealText, isGenerating, an
   const handleUnlock = () => {
     setIsUnlocked(true);
     // When unlocking, we also trigger the appeal generation immediately
-    if (accountData) {
+    if (form.getValues('accountId')) {
       onGenerateAppeal(form.getValues('accountId'));
     }
   }
@@ -108,10 +91,9 @@ export default function Details({ onGenerateAppeal, appealText, isGenerating, an
     setShowResults(true);
   }
 
-  if (showResults) {
+  if (showResults && analysisResult) {
     return <Results result={analysisResult} onNext={() => setShowResults(false)} />;
   }
-
 
   return (
     <div className="w-full max-w-4xl space-y-12 animate-in fade-in-50 duration-1000">
@@ -127,7 +109,7 @@ export default function Details({ onGenerateAppeal, appealText, isGenerating, an
         <Card className="w-full">
           <CardHeader>
             <CardTitle className="font-headline text-2xl">Passo 1: Verificação da Conta</CardTitle>
-            <CardDescription>Para prosseguir, insira o ID e a região da sua conta do Free Fire. Usamos apenas dados públicos para confirmar as informações.</CardDescription>
+            <CardDescription>Para prosseguir, insira o ID da sua conta do Free Fire. Nosso sistema buscará em todas as regiões para encontrar seu perfil.</CardDescription>
           </CardHeader>
           <CardContent>
             <Form {...form}>
@@ -141,28 +123,6 @@ export default function Details({ onGenerateAppeal, appealText, isGenerating, an
                       <FormControl>
                         <Input placeholder="Insira o ID da sua conta" {...field} />
                       </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="region"
-                  render={({ field }) => (
-                    <FormItem className="w-full sm:w-64">
-                      <FormLabel className="sr-only">Região</FormLabel>
-                      <Select onValueChange={field.onChange} defaultValue={field.value}>
-                        <FormControl>
-                          <SelectTrigger>
-                            <SelectValue placeholder="Selecione a Região" />
-                          </SelectTrigger>
-                        </FormControl>
-                        <SelectContent>
-                          {regions.map(region => (
-                            <SelectItem key={region.value} value={region.value}>{region.label}</SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
                       <FormMessage />
                     </FormItem>
                   )}
@@ -235,7 +195,7 @@ export default function Details({ onGenerateAppeal, appealText, isGenerating, an
             </Card>
           )}
 
-          {analysisResult && (
+          {analysisResult && !appealText && (
             <div className="w-full max-w-4xl animate-in fade-in-50 duration-500">
                 <Results result={analysisResult} onNext={handleShowResults} />
             </div>
@@ -245,7 +205,7 @@ export default function Details({ onGenerateAppeal, appealText, isGenerating, an
               <Card className="w-full animate-in fade-in-50 duration-500 mt-8">
               <CardHeader>
                 <CardTitle className="font-headline text-2xl">Passo Final: Sua Apelação Personalizada</CardTitle>
-                <CardDescription>Copia o texto abaixo e siga as instruções para enviá-lo ao suporte da Garena.</CardDescription>
+                <CardDescription>Copie o texto abaixo e siga as instruções para enviá-lo ao suporte da Garena.</CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
                     <div className="space-y-4">
