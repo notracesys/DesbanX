@@ -119,11 +119,6 @@ export default {
             filter: 'blur(3px)',
           },
         },
-        'bg-pan': {
-          '0%': { backgroundPosition: '0% 50%' },
-          '50%': { backgroundPosition: '100% 50%' },
-          '100%': { backgroundPosition: '0% 50%' },
-        },
         'shine': {
           '0%': { transform: 'translateX(-100%)' },
           '100%': { transform: 'translateX(100%)' },
@@ -134,7 +129,6 @@ export default {
         'accordion-up': 'accordion-up 0.2s ease-out',
         'dialog-show': 'dialog-show 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
         'dialog-hide': 'dialog-hide 0.2s ease-in-out',
-        'bg-pan': 'bg-pan 3s ease-in-out infinite',
         'shine': 'shine 2s ease-in-out infinite',
       },
     },

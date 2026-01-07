@@ -57,9 +57,3 @@
     @apply bg-background text-foreground;
   }
 }
-
-@layer utilities {
-  .bg-size-200 {
-    background-size: 200% 200%;
-  }
-}

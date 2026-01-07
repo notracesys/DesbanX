@@ -16,9 +16,7 @@ export default function Landing() {
           size="lg"
           asChild
           className="font-bold relative overflow-hidden
-                     bg-transparent bg-gradient-to-r from-purple-500 via-purple-600 to-indigo-600
-                     text-white hover:saturate-150
-                     bg-size-200 animate-bg-pan
+                     bg-blue-600 hover:bg-blue-700 text-white
                      before:absolute before:inset-0
                      before:-translate-x-full
                      before:animate-shine
