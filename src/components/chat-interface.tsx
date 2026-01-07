@@ -182,6 +182,8 @@ Descrição do ocorrido:
                 }
                 setMessages(prev => [...prev, finalResponse]);
                 setIsTyping(false);
+                // Mostra o aviso após a mensagem de "Ótima escolha"
+                setShowImportantNotice(true);
                 
                 setTimeout(() => { // Espera 3s
                     setIsTyping(true);
@@ -194,9 +196,6 @@ Descrição do ocorrido:
                         };
                         setMessages(prev => [...prev, finalMessage]);
                         setIsTyping(false);
-                        
-                        // Mostra o aviso após a última mensagem
-                        setShowImportantNotice(true);
                     }, 2000);
                 }, 3000);
 
