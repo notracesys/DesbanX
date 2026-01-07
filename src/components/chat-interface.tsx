@@ -172,68 +172,69 @@ Descrição do ocorrido:
                 }
                 setMessages(prev => [...prev, finalResponse]);
                 setIsTyping(false);
-                setShowImportantNotice(true);
                 
                 setTimeout(() => {
-                    setIsTyping(true);
+                    setShowImportantNotice(true);
+                    
                     setTimeout(() => {
-                        const finalMessage: Message = {
-                            id: messages.length + 4,
-                            sender: 'team',
-                            content: 'Agora é o seguinte 👇\nSeu caso não é comum. Ele apresenta sinais claros de banimento automático: e esses são exatamente os casos que ainda valem a tentativa.',
-                        };
-                        setMessages(prev => [...prev, finalMessage]);
-                        setIsTyping(false);
-
+                        setIsTyping(true);
                         setTimeout(() => {
-                          setIsTyping(true);
-                          setTimeout(() => {
-                            const proofMessage: Message = {
-                                id: messages.length + 6,
+                            const finalMessage: Message = {
+                                id: messages.length + 4,
                                 sender: 'team',
-                                content: 'Várias pessoas chegaram até nós com o mesmo problema, achando que tinham perdido tudo.\nApós a análise e o processo feito pela DesbanX, muitas conseguiram recuperar suas contas. ✨',
+                                content: 'Agora é o seguinte 👇\nSeu caso não é comum. Ele apresenta sinais claros de banimento automático: e esses são exatamente os casos que ainda valem a tentativa.',
                             };
-                            setMessages(prev => [...prev, proofMessage]);
+                            setMessages(prev => [...prev, finalMessage]);
                             setIsTyping(false);
 
                             setTimeout(() => {
-                                setIsTyping(true);
+                              setIsTyping(true);
+                              setTimeout(() => {
+                                const proofMessage: Message = {
+                                    id: messages.length + 6,
+                                    sender: 'team',
+                                    content: 'Várias pessoas chegaram até nós com o mesmo problema, achando que tinham perdido tudo.\nApós a análise e o processo feito pela DesbanX, muitas conseguiram recuperar suas contas. ✨',
+                                };
+                                setMessages(prev => [...prev, proofMessage]);
+                                setIsTyping(false);
+
                                 setTimeout(() => {
-                                    const feedbackMessage: Message = {
-                                        id: messages.length + 8,
-                                        sender: 'team',
-                                        content: 'Veja alguns feedbacks 👇',
-                                    };
-                                    setMessages(prev => [...prev, feedbackMessage]);
-                                    setIsTyping(false);
-                                    
+                                    setIsTyping(true);
                                     setTimeout(() => {
-                                        setShowFeedbacks(true);
-                                    }, 2000);
-
-                                    setTimeout(() => {
-                                        setIsTyping(true);
+                                        const feedbackMessage: Message = {
+                                            id: messages.length + 8,
+                                            sender: 'team',
+                                            content: 'Veja alguns feedbacks 👇',
+                                        };
+                                        setMessages(prev => [...prev, feedbackMessage]);
+                                        setIsTyping(false);
+                                        
                                         setTimeout(() => {
-                                            const finalHook: Message = {
-                                                id: messages.length + 10,
-                                                sender: 'team',
-                                                content: 'Para iniciar, basta finalizar a contratação do serviço de análise no botão abaixo. ⬇️',
-                                            };
-                                            setMessages(prev => [...prev, finalHook]);
-                                            setIsTyping(false);
-                                        }, 3000)
-                                    }, 4000)
-                                }, 2000)
-                            }, 3000)
-                          }, 2000);
-                        }, 5000);
+                                            setShowFeedbacks(true);
+                                        }, 2000);
 
-                    }, 2000);
-                }, 3000);
+                                        setTimeout(() => {
+                                            setIsTyping(true);
+                                            setTimeout(() => {
+                                                const finalHook: Message = {
+                                                    id: messages.length + 10,
+                                                    sender: 'team',
+                                                    content: 'Para iniciar, basta finalizar a contratação do serviço de análise no botão abaixo. ⬇️',
+                                                };
+                                                setMessages(prev => [...prev, finalHook]);
+                                                setIsTyping(false);
+                                            }, 3000)
+                                        }, 4000)
+                                    }, 2000)
+                                }, 5000)
+                              }, 2000);
+                            }, 3000);
 
-
+                        }, 2000);
+                    }, 3000);
+                }, 1000);
             }, 3000);
-        }, 3000);
+        }, 1000);
     } else {
         setIsTyping(true);
         setTimeout(() => {
@@ -307,12 +308,20 @@ Descrição do ocorrido:
                               )}
                               >
                               <p className="text-sm whitespace-pre-wrap">{msg.content}</p>
-                              <div className="flex justify-end items-center gap-1 mt-1">
-                                  {msg.sender === 'user' && <MessageStatus status={msg.status} />}
-                              </div>
+                              {msg.sender === 'user' && (
+                                <div className="flex justify-end items-center gap-1 mt-1">
+                                    <MessageStatus status={msg.status} />
+                                </div>
+                              )}
                           </div>
                       </div>
                   ))}
+                  {showFeedbacks && (
+                    <div className="max-w-xs mx-auto pt-4 space-y-4 animate-in fade-in-50 duration-500">
+                        <Image src="/feedback1.jpg" alt="Feedback de cliente 1" width={400} height={800} className="rounded-lg object-contain" />
+                        <Image src="/feedback2.jpg" alt="Feedback de cliente 2" width={400} height={800} className="rounded-lg object-contain" />
+                    </div>
+                  )}
                   {isTyping && (
                        <div className="flex items-end gap-2 justify-start">
                           <Avatar className="h-8 w-8">
@@ -323,12 +332,6 @@ Descrição do ocorrido:
                               <TypingIndicator />
                           </div>
                       </div>
-                  )}
-                  {showFeedbacks && (
-                    <div className="max-w-sm mx-auto pt-4 space-y-4 animate-in fade-in-50 duration-500">
-                        <Image src="/feedback1.jpg" alt="Feedback de cliente 1" width={400} height={800} className="rounded-lg object-contain" />
-                        <Image src="/feedback2.jpg" alt="Feedback de cliente 2" width={400} height={800} className="rounded-lg object-contain" />
-                    </div>
                   )}
                    <div ref={chatEndRef} />
               </div>
