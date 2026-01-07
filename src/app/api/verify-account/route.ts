@@ -13,27 +13,19 @@ export async function GET(request: Request) {
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), 8000); // 8 segundos de timeout
 
-    const apiResponse = await fetch(`https://free-ff-api-src-5plp.onrender.com/api/v1/account?region=${region}&uid=${uid}`, {
+    const apiResponse = await fetch(`https://ffdvinh09-info.vercel.app/player-info?region=${region}&uid=${uid}`, {
       signal: controller.signal
     });
 
     clearTimeout(timeoutId);
 
-    const responseText = await apiResponse.text();
-    let data;
-    try {
-        data = JSON.parse(responseText);
-    } catch (e) {
-        // Se a resposta não for um JSON válido, é um erro.
-        console.error("API externa retornou resposta não-JSON:", responseText);
-        return NextResponse.json({ message: 'A API externa não respondeu como esperado. Tente mais tarde.' }, { status: 502 });
-    }
+    const data = await apiResponse.json();
 
-    if (apiResponse.ok && data && data.basicInfo && data.basicInfo.nickname) {
+    if (apiResponse.ok && data && data.nickname) {
         return NextResponse.json({ 
-          nickname: data.basicInfo.nickname,
-          level: data.basicInfo.level,
-          server: data.basicInfo.region || region
+          nickname: data.nickname,
+          level: data.level,
+          server: data.region || region
         });
     }
     
