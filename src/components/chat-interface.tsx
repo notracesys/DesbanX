@@ -173,11 +173,6 @@ Descrição do ocorrido:
                 setMessages(prev => [...prev, finalResponse]);
                 setIsTyping(false);
 
-                // Redireciona para o WhatsApp após a mensagem final
-                setTimeout(() => {
-                   window.location.href = 'https://wa.me/5511999999999?text=Ol%C3%A1%2C%20vim%20pelo%20site%20e%20quero%20iniciar%20a%20an%C3%A1lise%20da%20minha%20conta.';
-                }, 1000);
-
             }, 3000);
         }, 3000);
     } else {
