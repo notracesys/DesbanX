@@ -77,7 +77,7 @@ Descrição do ocorrido:
             const teamResponse: Message = {
                 id: 2,
                 sender: 'team',
-                content: 'Olá! Recebemos suas informações. Após uma análise preliminar do nosso sistema, identificamos que seu caso tem características de um banimento automático, o que significa que existem chances reais de recuperação se o processo de contestação for feito corretamente. Nossa equipe pode preparar uma defesa técnica detalhada para ser enviada à plataforma.',
+                content: '👋 Olá! Recebemos suas informações. Após uma análise preliminar, identificamos que seu caso tem características de um banimento automático, o que significa que existem chances reais de recuperação. Nossa equipe pode preparar uma defesa técnica detalhada para você. 📄',
                 timestamp: new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' }),
             };
             setMessages((prev) => [...prev, teamResponse]);
@@ -91,7 +91,7 @@ Descrição do ocorrido:
                 const teamResponse2: Message = {
                   id: 3,
                   sender: 'team',
-                  content: `Muitos banimentos acontecem sem análise humana detalhada.\nQuando o caso é apresentado da forma certa, a plataforma pode reavaliar a decisão.\n\nÉ exatamente nesse ponto que a equipe da DesbanX atua.`,
+                  content: `🤔 Muitos banimentos acontecem sem análise humana detalhada.\nQuando o caso é apresentado da forma certa, a plataforma pode reavaliar a decisão.💡\n\nÉ exatamente nesse ponto que a equipe da DesbanX atua. 💪`,
                   timestamp: new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' }),
                 };
                 setMessages((prev) => [...prev, teamResponse2]);
