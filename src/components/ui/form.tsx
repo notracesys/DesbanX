@@ -1,3 +1,4 @@
+
 "use client"
 
 import * as React from "react"
@@ -144,12 +145,12 @@ FormDescription.displayName = "FormDescription"
 
 const FormMessage = React.forwardRef<
   HTMLParagraphElement,
-  React.HTMLAttributes<HTMLParagraphElement>
->(({ className, children, ...props }, ref) => {
+  React.HTMLAttributes<HTMLParagraphElement> & { hidden?: boolean }
+>(({ className, children, hidden, ...props }, ref) => {
   const { error, formMessageId } = useFormField()
   const body = error ? String(error?.message ?? "") : children
 
-  if (!body) {
+  if (!body || hidden) {
     return null
   }
 
