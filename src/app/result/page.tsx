@@ -5,7 +5,7 @@ import Header from '@/components/header';
 import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { ArrowRight, ShieldCheck, Gem, BarChart } from 'lucide-react';
+import { Check, Shield, Star, AlertTriangle } from 'lucide-react';
 
 
 const TOTAL_ANALYSIS_TIME = 10; // seconds
@@ -44,7 +44,7 @@ export default function ResultPage() {
   );
 
   return (
-    <div className="flex min-h-screen flex-col overflow-hidden">
+    <div className="flex min-h-screen flex-col">
       <Header />
       <main className="flex-grow flex items-center justify-center container mx-auto px-4 py-8">
         {isAnalyzing ? (
@@ -54,43 +54,106 @@ export default function ResultPage() {
             <Progress value={analysisProgress} className="w-full h-4" />
           </div>
         ) : (
-          <div className="w-full max-w-4xl text-center animate-in fade-in-50 duration-1000">
-            <h1 className="font-headline text-4xl md:text-5xl font-bold text-green-400">Boas notícias!</h1>
-            <p className="mt-4 text-xl md:text-2xl text-muted-foreground">
-              Sua conta tem potencial para ser recuperada com a ajuda da equipe <span className="font-bold text-primary">Desban X</span>.
-            </p>
-            <p className="mt-2 text-md text-muted-foreground/80">Identificamos uma alta probabilidade de anular a suspensão com nosso método.</p>
+          <div className="w-full max-w-3xl mx-auto space-y-12 animate-in fade-in-50 duration-1000">
 
-            <Card className="mt-10 text-left">
+            {/* Seção 1: Impacto Inicial */}
+            <section className="text-center">
+              <h1 className="text-4xl md:text-5xl font-bold mb-4">🎉 Parabéns!</h1>
+              <p className="text-2xl font-semibold text-green-400 flex items-center justify-center gap-2">
+                <Check className="h-8 w-8" /> Sua conta TEM chances reais de recuperação
+              </p>
+              <p className="mt-4 text-muted-foreground max-w-2xl mx-auto">
+                Com base nas informações que você enviou, seu banimento apresenta características de bloqueio automático, o que abre possibilidade de reversão quando o caso é analisado corretamente.
+              </p>
+              <p className="mt-4 font-semibold text-lg">
+                👉 Você não caiu aqui por acaso. A maioria das contas perde a chance porque não sabe como recorrer — você está um passo à frente.
+              </p>
+            </section>
+
+            {/* Seção 2: Autoridade + Explicação */}
+            <Card>
               <CardHeader>
-                <CardTitle className="text-2xl text-center">O que você recebe:</CardTitle>
+                <CardTitle className="text-2xl font-bold text-center">🔍 Por que sua conta pode voltar?</CardTitle>
               </CardHeader>
-              <CardContent className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                 <div className="flex flex-col items-center text-center p-4 rounded-lg bg-card-foreground/5">
-                    <BarChart className="text-primary" size={40} />
-                    <h3 className="mt-2 font-bold">Análise Completa</h3>
-                    <p className="text-sm text-muted-foreground">Relatório detalhado sobre os pontos fracos do seu banimento.</p>
-                </div>
-                 <div className="flex flex-col items-center text-center p-4 rounded-lg bg-card-foreground/5">
-                    <Gem className="text-primary" size={40} />
-                    <h3 className="mt-2 font-bold">Dossiê Exclusivo</h3>
-                    <p className="text-sm text-muted-foreground">Argumentos e provas para reverter a decisão da Garena.</p>
-                </div>
-                 <div className="flex flex-col items-center text-center p-4 rounded-lg bg-card-foreground/5">
-                    <ShieldCheck className="text-primary" size={40} />
-                    <h3 className="mt-2 font-bold">Garantia de Suporte</h3>
-                    <p className="text-sm text-muted-foreground">Nossa equipe acompanha você durante todo o processo.</p>
-                </div>
+              <CardContent className="space-y-4">
+                <p className="text-muted-foreground text-center">Muitos banimentos no Free Fire são aplicados por sistemas automáticos, sem análise humana detalhada. Quando isso acontece:</p>
+                <ul className="space-y-2 text-left bg-card-foreground/5 p-4 rounded-lg">
+                  <li className="flex items-start gap-2"><span className="text-red-500 mt-1">❌</span><span>O sistema pode errar e interpretar ações normais como trapaça.</span></li>
+                  <li className="flex items-start gap-2"><span className="text-red-500 mt-1">❌</span><span>Denúncias em massa por outros jogadores podem influenciar a decisão.</span></li>
+                  <li className="flex items-start gap-2"><span className="text-red-500 mt-1">❌</span><span>A conta não é avaliada corretamente, ignorando seu histórico.</span></li>
+                </ul>
+                <p className="font-bold text-center text-lg">👉 Nosso trabalho é transformar esse bloqueio automático em uma análise manual, usando o processo correto.</p>
               </CardContent>
             </Card>
 
-            <div className="mt-10">
-              <Button size="lg" className="font-bold text-lg h-14 bg-green-500 hover:bg-green-600 text-black">
-                Quero Recuperar Minha Conta Agora
-                <ArrowRight className="ml-2 h-6 w-6" />
-              </Button>
-               <p className="text-xs mt-2 text-muted-foreground">Vagas limitadas. Pagamento único e seguro.</p>
+            {/* Seção 3: Apresentação */}
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-2xl font-bold text-center">🛡️ Quem é a DesbanX?</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-4 text-center">
+                <p className="text-muted-foreground">A DesbanX é uma equipe especializada em análise e contestação de banimentos automáticos, focada em casos onde ainda existe possibilidade real de recuperação.</p>
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-left pt-2">
+                    <div className="flex items-center gap-2 p-2 rounded-lg bg-card-foreground/5"><Check className="text-green-500 flex-shrink-0" /> Análise personalizada</div>
+                    <div className="flex items-center gap-2 p-2 rounded-lg bg-card-foreground/5"><Check className="text-green-500 flex-shrink-0" /> Processo estratégico</div>
+                    <div className="flex items-center gap-2 p-2 rounded-lg bg-card-foreground/5"><Check className="text-green-500 flex-shrink-0" /> Suporte direto</div>
+                </div>
+                <p className="font-semibold italic pt-4">Não prometemos milagres. Trabalhamos com método, experiência e estratégia.</p>
+              </CardContent>
+            </Card>
+
+             {/* Seção 4: Gatilho de Oportunidade */}
+            <div className="bg-destructive/10 border border-destructive/50 text-destructive-foreground p-6 rounded-lg text-center">
+                <h2 className="text-2xl font-bold flex items-center justify-center gap-2">🚨 Atenção</h2>
+                <p className="mt-2 text-lg font-semibold">O tempo importa.</p>
+                <p className="text-destructive-foreground/80">Quanto antes o processo é iniciado, maiores são as chances de sucesso, principalmente em banimentos automáticos recentes. Adiar pode significar perder a oportunidade de revisão.</p>
             </div>
+
+            {/* Seção 5: Prova Social */}
+            <section className="space-y-4">
+                <h2 className="text-2xl font-bold text-center">💬 O que nossos clientes dizem</h2>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <Card className="bg-card-foreground/5">
+                        <CardContent className="p-4 text-center">
+                            <div className="flex justify-center text-yellow-400 mb-2">{Array(5).fill(0).map((_, i) => <Star key={i} fill="currentColor" />)}</div>
+                            <p className="text-sm italic text-muted-foreground">“Minha conta tinha tudo pra estar perdida. A DesbanX resolveu.”</p>
+                        </CardContent>
+                    </Card>
+                    <Card className="bg-card-foreground/5">
+                        <CardContent className="p-4 text-center">
+                            <div className="flex justify-center text-yellow-400 mb-2">{Array(5).fill(0).map((_, i) => <Star key={i} fill="currentColor" />)}</div>
+                            <p className="text-sm italic text-muted-foreground">“Ban automático. Em poucos dias já tive resposta positiva.”</p>
+                        </CardContent>
+                    </Card>
+                    <Card className="bg-card-foreground/5">
+                        <CardContent className="p-4 text-center">
+                            <div className="flex justify-center text-yellow-400 mb-2">{Array(5).fill(0).map((_, i) => <Star key={i} fill="currentColor" />)}</div>
+                            <p className="text-sm italic text-muted-foreground">“Valeu mais do que criar outra conta do zero.”</p>
+                        </CardContent>
+                    </Card>
+                </div>
+            </section>
+
+            {/* Seção 6: CTA Principal */}
+            <section className="text-center bg-card p-8 rounded-lg shadow-2xl">
+                 <h2 className="text-3xl font-bold mb-2">🔓 Pronto para tentar recuperar sua conta?</h2>
+                 <p className="text-muted-foreground mb-6">Você já sabe que existe chance. Agora é a hora de agir com quem sabe o que está fazendo.</p>
+                 <p className="mb-4">👇 Clique no botão abaixo e fale agora com a equipe da DesbanX</p>
+                 
+                <Button size="lg" className="w-full font-bold text-lg h-16 bg-green-500 hover:bg-green-600 text-black shadow-lg shadow-green-500/20 transform hover:scale-105 transition-transform">
+                    🚀 QUERO INICIAR MINHA RECUPERAÇÃO 🚀
+                </Button>
+                <div className="mt-4 flex justify-center">
+                    <span className="bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded-full animate-pulse-badge">🔥 Vagas limitadas para análise hoje</span>
+                </div>
+            </section>
+            
+            {/* Seção 7: Transparência */}
+            <div className="text-center text-xs text-muted-foreground/80 p-4 rounded-lg bg-background">
+                <p className="font-bold flex items-center justify-center gap-1"><AlertTriangle className="w-3 h-3" />Importante:</p>
+                <p>Nem todo banimento é reversível. Cada conta passa por análise antes de qualquer procedimento. A decisão final é sempre da plataforma do jogo.</p>
+            </div>
+
           </div>
         )}
       </main>
