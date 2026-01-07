@@ -64,12 +64,12 @@ export default function Details({ onGenerateAppeal, appealText, isGenerating }: 
     setAccountData(null);
     try {
       const response = await fetch(`/api/verify-account?region=${data.region}&uid=${data.accountId}`);
-      if (!response.ok) {
-        const errorData = await response.json().catch(() => ({ message: 'Não foi possível verificar a conta. Verifique o ID e a região.'}));
-        throw new Error(errorData.message);
-      }
       const result = await response.json();
 
+      if (!response.ok) {
+        throw new Error(result.message || 'Não foi possível verificar a conta. Verifique o ID e a região.');
+      }
+      
       setAccountData({
         nickname: result.nickname,
         level: result.level || 0, // API might not return level
