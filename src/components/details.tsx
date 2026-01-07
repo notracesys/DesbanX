@@ -63,9 +63,10 @@ export default function Details({ onGenerateAppeal, appealText, isGenerating }: 
     setIsVerifying(true);
     setAccountData(null);
     try {
-      const response = await fetch(`https://free-ff-api-src-5plp.onrender.com/api/v1/account?region=${data.region}&uid=${data.accountId}`);
+      const response = await fetch(`/api/verify-account?region=${data.region}&uid=${data.accountId}`);
       if (!response.ok) {
-        throw new Error('Não foi possível verificar a conta. Verifique o ID e a região.');
+        const errorData = await response.json().catch(() => ({ message: 'Não foi possível verificar a conta. Verifique o ID e a região.'}));
+        throw new Error(errorData.message);
       }
       const result = await response.json();
 
@@ -274,5 +275,3 @@ export default function Details({ onGenerateAppeal, appealText, isGenerating }: 
     </div>
   );
 }
-
-    
