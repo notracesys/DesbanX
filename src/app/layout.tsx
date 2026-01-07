@@ -3,7 +3,7 @@ import './globals.css';
 import { Toaster } from '@/components/ui/toaster';
 
 export const metadata: Metadata = {
-  title: 'FF Account Assist',
+  title: 'Recupere sua conta de free fire',
   description: 'Análise e auxílio para recuperação de contas do Free Fire banidas injustamente.',
 };
 
