@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 
-const regions = ['BR', 'EU', 'ID', 'MENA', 'NA', 'SA', 'SG', 'TH', 'TW', 'VN'];
+const regions = ['BR', 'EU', 'ID', 'MENA', 'NA', 'SA', 'SG', 'TH', 'TW', 'VN', 'IND'];
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
@@ -12,19 +12,31 @@ export async function GET(request: Request) {
 
   for (const region of regions) {
     try {
-      const apiResponse = await fetch(`https://free-ff-api-src-5plp.onrender.com/api/v1/account?region=${region}&uid=${uid}`);
+      // O timeout é importante para não ficarmos presos em uma região que não responde.
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 5000); // 5 segundos de timeout
       
+      const apiResponse = await fetch(`https://free-ff-api-src-5plp.onrender.com/api/v1/account?region=${region}&uid=${uid}`, {
+        signal: controller.signal
+      });
+      
+      clearTimeout(timeoutId);
+
       if (apiResponse.ok) {
         const data = await apiResponse.json();
-        // A API pode retornar sucesso mesmo sem encontrar, então verificamos se tem nickname
-        if(data && data.nickname) {
-            // Garante que a região correta seja retornada na resposta
-            return NextResponse.json({ ...data, server: region });
+        // A API pode retornar sucesso mesmo sem encontrar, então verificamos a estrutura.
+        // Com base no seu exemplo, os dados estão em `basicInfo`.
+        if (data && data.basicInfo && data.basicInfo.nickname) {
+            return NextResponse.json({ 
+              nickname: data.basicInfo.nickname,
+              level: data.basicInfo.level,
+              server: data.basicInfo.region || region // Prioriza a região da API, se disponível
+            });
         }
       }
-      // Se a resposta não for ok, ou não tiver nickname, continuamos para a próxima região
+      // Se a resposta não for ok, ou não tiver a estrutura esperada, continuamos.
     } catch (error) {
-      // Ignoramos erros individuais de fetch para uma região e continuamos tentando as outras
+      // Ignoramos erros individuais (como timeout) e continuamos tentando as outras regiões.
       console.log(`Erro ao verificar região ${region} para o UID ${uid}:`, error);
     }
   }
