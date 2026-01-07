@@ -22,7 +22,7 @@ const Logo = () => (
 
 export default function Header() {
   return (
-    <header className="absolute top-0 z-50 w-full border-b border-white/20 bg-black/50 backdrop-blur-lg">
+    <header className="sticky top-0 z-50 w-full border-b border-white/20 bg-black/50 backdrop-blur-lg">
       <div className="container mx-auto px-4 h-16 flex items-center justify-between">
         <Logo />
         <div className="flex items-center gap-4">
