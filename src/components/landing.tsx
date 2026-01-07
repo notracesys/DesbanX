@@ -55,7 +55,7 @@ export default function Landing() {
               </DialogDescription>
             </DialogHeader>
             <ScrollArea className="h-72 w-full rounded-md border p-4">
-              <p className="text-sm text-gray-600 space-y-4">
+              <p className="text-sm text-muted-foreground space-y-4">
                 <span className="block">O presente site tem por objeto a prestação de serviços independentes de análise técnica, orientação e suporte informacional, voltados exclusivamente à contestação administrativa de banimentos aplicados em contas de jogos online.</span>
                 <span className="block">O CONTRATANTE declara ciência inequívoca de que o CONTRATADO não possui, mantém ou alega possuir qualquer vínculo, parceria, autorização, representação, afiliação ou relação comercial com a empresa Garena, com o jogo Free Fire ou com quaisquer de suas controladoras, coligadas ou subsidiárias, sendo todas as marcas mencionadas de propriedade exclusiva de seus respectivos titulares.</span>
                 <span className="block">Fica expressamente reconhecido que o CONTRATADO não garante, promete ou assegura a reversão, desbloqueio, recuperação ou restabelecimento de contas, itens virtuais, progressos, patentes ou quaisquer ativos digitais, uma vez que a decisão final e soberana compete exclusivamente à plataforma responsável pelo jogo.</span>
@@ -78,7 +78,7 @@ export default function Landing() {
                   Cancelar
                 </Button>
               </DialogClose>
-              <Button asChild disabled={!agreed} className={cn(!agreed && "cursor-not-allowed")}>
+              <Button asChild disabled={!agreed} className={cn('bg-blue-600 hover:bg-blue-700 text-white', !agreed && "cursor-not-allowed")}>
                 <Link href="/verify">
                   Prosseguir
                   <ArrowRight className="ml-2 h-4 w-4" />
