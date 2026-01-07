@@ -33,7 +33,7 @@ export default function Header() {
         <Logo />
         <Sheet>
           <SheetTrigger asChild>
-            <Button variant="outline" size="icon" className="border-none hover:bg-white/10">
+            <Button size="icon" className="border-none hover:bg-white/10">
               <Menu className="h-6 w-6 text-white" />
               <span className="sr-only">Abrir menu</span>
             </Button>
