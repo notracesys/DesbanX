@@ -175,7 +175,7 @@ Descrição do ocorrido:
             setIsTyping(true);
             setTimeout(() => { // Simula digitação (3s)
                 const finalResponse: Message = {
-                    id: messages.length + 3, // ID único
+                    id: messages.length + 2,
                     sender: 'team',
                     content: 'Ótima escolha. ✅\n\nVocê está dando o passo que a maioria não dá: recorrer da forma correta. 🚀',
                     timestamp: new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' }),
@@ -183,8 +183,23 @@ Descrição do ocorrido:
                 setMessages(prev => [...prev, finalResponse]);
                 setIsTyping(false);
                 
-                // Mostra o aviso após a última mensagem
-                setShowImportantNotice(true);
+                setTimeout(() => { // Espera 3s
+                    setIsTyping(true);
+                    setTimeout(() => { // Digita por 2s
+                        const finalMessage: Message = {
+                            id: messages.length + 4, // ID único
+                            sender: 'team',
+                            content: 'Agora é o seguinte 👇\nSeu caso não é comum. Ele apresenta sinais claros de banimento automático: e esses são exatamente os casos que ainda valem a tentativa.',
+                            timestamp: new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' }),
+                        };
+                        setMessages(prev => [...prev, finalMessage]);
+                        setIsTyping(false);
+                        
+                        // Mostra o aviso após a última mensagem
+                        setShowImportantNotice(true);
+                    }, 2000);
+                }, 3000);
+
 
             }, 3000);
         }, 3000);
