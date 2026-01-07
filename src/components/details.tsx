@@ -1,3 +1,4 @@
+
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -61,6 +62,7 @@ export default function Details({ onGenerateAppeal, appealText, isGenerating, an
   const handleVerify = async (data: AccountIdForm) => {
     setIsVerifying(true);
     setAccountData(null);
+    setIsVerified(false);
     form.clearErrors('accountId');
     try {
       const response = await fetch(`/api/verify-account?uid=${data.accountId}`);
@@ -182,7 +184,7 @@ export default function Details({ onGenerateAppeal, appealText, isGenerating, an
                         <ShieldCheck className="text-green-600" /> Conta Verificada
                       </CardTitle>
                     </CardHeader>
-                    <CardContent className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
+                    <CardContent className="grid grid-cols-2 md:grid-cols-3 gap-4 text-sm">
                       <div>
                         <p className="text-gray-500">Nickname</p>
                         <p className="font-bold text-gray-800">{accountData.nickname}</p>
