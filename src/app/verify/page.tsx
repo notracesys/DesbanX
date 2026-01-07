@@ -1,7 +1,7 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
-import { ShieldCheck, Loader2, Info, AlertTriangle, PartyPopper } from 'lucide-react';
+import { ShieldCheck, Loader2, Info, AlertTriangle, PartyPopper, ArrowRight } from 'lucide-react';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
@@ -20,6 +20,7 @@ import {
 import { cn } from '@/lib/utils';
 import Header from '@/components/header';
 import { Input } from '@/components/ui/input';
+import Link from 'next/link';
 
 const accountIdSchema = z.object({
   accountId: z.string().min(8, { message: 'O ID da conta deve ter pelo menos 8 dígitos.' }).regex(/^\d+$/, { message: 'Insira apenas números.' }),
@@ -163,6 +164,25 @@ export default function VerifyPage() {
                 </Form>
               </CardContent>
             </Card>
+
+            {isVerified && (
+              <Card className="w-full animate-in fade-in-50 duration-1000">
+                <CardHeader className="bg-card-foreground/5 rounded-t-lg border-b p-4">
+                  <CardTitle className="font-bold text-base flex items-center">
+                    <span className="bg-blue-600 text-primary-foreground rounded-full h-6 w-6 flex items-center justify-center text-sm mr-2">2</span> Próximo Passo
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="p-6 flex flex-col items-center justify-center text-center">
+                    <p className="text-muted-foreground mb-4">Sua conta foi verificada com sucesso. Prossiga para a análise completa.</p>
+                    <Button asChild className="font-bold bg-blue-600 hover:bg-blue-700 text-white">
+                      <Link href="/analysis">
+                        Prosseguir para Análise
+                        <ArrowRight className="ml-2 h-5 w-5" />
+                      </Link>
+                    </Button>
+                </CardContent>
+              </Card>
+            )}
           </div>
         </main>
       </div>
