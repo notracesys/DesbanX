@@ -27,7 +27,7 @@ export default function Landing() {
       <h1 className="font-headline text-4xl md:text-5xl font-bold tracking-tight uppercase">
         Recupere sua conta de free fire
       </h1>
-      <p className="mt-6 max-w-2xl mx-auto text-lg md:text-xl text-gray-600">
+      <p className="mt-6 max-w-2xl mx-auto text-lg md:text-xl text-muted-foreground">
         Muitas vezes, sua conta foi suspensa por um sistema automático, sem qualquer análise humana. Nossa ferramenta identifica essas falhas e abre o caminho para a recuperação.
       </p>
       <div className="mt-10">
@@ -47,7 +47,7 @@ export default function Landing() {
               <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
           </DialogTrigger>
-          <DialogContent className="sm:max-w-[600px]">
+          <DialogContent className="sm:max-w-[600px] bg-card text-card-foreground">
             <DialogHeader>
               <DialogTitle>Termos de Responsabilidade e Condições</DialogTitle>
               <DialogDescription>

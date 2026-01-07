@@ -111,7 +111,7 @@ export default function VerifyPage() {
             </section>
 
             <Card className="w-full">
-              <CardHeader className="bg-[#f7f7f7] rounded-t-lg border-b p-4">
+              <CardHeader className="bg-card-foreground/5 rounded-t-lg border-b p-4">
                 <CardTitle className="font-bold text-base flex items-center">
                   <span className="bg-primary text-primary-foreground rounded-full h-6 w-6 flex items-center justify-center text-sm mr-2">1</span> Login
                 </CardTitle>
@@ -124,7 +124,7 @@ export default function VerifyPage() {
                       name="accountId"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel className="font-normal text-sm flex items-center text-gray-600">ID do jogador <Info className="w-4 h-4 ml-1" /></FormLabel>
+                          <FormLabel className="font-normal text-sm flex items-center text-muted-foreground">ID do jogador <Info className="w-4 h-4 ml-1" /></FormLabel>
                           <div className="flex gap-2">
                             <FormControl>
                               <Input 
