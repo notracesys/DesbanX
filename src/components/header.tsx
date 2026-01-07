@@ -18,17 +18,26 @@ const ActiveUsers = () => {
         const initialCount = Math.floor(Math.random() * 401) + 100;
         setUserCount(initialCount);
 
-        // Configura um intervalo para atualizar o contador a cada 5 segundos
+        // Configura um intervalo para atualizar o contador
         const interval = setInterval(() => {
             setUserCount(prevCount => {
-                // Flutuação pequena e aleatória (-3 a +3)
-                const fluctuation = Math.floor(Math.random() * 7) - 3;
-                const newCount = (prevCount || initialCount) + fluctuation;
+                const currentCount = prevCount || initialCount;
+                let newCount;
+
+                // 10% de chance de uma queda grande
+                if (Math.random() < 0.1) {
+                    const bigDrop = Math.floor(Math.random() * 11) + 20; // Queda entre 20 e 30
+                    newCount = currentCount - bigDrop;
+                } else {
+                    // 90% de chance de uma flutuação pequena
+                    const smallFluctuation = Math.floor(Math.random() * 7) - 3; // Flutuação entre -3 e +3
+                    newCount = currentCount + smallFluctuation;
+                }
                 
                 // Garante que o número não caia abaixo de 100
                 return Math.max(100, newCount);
             });
-        }, 5000);
+        }, 5000); // Roda a cada 5 segundos
 
         // Limpa o intervalo quando o componente é desmontado
         return () => clearInterval(interval);
