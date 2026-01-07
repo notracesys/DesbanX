@@ -66,7 +66,7 @@ export default function Details({ onGenerateAppeal, appealText, isGenerating, an
         setAccountData({
           nickname: result.nickname,
           level: result.level || 0,
-          server: result.region || result.server,
+          server: result.server, // Usando o campo 'server' que garantimos na API
           status: 'Verificado',
         });
         setIsVerified(true);

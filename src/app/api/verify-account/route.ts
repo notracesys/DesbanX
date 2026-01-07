@@ -18,7 +18,8 @@ export async function GET(request: Request) {
         const data = await apiResponse.json();
         // A API pode retornar sucesso mesmo sem encontrar, então verificamos se tem nickname
         if(data && data.nickname) {
-            return NextResponse.json(data);
+            // Garante que a região correta seja retornada na resposta
+            return NextResponse.json({ ...data, server: region });
         }
       }
       // Se a resposta não for ok, ou não tiver nickname, continuamos para a próxima região
