@@ -45,7 +45,7 @@ const ActiveUsers = () => {
 
     if (userCount === null) {
         return (
-            <div className="flex items-center gap-2 text-sm text-white/80 animate-pulse">
+            <div className="flex items-center gap-2 text-sm text-foreground/80 animate-pulse">
                 <div className="h-2 w-2 rounded-full bg-green-400/50"></div>
                 Carregando...
             </div>
@@ -53,13 +53,13 @@ const ActiveUsers = () => {
     }
     
     return (
-        <div className="flex items-center gap-2 text-white">
+        <div className="flex items-center gap-2">
             <span className="relative flex h-3 w-3">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
             </span>
             <span className="font-bold text-sm">{userCount}</span>
-            <span className="text-sm text-white/80">usuários ativos</span>
+            <span className="text-sm text-foreground/80">usuários ativos</span>
         </div>
     );
 };
@@ -67,7 +67,7 @@ const ActiveUsers = () => {
 
 export default function Header() {
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-white/20 bg-black/50 backdrop-blur-lg">
+    <header className="sticky top-0 z-50 w-full border-b bg-background/50 backdrop-blur-lg">
       <div className="container mx-auto px-4 h-16 flex items-center justify-between">
         <Logo />
         <ActiveUsers />
