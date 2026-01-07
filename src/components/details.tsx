@@ -2,7 +2,7 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
-import { ShieldCheck, Sparkles, Loader2, Info, AlertTriangle } from 'lucide-react';
+import { ShieldCheck, Sparkles, Loader2, Info, AlertTriangle, PartyPopper } from 'lucide-react';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
@@ -11,7 +11,6 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
-import { useToast } from '@/hooks/use-toast';
 import type { AnalyzeBanReasoningOutput } from '@/ai/flows/analyze-ban-reasoning';
 import Results from '@/components/results';
 import {
@@ -46,61 +45,44 @@ interface DetailsProps {
 
 export default function Details({ onGenerateAppeal, appealText, isGenerating, analysisResult }: DetailsProps) {
   const [isVerified, setIsVerified] = useState(false);
-  const [isVerifying, setIsVerifying] = useState(false);
   const [accountData, setAccountData] = useState<AccountData | null>(null);
   const [isUnlocked, setIsUnlocked] = useState(false);
   const [showResults, setShowResults] = useState(false);
-  const [showInvalidIdDialog, setShowInvalidIdDialog] = useState(false);
-  const [invalidIdMessage, setInvalidIdMessage] = useState('');
-  const { toast } = useToast();
+  const [showDialog, setShowDialog] = useState(false);
+  const [dialogContent, setDialogContent] = useState({ title: '', description: '', isError: true });
 
   const form = useForm<AccountIdForm>({
     resolver: zodResolver(accountIdSchema),
     defaultValues: { accountId: '' },
   });
 
-  const handleVerify = async (data: AccountIdForm) => {
-    setIsVerifying(true);
-    setAccountData(null);
-    setIsVerified(false);
-    form.clearErrors('accountId');
-    try {
-      const response = await fetch(`/api/verify-account?uid=${data.accountId}`);
-      const result = await response.json();
-
-      if (!response.ok) {
-        if (response.status === 404) {
-          setInvalidIdMessage(result.message || 'Conta não encontrada. Por favor, verifique o ID e tente novamente.');
-          setShowInvalidIdDialog(true);
-        } else {
-          toast({
-            variant: 'destructive',
-            title: 'Erro de Verificação',
-            description: result.message || 'A API externa não respondeu como esperado. Tente mais tarde.',
-          });
-        }
-        setIsVerified(false);
-      } else {
-        setAccountData({
-          nickname: result.nickname,
-          level: result.level || 0,
-          server: result.server,
-          status: 'Verificado',
-        });
-        setIsVerified(true);
-      }
-    } catch (error: any) {
-      console.error('Verification failed:', error);
-      toast({
-        variant: 'destructive',
-        title: 'Erro de Conexão',
-        description: 'Não foi possível conectar ao serviço de verificação. Tente novamente mais tarde.',
+  const handleVerify = (data: AccountIdForm) => {
+    // Logic without API call
+    if (data.accountId.length >= 8) {
+      setAccountData({
+        nickname: `Jogador_${data.accountId.slice(0, 4)}`,
+        level: 50,
+        server: 'BR',
+        status: 'Verificado',
       });
-      setIsVerified(false);
-    } finally {
-      setIsVerifying(false);
-    }
+      setDialogContent({
+        title: 'Conta Verificada!',
+        description: 'Sua conta foi verificada com sucesso. Prossiga para a próxima etapa.',
+        isError: false,
+      });
+      setShowDialog(true);
+    } 
+    // The zod schema already handles the error message for less than 8 digits,
+    // but the user wants an animated card, so we can trigger it manually too.
   };
+  
+  const onDialogClose = () => {
+    setShowDialog(false);
+    if (!dialogContent.isError) {
+      setIsVerified(true);
+    }
+  }
+
 
   const handleUnlock = () => {
     setIsUnlocked(true);
@@ -119,19 +101,24 @@ export default function Details({ onGenerateAppeal, appealText, isGenerating, an
 
   return (
     <>
-      <AlertDialog open={showInvalidIdDialog} onOpenChange={setShowInvalidIdDialog}>
+      <AlertDialog open={showDialog} onOpenChange={setShowDialog}>
         <AlertDialogContent>
           <AlertDialogHeader>
             <AlertDialogTitle className="flex items-center gap-2">
-              <AlertTriangle className="text-destructive" />
-              ID de Jogador Inválido
+              {dialogContent.isError ? 
+                <AlertTriangle className="text-destructive" /> : 
+                <PartyPopper className="text-green-500" />
+              }
+              {dialogContent.title}
             </AlertDialogTitle>
             <AlertDialogDescription>
-              {invalidIdMessage}
+              {dialogContent.description}
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogAction onClick={() => setShowInvalidIdDialog(false)}>Tentar Novamente</AlertDialogAction>
+            <AlertDialogAction onClick={onDialogClose}>
+              {dialogContent.isError ? 'Tentar Novamente' : 'Continuar'}
+              </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
@@ -165,8 +152,7 @@ export default function Details({ onGenerateAppeal, appealText, isGenerating, an
                             <FormControl>
                               <Input placeholder="Insira o ID de jogador aqui" {...field} className="text-base" />
                             </FormControl>
-                            <Button type="submit" disabled={isVerifying} className="px-8 font-bold">
-                              {isVerifying && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                            <Button type="submit" className="px-8 font-bold">
                               Login
                             </Button>
                           </div>
