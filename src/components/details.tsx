@@ -59,14 +59,18 @@ export default function Details({ onGenerateAppeal, appealText, isGenerating, an
         if (response.status === 404) {
           form.setError('accountId', { type: 'manual', message: result.message });
         } else {
-          throw new Error(result.message || 'Não foi possível verificar a conta.');
+            toast({
+                variant: 'destructive',
+                title: 'Erro de Verificação',
+                description: result.message || 'A API externa não respondeu como esperado. Tente mais tarde.',
+            });
         }
         setIsVerified(false);
       } else {
         setAccountData({
           nickname: result.nickname,
           level: result.level || 0,
-          server: result.server, // Usando o campo 'server' que garantimos na API
+          server: result.server,
           status: 'Verificado',
         });
         setIsVerified(true);
