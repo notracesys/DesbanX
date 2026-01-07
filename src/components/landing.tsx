@@ -1,8 +1,27 @@
+'use client';
+
 import { Button } from '@/components/ui/button';
 import { ArrowRight } from 'lucide-react';
 import Link from 'next/link';
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+  DialogFooter,
+  DialogClose,
+} from '@/components/ui/dialog';
+import { Checkbox } from '@/components/ui/checkbox';
+import { Label } from '@/components/ui/label';
+import { ScrollArea } from '@/components/ui/scroll-area';
+import { useState } from 'react';
+import { cn } from '@/lib/utils';
 
 export default function Landing() {
+  const [agreed, setAgreed] = useState(false);
+
   return (
     <div className="text-center animate-in fade-in-50 duration-1000">
       <h1 className="font-headline text-4xl md:text-5xl font-bold tracking-tight text-white uppercase">
@@ -12,22 +31,62 @@ export default function Landing() {
         Muitas vezes, sua conta foi suspensa por um sistema automático, sem qualquer análise humana. Nossa ferramenta identifica essas falhas e abre o caminho para a recuperação.
       </p>
       <div className="mt-10">
-        <Button
-          size="lg"
-          asChild
-          className="font-bold relative overflow-hidden
-                     bg-blue-600 hover:bg-blue-700 text-white
-                     before:absolute before:inset-0
-                     before:-translate-x-full
-                     before:animate-shine
-                     before:bg-gradient-to-r
-                     before:from-transparent before:via-white/50 before:to-transparent"
-        >
-          <Link href="/verify">
-            Recuperar Conta
-            <ArrowRight className="ml-2 h-5 w-5" />
-          </Link>
-        </Button>
+        <Dialog onOpenChange={(open) => !open && setAgreed(false)}>
+          <DialogTrigger asChild>
+            <Button
+              size="lg"
+              className="font-bold relative overflow-hidden
+                         bg-blue-600 hover:bg-blue-700 text-white
+                         before:absolute before:inset-0
+                         before:-translate-x-full
+                         before:animate-shine
+                         before:bg-gradient-to-r
+                         before:from-transparent before:via-white/50 before:to-transparent"
+            >
+              Recuperar Conta
+              <ArrowRight className="ml-2 h-5 w-5" />
+            </Button>
+          </DialogTrigger>
+          <DialogContent className="sm:max-w-[600px]">
+            <DialogHeader>
+              <DialogTitle>Termos de Responsabilidade e Condições</DialogTitle>
+              <DialogDescription>
+                Leia atentamente antes de prosseguir.
+              </DialogDescription>
+            </DialogHeader>
+            <ScrollArea className="h-72 w-full rounded-md border p-4">
+              <p className="text-sm text-gray-600 space-y-4">
+                <span className="block">O presente site tem por objeto a prestação de serviços independentes de análise técnica, orientação e suporte informacional, voltados exclusivamente à contestação administrativa de banimentos aplicados em contas de jogos online.</span>
+                <span className="block">O CONTRATANTE declara ciência inequívoca de que o CONTRATADO não possui, mantém ou alega possuir qualquer vínculo, parceria, autorização, representação, afiliação ou relação comercial com a empresa Garena, com o jogo Free Fire ou com quaisquer de suas controladoras, coligadas ou subsidiárias, sendo todas as marcas mencionadas de propriedade exclusiva de seus respectivos titulares.</span>
+                <span className="block">Fica expressamente reconhecido que o CONTRATADO não garante, promete ou assegura a reversão, desbloqueio, recuperação ou restabelecimento de contas, itens virtuais, progressos, patentes ou quaisquer ativos digitais, uma vez que a decisão final e soberana compete exclusivamente à plataforma responsável pelo jogo.</span>
+                <span className="block">O CONTRATADO não realiza, em nenhuma hipótese, acesso direto ou indireto, autorizado ou não, a sistemas internos, servidores, bancos de dados, códigos-fonte ou mecanismos de segurança de terceiros. Os serviços prestados limitam-se à análise das informações fornecidas pelo CONTRATANTE, organização de dados e orientação quanto a procedimentos formais de solicitação de revisão, sempre em conformidade com os termos de uso da plataforma.</span>
+                <span className="block">O CONTRATANTE declara que todas as informações fornecidas são verdadeiras, assumindo integral responsabilidade por eventuais inconsistências, omissões ou declarações inverídicas que possam comprometer o resultado do procedimento.</span>
+                <span className="block">O CONTRATADO não se responsabiliza por danos diretos, indiretos, incidentais, consequenciais, lucros cessantes ou perda de chance decorrentes de decisões adotadas pela plataforma do jogo, tampouco por suspensões, banimentos adicionais ou definitivos.</span>
+                <span className="block">Este site não incentiva, apoia, promove ou compactua com o uso de trapaças, programas ilegais, hacks, exploits, engenharia reversa ou qualquer prática que viole os termos de uso, políticas internas ou legislação vigente.</span>
+                <span className="block">Ao utilizar este site ou contratar quaisquer serviços nele oferecidos, o CONTRATANTE declara ter lido, compreendido e concordado integralmente com os presentes termos, que possuem caráter vinculante e irrevogável.</span>
+              </p>
+            </ScrollArea>
+            <div className="flex items-center space-x-2">
+              <Checkbox id="terms" checked={agreed} onCheckedChange={(checked) => setAgreed(checked as boolean)} />
+              <Label htmlFor="terms" className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+                Li e concordo com os termos e quero prosseguir.
+              </Label>
+            </div>
+            <DialogFooter>
+              <DialogClose asChild>
+                <Button type="button" variant="secondary">
+                  Cancelar
+                </Button>
+              </DialogClose>
+              <Button asChild disabled={!agreed} className={cn(!agreed && "cursor-not-allowed")}>
+                <Link href="/verify">
+                  Prosseguir
+                  <ArrowRight className="ml-2 h-4 w-4" />
+                </Link>
+              </Button>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
       </div>
     </div>
   );
