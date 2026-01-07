@@ -19,6 +19,7 @@ import {
 } from "@/components/ui/alert-dialog";
 import { cn } from '@/lib/utils';
 import Header from '@/components/header';
+import { Input } from '@/components/ui/input';
 
 const accountIdSchema = z.object({
   accountId: z.string().min(8, { message: 'O ID da conta deve ter pelo menos 8 dígitos.' }).regex(/^\d+$/, { message: 'Insira apenas números.' }),
