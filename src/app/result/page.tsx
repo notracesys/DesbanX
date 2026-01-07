@@ -57,7 +57,7 @@ export default function ResultPage() {
   );
 
   return (
-    <div className="flex min-h-screen flex-col">
+    <div className="flex min-h-screen flex-col overflow-hidden">
       <Header />
       <main className="flex-grow flex items-center justify-center container mx-auto px-4 py-8">
         {isAnalyzing ? (
@@ -69,10 +69,15 @@ export default function ResultPage() {
         ) : (
           <div className="w-full max-w-4xl text-center animate-in fade-in-50 duration-1000">
             {showConfetti && (
-              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex gap-4 text-primary animate-in zoom-in-50 fade-in-0">
-                  <PartyPopper size={48} className="animate-bounce" />
-                  <PartyPopper size={48} className="animate-bounce delay-150" />
-                  <PartyPopper size={48} className="animate-bounce delay-300" />
+              <div className="absolute top-0 left-0 right-0 flex justify-center gap-x-4 sm:gap-x-8 text-primary pointer-events-none">
+                  <PartyPopper size={48} className="animate-in slide-in-from-top-1/2 fade-out-0 duration-3000" style={{'animationDelay': '100ms'}} />
+                  <PartyPopper size={32} className="animate-in slide-in-from-top-1/3 fade-out-0 duration-3000" style={{'animationDelay': '700ms'}}/>
+                  <PartyPopper size={48} className="animate-in slide-in-from-top-1/2 fade-out-0 duration-3000" style={{'animationDelay': '300ms'}}/>
+                  <PartyPopper size={32} className="animate-in slide-in-from-top-1/3 fade-out-0 duration-3000" style={{'animationDelay': '900ms'}}/>
+                  <PartyPopper size={48} className="animate-in slide-in-from-top-1/2 fade-out-0 duration-3000" style={{'animationDelay': '200ms'}}/>
+                  <PartyPopper size={32} className="animate-in slide-in-from-top-1/3 fade-out-0 duration-3000" style={{'animationDelay': '600ms'}}/>
+                  <PartyPopper size={48} className="animate-in slide-in-from-top-1/2 fade-out-0 duration-3000" style={{'animationDelay': '400ms'}}/>
+                  <PartyPopper size={32} className="animate-in slide-in-from-top-1/3 fade-out-0 duration-3000" style={{'animationDelay': '800ms'}}/>
               </div>
             )}
             <h1 className="font-headline text-4xl md:text-5xl font-bold text-green-400">Boas notícias!</h1>
