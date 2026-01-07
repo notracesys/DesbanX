@@ -3,10 +3,12 @@
 import Header from '@/components/header';
 import Landing from '@/components/landing';
 import BackgroundVideo from '@/components/background-video';
+import BrowserCheckDialog from '@/components/browser-check-dialog';
 
 export default function Home() {
   return (
     <div className="flex min-h-full flex-col">
+      <BrowserCheckDialog />
       <Header />
       <main className="flex-grow flex flex-col -mt-4">
         <div className="relative h-[70vh] w-full">
