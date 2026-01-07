@@ -13,7 +13,7 @@ export default function Home() {
           <BackgroundVideo />
           <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black" />
         </div>
-        <div className="bg-black py-16">
+        <div className="bg-black py-8">
           <div className="relative z-10 container mx-auto px-4">
             <Landing />
           </div>
