@@ -24,7 +24,7 @@ import {
 } from "@/components/ui/alert-dialog"
 
 const accountIdSchema = z.object({
-  accountId: z.string().regex(/^\d+$/, { message: 'Insira apenas números.' }),
+  accountId: z.string().min(8, { message: 'O ID da conta deve ter pelo menos 8 dígitos.' }).regex(/^\d+$/, { message: 'Insira apenas números.' }),
 });
 
 type AccountIdForm = z.infer<typeof accountIdSchema>;
@@ -57,27 +57,19 @@ export default function Details({ onGenerateAppeal, appealText, isGenerating, an
   });
 
   const handleVerify = (data: AccountIdForm) => {
-    if (data.accountId.length >= 8) {
-      setAccountData({
-        nickname: `Jogador_${data.accountId.slice(0, 4)}`,
-        level: 50,
-        server: 'BR',
-        status: 'Verificado',
-      });
-      setDialogContent({
-        title: 'Conta Verificada!',
-        description: 'Sua conta foi verificada com sucesso. Prossiga para a próxima etapa.',
-        isError: false,
-      });
-      setShowDialog(true);
-    } else {
-        setDialogContent({
-            title: 'ID Inválido',
-            description: 'O ID da conta deve ter pelo menos 8 dígitos.',
-            isError: true,
-        });
-        setShowDialog(true);
-    }
+    // Simulando sucesso já que a API foi removida
+    setAccountData({
+      nickname: `Jogador_${data.accountId.slice(0, 4)}`,
+      level: 50,
+      server: 'BR',
+      status: 'Verificado',
+    });
+    setDialogContent({
+      title: 'Conta Verificada!',
+      description: 'Sua conta foi verificada com sucesso. Prossiga para a próxima etapa.',
+      isError: false,
+    });
+    setShowDialog(true);
   };
   
   const onDialogClose = () => {
@@ -99,6 +91,19 @@ export default function Details({ onGenerateAppeal, appealText, isGenerating, an
     setShowResults(true);
   }
 
+  const handleFormError = (errors: any) => {
+    const accountIdError = errors.accountId?.message;
+    if (accountIdError) {
+        setDialogContent({
+            title: 'ID Inválido',
+            description: accountIdError,
+            isError: true,
+        });
+        setShowDialog(true);
+    }
+  };
+
+
   if (showResults && analysisResult) {
     return <Results result={analysisResult} onNext={() => setShowResults(false)} />;
   }
@@ -108,7 +113,7 @@ export default function Details({ onGenerateAppeal, appealText, isGenerating, an
       <AlertDialog open={showDialog} onOpenChange={setShowDialog}>
         <AlertDialogContent>
           <AlertDialogHeader>
-            <AlertDialogTitle className="flex items-center gap-2">
+            <AlertDialogTitle className="flex items-center gap-2 justify-center">
               {dialogContent.isError ? 
                 <AlertTriangle className="text-destructive" /> : 
                 <PartyPopper className="text-green-500" />
@@ -145,14 +150,7 @@ export default function Details({ onGenerateAppeal, appealText, isGenerating, an
               </CardHeader>
               <CardContent className="p-6 space-y-4">
                 <Form {...form}>
-                  <form onSubmit={form.handleSubmit(handleVerify, () => {
-                    setDialogContent({
-                      title: 'ID Inválido',
-                      description: 'Por favor, insira apenas números no ID da sua conta.',
-                      isError: true,
-                    });
-                    setShowDialog(true);
-                  })} className="space-y-4">
+                  <form onSubmit={form.handleSubmit(handleVerify, handleFormError)} className="space-y-4">
                     <FormField
                       control={form.control}
                       name="accountId"
@@ -167,7 +165,7 @@ export default function Details({ onGenerateAppeal, appealText, isGenerating, an
                               Login
                             </Button>
                           </div>
-                          <FormMessage />
+                          <FormMessage hidden />
                         </FormItem>
                       )}
                     />
