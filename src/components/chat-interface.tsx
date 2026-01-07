@@ -4,9 +4,18 @@ import { useSearchParams } from 'next/navigation';
 import { useEffect, useState, useRef } from 'react';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
-import { Check, CheckCheck } from 'lucide-react';
+import { Check, CheckCheck, AlertTriangle } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import Link from 'next/link';
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
+
 
 type Message = {
   id: number;
@@ -33,6 +42,7 @@ export default function ChatInterface() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [isTyping, setIsTyping] = useState(false);
   const [showOptions, setShowOptions] = useState(false);
+  const [showImportantNotice, setShowImportantNotice] = useState(false);
   const chatEndRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -172,6 +182,9 @@ Descrição do ocorrido:
                 }
                 setMessages(prev => [...prev, finalResponse]);
                 setIsTyping(false);
+                
+                // Mostra o aviso após a última mensagem
+                setShowImportantNotice(true);
 
             }, 3000);
         }, 3000);
@@ -193,83 +206,104 @@ Descrição do ocorrido:
 
 
   return (
-    <div className="flex flex-col h-[calc(100vh-4rem)]">
-        <div className="bg-card border-b p-3 flex items-center gap-3">
-            <Avatar>
-                <AvatarImage src="/desbanlogo.png" alt="DesbanX Logo" />
-                <AvatarFallback>DX</AvatarFallback>
-            </Avatar>
-            <div>
-                <div className="flex items-center gap-2">
-                    <h2 className="font-bold">Equipe DesbanX</h2>
-                </div>
-                <p className="text-xs text-muted-foreground">Online</p>
-            </div>
-        </div>
+    <>
+      <AlertDialog open={showImportantNotice} onOpenChange={setShowImportantNotice}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle className="flex items-center gap-2">
+              <AlertTriangle className="text-destructive" />
+              Importante:
+            </AlertDialogTitle>
+            <AlertDialogDescription>
+              Em casos de banimento automático, o tempo é um fator decisivo. Quanto antes o processo é iniciado, maiores são as chances de sucesso.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogAction onClick={() => setShowImportantNotice(false)} className="bg-primary hover:bg-primary/90">
+              Fechar
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
 
-        <div className="flex-grow p-4 overflow-y-auto bg-background/50">
-            <div className="space-y-4 max-w-4xl mx-auto">
-                {messages.map((msg) => (
-                    <div
-                        key={msg.id}
-                        className={cn(
-                        'flex items-end gap-2',
-                        msg.sender === 'user' ? 'justify-end' : 'justify-start'
-                        )}
-                    >
-                        {msg.sender === 'team' && (
-                            <Avatar className="h-8 w-8">
-                                <AvatarImage src="/desbanlogo.png" alt="DesbanX Logo" />
-                                <AvatarFallback>DX</AvatarFallback>
-                            </Avatar>
-                        )}
-                        <div
-                            className={cn(
-                                'max-w-md md:max-w-lg rounded-lg p-3 text-white',
-                                msg.sender === 'user' ? 'bg-primary' : 'bg-secondary'
-                            )}
-                            >
-                            <p className="text-sm whitespace-pre-wrap">{msg.content}</p>
-                            <div className="flex justify-end items-center gap-1 mt-1">
-                                <span className="text-xs text-white/60">{msg.timestamp}</span>
-                                {msg.sender === 'user' && <MessageStatus status={msg.status} />}
-                            </div>
-                        </div>
-                    </div>
-                ))}
-                {isTyping && (
-                     <div className="flex items-end gap-2 justify-start">
-                        <Avatar className="h-8 w-8">
-                            <AvatarImage src="/desbanlogo.png" alt="DesbanX Logo" />
-                            <AvatarFallback>DX</AvatarFallback>
-                        </Avatar>
-                        <div className="max-w-md rounded-lg p-2 bg-secondary">
-                            <TypingIndicator />
-                        </div>
-                    </div>
-                )}
-                 <div ref={chatEndRef} />
-            </div>
-        </div>
-        <div className="bg-card border-t p-4">
-            {showOptions && (
-                <div className="flex flex-col sm:flex-row gap-2 max-w-4xl mx-auto animate-in fade-in-50 duration-500">
-                     <Button 
-                        onClick={() => handleOptionClick('sim')}
-                        className="flex-1 font-bold bg-green-600 hover:bg-green-700 text-white"
-                     >
-                        Sim, quero tentar recuperar minha conta
-                    </Button>
-                    <Button 
-                        onClick={() => handleOptionClick('nao')}
-                        variant="secondary"
-                        className="flex-1 font-semibold"
-                    >
-                       Não, apenas estou me informando
-                    </Button>
-                </div>
-            )}
-        </div>
-    </div>
+      <div className="flex flex-col h-[calc(100vh-4rem)]">
+          <div className="bg-card border-b p-3 flex items-center gap-3">
+              <Avatar>
+                  <AvatarImage src="/desbanlogo.png" alt="DesbanX Logo" />
+                  <AvatarFallback>DX</AvatarFallback>
+              </Avatar>
+              <div>
+                  <div className="flex items-center gap-2">
+                      <h2 className="font-bold">Equipe DesbanX</h2>
+                  </div>
+                  <p className="text-xs text-muted-foreground">Online</p>
+              </div>
+          </div>
+
+          <div className="flex-grow p-4 overflow-y-auto bg-background/50">
+              <div className="space-y-4 max-w-4xl mx-auto">
+                  {messages.map((msg) => (
+                      <div
+                          key={msg.id}
+                          className={cn(
+                          'flex items-end gap-2',
+                          msg.sender === 'user' ? 'justify-end' : 'justify-start'
+                          )}
+                      >
+                          {msg.sender === 'team' && (
+                              <Avatar className="h-8 w-8">
+                                  <AvatarImage src="/desbanlogo.png" alt="DesbanX Logo" />
+                                  <AvatarFallback>DX</AvatarFallback>
+                              </Avatar>
+                          )}
+                          <div
+                              className={cn(
+                                  'max-w-md md:max-w-lg rounded-lg p-3 text-white',
+                                  msg.sender === 'user' ? 'bg-primary' : 'bg-secondary'
+                              )}
+                              >
+                              <p className="text-sm whitespace-pre-wrap">{msg.content}</p>
+                              <div className="flex justify-end items-center gap-1 mt-1">
+                                  <span className="text-xs text-white/60">{msg.timestamp}</span>
+                                  {msg.sender === 'user' && <MessageStatus status={msg.status} />}
+                              </div>
+                          </div>
+                      </div>
+                  ))}
+                  {isTyping && (
+                       <div className="flex items-end gap-2 justify-start">
+                          <Avatar className="h-8 w-8">
+                              <AvatarImage src="/desbanlogo.png" alt="DesbanX Logo" />
+                              <AvatarFallback>DX</AvatarFallback>
+                          </Avatar>
+                          <div className="max-w-md rounded-lg p-2 bg-secondary">
+                              <TypingIndicator />
+                          </div>
+                      </div>
+                  )}
+                   <div ref={chatEndRef} />
+              </div>
+          </div>
+          <div className="bg-card border-t p-4">
+              {showOptions && (
+                  <div className="flex flex-col sm:flex-row gap-2 max-w-4xl mx-auto animate-in fade-in-50 duration-500">
+                       <Button 
+                          onClick={() => handleOptionClick('sim')}
+                          className="flex-1 font-bold bg-green-600 hover:bg-green-700 text-white"
+                       >
+                          Sim, quero tentar recuperar minha conta
+                      </Button>
+                      <Button 
+                          onClick={() => handleOptionClick('nao')}
+                          variant="secondary"
+                          className="flex-1 font-semibold"
+                      >
+                         Não, apenas estou me informando
+                      </Button>
+                  </div>
+              )}
+          </div>
+      </div>
+    </>
   );
 }
