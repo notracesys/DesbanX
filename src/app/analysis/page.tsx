@@ -66,13 +66,13 @@ export default function AnalysisPage() {
   });
 
   function onSubmit(data: QuizFormValues) {
-    console.log(data);
-    router.push('/result');
+    const query = new URLSearchParams(data).toString();
+    router.push(`/chat?${query}`);
   }
 
   function onError(errors: any) {
-    const firstError = Object.values(errors)[0];
-    const errorMessage = (firstError as any)?.message || 'Por favor, responda a todas as perguntas para continuar.';
+    const firstErrorKey = Object.keys(errors)[0];
+    const errorMessage = errors[firstErrorKey]?.message || 'Por favor, responda a todas as perguntas para continuar.';
     
     toast({
         variant: "destructive",
