@@ -1,13 +1,13 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
 import Header from '@/components/header';
 import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { ArrowRight, PartyPopper, ShieldCheck, Gem, BarChart } from 'lucide-react';
-import { cn } from '@/lib/utils';
+import { ArrowRight, ShieldCheck, Gem, BarChart } from 'lucide-react';
+import Confetti from '@/components/confetti';
+
 
 const TOTAL_ANALYSIS_TIME = 10; // seconds
 const CONFETTI_TIME = 5; // seconds
@@ -68,18 +68,7 @@ export default function ResultPage() {
           </div>
         ) : (
           <div className="w-full max-w-4xl text-center animate-in fade-in-50 duration-1000">
-            {showConfetti && (
-              <div className="absolute top-0 left-0 right-0 flex justify-center gap-x-4 sm:gap-x-8 text-primary pointer-events-none">
-                  <PartyPopper size={48} className="animate-in slide-in-from-top-1/2 fade-out-0 duration-3000" style={{'animationDelay': '100ms'}} />
-                  <PartyPopper size={32} className="animate-in slide-in-from-top-1/3 fade-out-0 duration-3000" style={{'animationDelay': '700ms'}}/>
-                  <PartyPopper size={48} className="animate-in slide-in-from-top-1/2 fade-out-0 duration-3000" style={{'animationDelay': '300ms'}}/>
-                  <PartyPopper size={32} className="animate-in slide-in-from-top-1/3 fade-out-0 duration-3000" style={{'animationDelay': '900ms'}}/>
-                  <PartyPopper size={48} className="animate-in slide-in-from-top-1/2 fade-out-0 duration-3000" style={{'animationDelay': '200ms'}}/>
-                  <PartyPopper size={32} className="animate-in slide-in-from-top-1/3 fade-out-0 duration-3000" style={{'animationDelay': '600ms'}}/>
-                  <PartyPopper size={48} className="animate-in slide-in-from-top-1/2 fade-out-0 duration-3000" style={{'animationDelay': '400ms'}}/>
-                  <PartyPopper size={32} className="animate-in slide-in-from-top-1/3 fade-out-0 duration-3000" style={{'animationDelay': '800ms'}}/>
-              </div>
-            )}
+            {showConfetti && <Confetti />}
             <h1 className="font-headline text-4xl md:text-5xl font-bold text-green-400">Boas notícias!</h1>
             <p className="mt-4 text-xl md:text-2xl text-muted-foreground">
               Sua conta tem potencial para ser recuperada com a ajuda da equipe <span className="font-bold text-primary">Desban X</span>.
