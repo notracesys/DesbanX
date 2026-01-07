@@ -167,7 +167,7 @@ Descrição do ocorrido:
                 const finalResponse: Message = {
                     id: messages.length + 3, // ID único
                     sender: 'team',
-                    content: 'Ótima escolha.\n\nVocê está dando o passo que a maioria não dá: recorrer da forma correta.',
+                    content: 'Ótima escolha. ✅\n\nVocê está dando o passo que a maioria não dá: recorrer da forma correta. 🚀',
                     timestamp: new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' }),
                 }
                 setMessages(prev => [...prev, finalResponse]);
@@ -182,7 +182,7 @@ Descrição do ocorrido:
             const finalResponse: Message = {
                 id: messages.length + 2,
                 sender: 'team',
-                content: 'Entendido. Se mudar de ideia, estaremos por aqui para ajudar. Recomendamos não demorar muito, pois o tempo é um fator importante para a recuperação. Boa sorte!',
+                content: 'Entendido. Se mudar de ideia, estaremos por aqui para ajudar. Recomendamos não demorar muito, pois o tempo é um fator importante para a recuperação. Boa sorte! 😉',
                 timestamp: new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' }),
             }
             setMessages(prev => [...prev, finalResponse]);
