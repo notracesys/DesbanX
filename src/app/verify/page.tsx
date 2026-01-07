@@ -23,7 +23,10 @@ import { Input } from '@/components/ui/input';
 import Link from 'next/link';
 
 const accountIdSchema = z.object({
-  accountId: z.string().min(8, { message: 'O ID da conta deve ter pelo menos 8 dígitos.' }).regex(/^\d+$/, { message: 'Insira apenas números.' }),
+  accountId: z.string()
+    .min(8, { message: 'O ID da conta deve ter entre 8 e 12 dígitos.' })
+    .max(12, { message: 'O ID da conta deve ter entre 8 e 12 dígitos.' })
+    .regex(/^\d+$/, { message: 'Insira apenas números.' }),
 });
 
 type AccountIdForm = z.infer<typeof accountIdSchema>;
@@ -45,17 +48,7 @@ export default function VerifyPage() {
     setIsVerifying(true);
     setTimeout(() => {
       setIsVerifying(false);
-      
-      if (values.accountId.length >= 8) {
-          setIsVerified(true);
-      } else {
-          setDialogContent({
-              title: 'ID Inválido',
-              description: 'O ID da conta deve ter pelo menos 8 dígitos.',
-              isError: true,
-          });
-          setShowDialog(true);
-      }
+      setIsVerified(true);
     }, 1000);
   };
   
