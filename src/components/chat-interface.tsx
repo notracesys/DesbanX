@@ -208,6 +208,20 @@ Descrição do ocorrido:
                             };
                             setMessages(prev => [...prev, proofMessage]);
                             setIsTyping(false);
+
+                            setTimeout(() => { // Espera 3s
+                                setIsTyping(true);
+                                setTimeout(() => { // Digita por 2s
+                                    const feedbackMessage: Message = {
+                                        id: messages.length + 8,
+                                        sender: 'team',
+                                        content: 'Veja alguns feedbacks 👇',
+                                        timestamp: new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' }),
+                                    };
+                                    setMessages(prev => [...prev, feedbackMessage]);
+                                    setIsTyping(false);
+                                }, 2000)
+                            }, 3000)
                           }, 2000);
                         }, 5000);
 
