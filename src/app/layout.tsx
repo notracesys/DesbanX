@@ -3,7 +3,7 @@ import './globals.css';
 import { Toaster } from '@/components/ui/toaster';
 
 export const metadata: Metadata = {
-  title: 'DEXBAN FF',
+  title: 'Desban X',
   description: 'Análise e auxílio para recuperação de contas do Free Fire banidas injustamente.',
   icons: {
     icon: '/favicon.png',
