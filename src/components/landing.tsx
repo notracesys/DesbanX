@@ -74,11 +74,11 @@ export default function Landing() {
             </div>
             <DialogFooter>
               <DialogClose asChild>
-                <Button type="button" variant="secondary">
+                <Button type="button" variant="secondary" size="sm">
                   Cancelar
                 </Button>
               </DialogClose>
-              <Button asChild disabled={!agreed} className={cn('ml-2 bg-blue-600 hover:bg-blue-700 text-white', !agreed && "cursor-not-allowed")}>
+              <Button asChild disabled={!agreed} size="sm" className={cn('ml-2 bg-blue-600 hover:bg-blue-700 text-white', !agreed && "cursor-not-allowed")}>
                 <Link href="/verify">
                   Prosseguir
                   <ArrowRight className="ml-2 h-4 w-4" />
