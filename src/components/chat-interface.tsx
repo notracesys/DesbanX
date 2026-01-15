@@ -403,7 +403,6 @@ Descrição do ocorrido:
                           asChild
                           size="lg"
                           className="w-full sm:w-auto font-bold relative overflow-hidden
-                                     bg-blue-600 hover:bg-blue-700 text-white
                                      before:absolute before:inset-0
                                      before:-translate-x-full
                                      before:animate-shine

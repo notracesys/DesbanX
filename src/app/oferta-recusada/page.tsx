@@ -28,7 +28,7 @@ export default function OfertaRecusadaPage() {
                         Esta é a sua última chance de lutar pela sua conta. O risco de não tentar é perder tudo.
                     </p>
                     <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                        <Button asChild className="bg-blue-600 hover:bg-blue-700 text-white font-bold">
+                        <Button asChild className="font-bold">
                             <Link href="https://pay.kirvano.com/c03ac9cc-9b2c-455d-a101-0816b338e5c0" target="_blank">
                                 <RefreshCw className="mr-2 h-4 w-4" />
                                 Quero Reconsiderar

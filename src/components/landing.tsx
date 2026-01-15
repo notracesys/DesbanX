@@ -9,9 +9,9 @@ import {
   DialogDescription,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
   DialogFooter,
   DialogClose,
+  DialogTrigger,
 } from '@/components/ui/dialog';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Label } from '@/components/ui/label';
@@ -36,7 +36,6 @@ export default function Landing() {
             <Button
               size="lg"
               className="font-bold relative overflow-hidden
-                         bg-blue-600 hover:bg-blue-700 text-white
                          before:absolute before:inset-0
                          before:-translate-x-full
                          before:animate-shine
@@ -78,7 +77,7 @@ export default function Landing() {
                   Cancelar
                 </Button>
               </DialogClose>
-              <Button asChild disabled={!agreed} size="sm" className={cn('bg-blue-600 hover:bg-blue-700 text-white', !agreed && "cursor-not-allowed")}>
+              <Button asChild disabled={!agreed} size="sm" className={cn(!agreed && "cursor-not-allowed")}>
                 <Link href="/verify">
                   Prosseguir
                   <ArrowRight className="ml-2 h-4 w-4" />

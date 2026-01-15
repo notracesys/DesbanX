@@ -89,7 +89,7 @@ export default function VerifyPage() {
                 </AlertDialogDescription>
               </AlertDialogHeader>
               <AlertDialogFooter>
-                <AlertDialogAction onClick={onDialogClose} className="bg-blue-600 hover:bg-blue-700">
+                <AlertDialogAction onClick={onDialogClose} className="bg-primary hover:bg-primary/90">
                   Tentar Novamente
                 </AlertDialogAction>
               </AlertDialogFooter>
@@ -107,7 +107,7 @@ export default function VerifyPage() {
             <Card className="w-full">
               <CardHeader className="bg-card-foreground/5 rounded-t-lg border-b p-4">
                 <CardTitle className="font-bold text-base flex items-center">
-                  <span className="bg-blue-600 text-primary-foreground rounded-full h-6 w-6 flex items-center justify-center text-sm mr-2">1</span> Login
+                  <span className="bg-primary text-primary-foreground rounded-full h-6 w-6 flex items-center justify-center text-sm mr-2">1</span> Login
                 </CardTitle>
               </CardHeader>
               <CardContent className="p-6 space-y-4">
@@ -134,7 +134,7 @@ export default function VerifyPage() {
                             <Button 
                               type="submit" 
                               className={cn(
-                                "px-8 font-bold w-40 bg-blue-600 hover:bg-blue-700 text-white",
+                                "px-8 font-bold w-40",
                                 isVerified && "bg-green-600 hover:bg-green-700 text-white opacity-100"
                               )}
                               disabled={isVerifying}
@@ -162,12 +162,12 @@ export default function VerifyPage() {
               <Card className="w-full animate-in fade-in-50 duration-1000">
                 <CardHeader className="bg-card-foreground/5 rounded-t-lg border-b p-4">
                   <CardTitle className="font-bold text-base flex items-center">
-                    <span className="bg-blue-600 text-primary-foreground rounded-full h-6 w-6 flex items-center justify-center text-sm mr-2">2</span> Próximo Passo
+                    <span className="bg-primary text-primary-foreground rounded-full h-6 w-6 flex items-center justify-center text-sm mr-2">2</span> Próximo Passo
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="p-6 flex flex-col items-center justify-center text-center">
                     <p className="text-muted-foreground mb-4">Sua conta foi verificada com sucesso. Prossiga para a análise completa.</p>
-                    <Button asChild className="font-bold bg-blue-600 hover:bg-blue-700 text-white">
+                    <Button asChild className="font-bold">
                       <Link href="/analysis">
                         Prosseguir para Análise
                         <ArrowRight className="ml-2 h-5 w-5" />
