@@ -3,12 +3,10 @@
 import Header from '@/components/header';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Home, AlertTriangle, RefreshCw, ArrowLeft } from 'lucide-react';
+import { Home, AlertTriangle, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
 
 export default function OfertaRecusadaPage() {
-  const router = useRouter();
 
   return (
     <div className="flex min-h-full flex-col">
@@ -31,9 +29,11 @@ export default function OfertaRecusadaPage() {
                         Não agir é a pior escolha. O tempo corre contra você.
                     </p>
                     <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
-                        <Button onClick={() => router.back()} className="font-bold text-lg">
-                            <ArrowLeft className="mr-2 h-5 w-5" />
-                            Me Arrependi, quero voltar!
+                        <Button asChild className="font-bold text-lg">
+                           <Link href="https://pay.kirvano.com/c03ac9cc-9b2c-455d-a101-0816b338e5c0" target="_blank">
+                                Me Arrependi, quero recuperar!
+                               <ArrowRight className="ml-2 h-5 w-5" />
+                           </Link>
                         </Button>
                         <Button asChild variant="outline">
                             <Link href="/">
