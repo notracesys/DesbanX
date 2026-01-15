@@ -47,7 +47,7 @@ export default function ChatInterface() {
   const [showOptions, setShowOptions] = useState(false);
   const [showImportantNotice, setShowImportantNotice] = useState(false);
   const [showPurchaseButton, setShowPurchaseButton] = useState(false);
-  const [showGoBackButton, setShowGoBackButton] = useState(false);
+  const [showFinalOptions, setShowFinalOptions] = useState(false);
   const chatEndRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -272,7 +272,48 @@ Descrição do ocorrido:
             }, 3000);
         }, 6000);
     } else {
-        router.push('/oferta-recusada');
+        setTimeout(() => {
+            setIsTyping(true);
+            setTimeout(() => {
+                const response1: Message = {
+                    id: Date.now(),
+                    sender: 'team',
+                    content: 'Você tem certeza? Essa pode ser uma decisão irreversível. É crucial que você entenda uma coisa: banimentos automáticos são como uma sentença de culpa.',
+                    type: 'text',
+                };
+                setMessages(prev => [...prev, response1]);
+                setIsTyping(false);
+
+                setTimeout(() => {
+                    setIsTyping(true);
+                    setTimeout(() => {
+                        const response2: Message = {
+                            id: Date.now() + 1,
+                            sender: 'team',
+                            content: 'Quando você NÃO RECORRE, o sistema entende que você está ACEITANDO A PUNIÇÃO. Ele marca seu caso como "resolvido", e suas chances de recuperação despencam para quase ZERO.',
+                            type: 'text',
+                        };
+                        setMessages(prev => [...prev, response2]);
+                        setIsTyping(false);
+
+                        setTimeout(() => {
+                            setIsTyping(true);
+                            setTimeout(() => {
+                                const response3: Message = {
+                                    id: Date.now() + 2,
+                                    sender: 'team',
+                                    content: 'Não agir é a pior escolha. O tempo corre contra você. Esta é sua última chance real.',
+                                    type: 'text',
+                                };
+                                setMessages(prev => [...prev, response3]);
+                                setIsTyping(false);
+                                setShowFinalOptions(true);
+                            }, 3000);
+                        }, 6000);
+                    }, 3000);
+                }, 6000);
+            }, 3000);
+        }, 6000);
     }
   }
 
@@ -404,18 +445,20 @@ Descrição do ocorrido:
                       </Button>
                   </div>
               )}
-               {showGoBackButton && (
-                  <div className="flex justify-center max-w-4xl mx-auto animate-in fade-in-50 duration-500">
-                      <Button asChild
-                          size="lg"
-                          className="w-full sm:w-auto font-bold"
-                          variant="outline"
-                      >
-                        <Link href="/">
-                            <Home className="mr-2 h-5 w-5" />
-                            Voltar ao Início
-                        </Link>
-                      </Button>
+               {showFinalOptions && (
+                  <div className="flex flex-col sm:flex-row gap-2 max-w-4xl mx-auto animate-in fade-in-50 duration-500">
+                      <Button asChild className="font-bold flex-1">
+                           <Link href="https://pay.kirvano.com/c03ac9cc-9b2c-455d-a101-0816b338e5c0" target="_blank">
+                                Me Arrependi, quero recuperar!
+                               <ArrowRight className="ml-2 h-5 w-5" />
+                           </Link>
+                        </Button>
+                        <Button asChild variant="outline" className="flex-1">
+                            <Link href="/">
+                                <Home className="mr-2 h-4 w-4" />
+                                Desistir e Perder a Conta
+                            </Link>
+                        </Button>
                   </div>
               )}
           </div>
