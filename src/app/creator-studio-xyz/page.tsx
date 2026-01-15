@@ -127,9 +127,9 @@ export default function CreatorStudioPage() {
 
           <div className="w-full max-w-4xl space-y-8 animate-in fade-in-50 duration-1000">
             <section className="text-center">
-              <h2 className="font-headline text-3xl md:text-4xl font-bold">Estúdio de Criação</h2>
+              <h2 className="font-headline text-3xl md:text-4xl font-bold">Gerador de Apelação</h2>
               <p className="mt-2 text-lg text-muted-foreground">
-                Gere textos de apelação para seus conteúdos.
+                Crie um texto de apelação formal para enviar ao suporte do jogo.
               </p>
             </section>
 
@@ -175,7 +175,7 @@ export default function CreatorStudioPage() {
                                   <ShieldCheck />
                                   Verificado
                                 </>
-                              ) : 'Gerar Prompt'}
+                              ) : 'Gerar Texto'}
                             </Button>
                           </div>
                           <FormMessage hidden />
