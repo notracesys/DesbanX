@@ -315,7 +315,7 @@ Descrição do ocorrido:
       <div className="flex flex-col h-[calc(100vh-4rem)]">
           <div className="bg-card border-b p-3 flex items-center gap-3">
               <Avatar>
-                  <AvatarImage src="/desbanlogo.png" alt="DesbanX Logo" />
+                  <AvatarImage src="/logo2.png" alt="DEXBAN FF Logo" />
                   <AvatarFallback>DX</AvatarFallback>
               </Avatar>
               <div>
@@ -347,7 +347,7 @@ Descrição do ocorrido:
                       >
                           {msg.sender === 'team' && (
                               <Avatar className="h-8 w-8">
-                                  <AvatarImage src="/desbanlogo.png" alt="DesbanX Logo" />
+                                  <AvatarImage src="/logo2.png" alt="DEXBAN FF Logo" />
                                   <AvatarFallback>DX</AvatarFallback>
                               </Avatar>
                           )}
@@ -370,7 +370,7 @@ Descrição do ocorrido:
                   {isTyping && (
                        <div className="flex items-end gap-2 justify-start">
                           <Avatar className="h-8 w-8">
-                              <AvatarImage src="/desbanlogo.png" alt="DesbanX Logo" />
+                              <AvatarImage src="/logo2.png" alt="DEXBAN FF Logo" />
                               <AvatarFallback>DX</AvatarFallback>
                           </Avatar>
                           <div className="max-w-md rounded-lg p-2 bg-secondary">

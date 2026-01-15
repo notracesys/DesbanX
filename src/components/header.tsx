@@ -6,7 +6,7 @@ import { useState, useEffect } from 'react';
 
 const Logo = () => (
     <Link href="/" className="flex items-center gap-4">
-        <Image src="/desbanlogo.png" alt="Desban Logo" width={120} height={34} />
+        <Image src="/logo2.png" alt="DEXBAN FF Logo" width={120} height={34} />
     </Link>
 );
 
