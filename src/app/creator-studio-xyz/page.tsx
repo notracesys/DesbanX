@@ -1,7 +1,7 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
-import { ShieldCheck, Loader2, Info, AlertTriangle, PartyPopper, ArrowRight } from 'lucide-react';
+import { ShieldCheck, Loader2, Info, AlertTriangle, Copy, CheckCircle } from 'lucide-react';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
@@ -20,7 +20,10 @@ import {
 import { cn } from '@/lib/utils';
 import Header from '@/components/header';
 import { Input } from '@/components/ui/input';
-import Link from 'next/link';
+import { generateSupportPrompt } from '@/ai/flows/generate-support-prompt-flow';
+import { Textarea } from '@/components/ui/textarea';
+import { useToast } from '@/hooks/use-toast';
+
 
 const accountIdSchema = z.object({
   accountId: z.string()
@@ -34,8 +37,13 @@ type AccountIdForm = z.infer<typeof accountIdSchema>;
 export default function VerifyPage() {
   const [isVerifying, setIsVerifying] = useState(false);
   const [isVerified, setIsVerified] = useState(false);
-  const [showDialog, setShowDialog] = useState(false);
-  const [dialogContent, setDialogContent] = useState({ title: '', description: '', isError: true });
+  const [showErrorDialog, setShowErrorDialog] = useState(false);
+  const [errorDialogContent, setErrorDialogContent] = useState({ title: '', description: ''});
+  const [isGenerating, setIsGenerating] = useState(false);
+  const [promptText, setPromptText] = useState('');
+  const [showPromptDialog, setShowPromptDialog] = useState(false);
+  const { toast } = useToast();
+
 
   const form = useForm<AccountIdForm>({
     resolver: zodResolver(accountIdSchema),
@@ -53,20 +61,47 @@ export default function VerifyPage() {
   };
   
   const onDialogClose = () => {
-    setShowDialog(false);
+    setShowErrorDialog(false);
   }
 
   const handleFormError = (errors: any) => {
     const accountIdError = errors.accountId?.message;
     if (accountIdError) {
-        setDialogContent({
+        setErrorDialogContent({
             title: 'ID Inválido',
             description: accountIdError,
-            isError: true,
         });
-        setShowDialog(true);
+        setShowErrorDialog(true);
     }
   };
+
+  const handleGeneratePrompt = async () => {
+    setIsGenerating(true);
+    try {
+        const accountId = form.getValues('accountId');
+        const result = await generateSupportPrompt(accountId);
+        setPromptText(result.supportText);
+        setShowPromptDialog(true);
+    } catch (error) {
+        console.error('Falha ao gerar prompt:', error);
+        toast({
+            variant: "destructive",
+            title: 'Erro',
+            description: 'Não foi possível gerar o texto de apelação. Tente novamente.',
+        });
+    } finally {
+        setIsGenerating(false);
+    }
+  };
+
+  const handleCopyToClipboard = () => {
+    navigator.clipboard.writeText(promptText);
+    toast({
+        title: "Copiado!",
+        description: "O texto de apelação foi copiado para sua área de transferência.",
+        action: <CheckCircle className="text-green-500" />,
+    })
+  }
 
 
   return (
@@ -74,18 +109,16 @@ export default function VerifyPage() {
       <div className="flex min-h-full flex-col">
         <Header />
         <main className="flex-grow container mx-auto px-4 py-8 md:py-16 flex flex-col items-center justify-center">
-          <AlertDialog open={showDialog} onOpenChange={setShowDialog}>
+          {/* Error Dialog for ID validation */}
+          <AlertDialog open={showErrorDialog} onOpenChange={setShowErrorDialog}>
             <AlertDialogContent>
               <AlertDialogHeader>
                 <AlertDialogTitle className="flex items-center gap-2 justify-center">
-                  {dialogContent.isError ? 
-                    <AlertTriangle className="text-destructive" /> : 
-                    <PartyPopper className="text-green-500" />
-                  }
-                  {dialogContent.title}
+                  <AlertTriangle className="text-destructive" />
+                  {errorDialogContent.title}
                 </AlertDialogTitle>
                 <AlertDialogDescription>
-                  {dialogContent.description}
+                  {errorDialogContent.description}
                 </AlertDialogDescription>
               </AlertDialogHeader>
               <AlertDialogFooter>
@@ -95,6 +128,33 @@ export default function VerifyPage() {
               </AlertDialogFooter>
             </AlertDialogContent>
           </AlertDialog>
+
+          {/* Prompt Dialog */}
+           <AlertDialog open={showPromptDialog} onOpenChange={setShowPromptDialog}>
+            <AlertDialogContent className="sm:max-w-2xl">
+              <AlertDialogHeader>
+                <AlertDialogTitle>Texto de Apelação Gerado</AlertDialogTitle>
+                <AlertDialogDescription>
+                  Copie o texto abaixo e envie para o suporte do jogo.
+                </AlertDialogDescription>
+              </AlertDialogHeader>
+              <Textarea
+                readOnly
+                value={promptText}
+                className="min-h-[250px] text-base bg-muted/50"
+              />
+              <AlertDialogFooter>
+                <Button variant="secondary" onClick={() => setShowPromptDialog(false)}>
+                  Fechar
+                </Button>
+                <Button onClick={handleCopyToClipboard}>
+                  <Copy className="mr-2 h-4 w-4" />
+                  Copiar Texto
+                </Button>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialog>
+
 
           <div className="w-full max-w-4xl space-y-8 animate-in fade-in-50 duration-1000">
             <section className="text-center">
@@ -166,12 +226,14 @@ export default function VerifyPage() {
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="p-6 flex flex-col items-center justify-center text-center">
-                    <p className="text-muted-foreground mb-4">Sua conta foi verificada com sucesso. Prossiga para a análise completa.</p>
-                    <Button asChild className="font-bold">
-                      <Link href="/analysis">
-                        Prosseguir para Análise
-                        <ArrowRight className="ml-2 h-5 w-5" />
-                      </Link>
+                    <p className="text-muted-foreground mb-4">Sua conta foi verificada com sucesso. Agora, gere o texto de apelação.</p>
+                    <Button onClick={handleGeneratePrompt} disabled={isGenerating} className="font-bold">
+                        {isGenerating ? (
+                            <>
+                                <Loader2 className="mr-2 h-5 w-5 animate-spin" />
+                                Gerando...
+                            </>
+                        ) : "Gerar Texto de Apelação"}
                     </Button>
                 </CardContent>
               </Card>
