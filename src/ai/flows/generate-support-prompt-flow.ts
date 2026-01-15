@@ -10,10 +10,10 @@
 import { ai } from '@/ai/genkit';
 import { z } from 'zod';
 
-export const GenerateSupportPromptInputSchema = z.string().describe('O ID da conta do jogador.');
+const GenerateSupportPromptInputSchema = z.string().describe('O ID da conta do jogador.');
 export type GenerateSupportPromptInput = z.infer<typeof GenerateSupportPromptInputSchema>;
 
-export const GenerateSupportPromptOutputSchema = z.object({
+const GenerateSupportPromptOutputSchema = z.object({
   supportText: z.string().describe('O texto de apelação gerado para enviar ao suporte.'),
 });
 export type GenerateSupportPromptOutput = z.infer<typeof GenerateSupportPromptOutputSchema>;
