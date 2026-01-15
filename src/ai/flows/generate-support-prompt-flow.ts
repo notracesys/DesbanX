@@ -29,10 +29,8 @@ const prompt = ai.definePrompt({
   prompt: `
     Você é um especialista em regulamentos de jogos online. Sua tarefa é redigir um parágrafo de apelação formal e técnico para um jogador que foi banido injustamente e usará este texto em um formulário de suporte. O tom deve ser sério, respeitoso e firme.
 
-    O ID da conta do jogador é: {{{input}}}
-
     O texto deve conter os seguintes pontos em um único parágrafo fluído:
-    - Declarar o propósito do contato: solicitar uma reavaliação manual e detalhada da suspensão aplicada à conta de ID {{{input}}}.
+    - Declarar o propósito do contato: solicitar uma reavaliação manual e detalhada da suspensão aplicada à minha conta.
     - Argumentar que a suspensão parece ter sido resultado de um sistema automatizado, que pode conter falsos positivos.
     - Afirmar que não houve violação dos Termos de Serviço e que a punição foi desproporcional ou equivocada.
     - Solicitar formalmente uma investigação humana e a apresentação de evidências que justifiquem o banimento.
