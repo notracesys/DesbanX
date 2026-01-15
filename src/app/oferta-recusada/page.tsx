@@ -19,17 +19,17 @@ export default function OfertaRecusadaPage() {
                     <CardTitle className="text-3xl font-headline">Você tem certeza?</CardTitle>
                 </CardHeader>
                 <CardContent className="text-center space-y-6 px-6 pb-8">
-                    <p className="text-lg text-muted-foreground">
+                    <p className="text-base text-muted-foreground">
                         Você está prestes a tomar uma decisão que pode ser irreversível. É crucial que você entenda uma coisa: banimentos automáticos são como uma sentença de culpa.
                     </p>
-                    <p className="text-foreground text-lg leading-relaxed">
+                    <p className="text-foreground text-base leading-relaxed">
                         Quando você <span className="font-bold text-destructive">NÃO RECORRE</span>, o sistema entende que você está <span className="font-bold text-destructive">ACEITANDO A PUNIÇÃO</span>. Ele marca seu caso como "resolvido", e suas chances de recuperação despencam para quase <span className="font-bold">ZERO</span>.
                     </p>
-                    <p className="font-bold text-xl text-primary animate-pulse-badge">
+                    <p className="font-bold text-lg text-primary animate-pulse-badge">
                         Não agir é a pior escolha. O tempo corre contra você.
                     </p>
                     <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
-                        <Button asChild className="font-bold text-lg">
+                        <Button asChild className="font-bold">
                            <Link href="https://pay.kirvano.com/c03ac9cc-9b2c-455d-a101-0816b338e5c0" target="_blank">
                                 Me Arrependi, quero recuperar!
                                <ArrowRight className="ml-2 h-5 w-5" />
