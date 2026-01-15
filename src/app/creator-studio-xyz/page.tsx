@@ -109,7 +109,7 @@ export default function VerifyPage() {
                 <CardTitle className="font-bold text-base flex items-center">
                   <span className="bg-primary text-primary-foreground rounded-full h-6 w-6 flex items-center justify-center text-sm mr-2">1</span> Login
                 </CardTitle>
-              </Header>
+              </CardHeader>
               <CardContent className="p-6 space-y-4">
                 <Form {...form}>
                   <form onSubmit={form.handleSubmit(handleVerify, handleFormError)} className="space-y-4">
