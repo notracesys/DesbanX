@@ -1,6 +1,6 @@
 'use client';
 
-import { useSearchParams } from 'next/navigation';
+import { useSearchParams, useRouter } from 'next/navigation';
 import { useEffect, useState, useRef } from 'react';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
@@ -41,6 +41,7 @@ const TypingIndicator = () => (
 
 export default function ChatInterface() {
   const searchParams = useSearchParams();
+  const router = useRouter();
   const [messages, setMessages] = useState<Message[]>([]);
   const [isTyping, setIsTyping] = useState(false);
   const [showOptions, setShowOptions] = useState(false);
@@ -271,22 +272,7 @@ Descrição do ocorrido:
             }, 3000);
         }, 6000);
     } else {
-        setTimeout(() => {
-            setIsTyping(true);
-            setTimeout(() => {
-                const finalResponse: Message = {
-                    id: Date.now(),
-                    sender: 'team',
-                    content: 'Entendido. Se mudar de ideia, estaremos por aqui para ajudar. Recomendamos não demorar muito, pois o tempo é um fator importante para a recuperação. Boa sorte! 😉',
-                    type: 'text',
-                }
-                setMessages(prev => [...prev, finalResponse]);
-                setIsTyping(false);
-                setTimeout(() => {
-                    setShowGoBackButton(true);
-                }, 1000)
-            }, 3000);
-        }, 6000);
+        router.push('/oferta-recusada');
     }
   }
 
