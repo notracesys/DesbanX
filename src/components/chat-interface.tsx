@@ -169,6 +169,7 @@ Descrição do ocorrido:
     };
     setMessages(prev => [...prev, userMessage]);
     setShowOptions(false);
+    setShowFinalOptions(false);
 
     if (option === 'sim') {
         setTimeout(() => {
@@ -447,12 +448,13 @@ Descrição do ocorrido:
               )}
                {showFinalOptions && (
                   <div className="flex flex-col sm:flex-row gap-2 max-w-4xl mx-auto animate-in fade-in-50 duration-500">
-                      <Button asChild className="font-bold flex-1">
-                           <Link href="https://pay.kirvano.com/c03ac9cc-9b2c-455d-a101-0816b338e5c0" target="_blank">
-                                Me Arrependi, quero recuperar!
-                               <ArrowRight className="ml-2 h-5 w-5" />
-                           </Link>
-                        </Button>
+                       <Button 
+                          onClick={() => handleOptionClick('sim')}
+                          className="font-bold flex-1"
+                       >
+                            Me Arrependi, quero recuperar!
+                           <ArrowRight className="ml-2 h-5 w-5" />
+                       </Button>
                         <Button asChild variant="outline" className="flex-1">
                             <Link href="/">
                                 <Home className="mr-2 h-4 w-4" />
