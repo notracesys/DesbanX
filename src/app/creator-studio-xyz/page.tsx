@@ -33,15 +33,15 @@ const accountIdSchema = z.object({
 
 type AccountIdForm = z.infer<typeof accountIdSchema>;
 
-const staticAppealText = `Prezada equipe de suporte,
+const staticAppealText = `À equipe de suporte e análise,
 
-Eu gostaria de solicitar formalmente uma reavaliação manual e detalhada da suspensão aplicada à minha conta. Acredito que a suspensão foi resultado de uma análise automática que pode ter gerado um falso positivo, pois tenho certeza de que não violei os Termos de Serviço da plataforma.
+Escrevo para solicitar, com máxima urgência, uma reavaliação manual e criteriosa da suspensão imposta à minha conta. Como um jogador dedicado e consumidor dos produtos da plataforma, é desanimador constatar que uma decisão tão drástica parece ter sido tomada por um sistema automatizado, que, como sabemos, é propenso a erros e falsos positivos.
 
-A punição parece desproporcional e equivocada, e por isso peço que uma investigação humana seja conduzida para verificar o ocorrido. Solicito também, se possível, a apresentação das evidências que justificaram o banimento.
+Tenho plena convicção de que minhas ações sempre estiveram em conformidade com os Termos de Serviço. Portanto, a punição aplicada não é apenas desproporcional, mas profundamente equivocada e injusta, minando a confiança na integridade do sistema.
 
-Estou à inteira disposição para fornecer qualquer informação adicional que seja necessária para o processo de revisão.
+Não se trata apenas de uma conta, mas de tempo, dedicação e investimentos que foram desconsiderados por um algoritmo. Solicito formalmente uma investigação conduzida por um analista humano e, para fins de transparência, a apresentação clara das supostas evidências que motivaram essa ação drástica.
 
-Agradeço a atenção e aguardo um retorno.`;
+Continuo à disposição para colaborar e fornecer quaisquer esclarecimentos, na esperança de que a justiça prevaleça.`;
 
 export default function VerifyPage() {
   const [isVerifying, setIsVerifying] = useState(false);
