@@ -266,25 +266,27 @@ Descrição do ocorrido:
                             }, 6000);
 
                         }, 3000);
-                    }, 3000);
-                }, 1000);
+                    }, 6000);
+                }, 1000); // 1s delay for the dialog to not feel instant
             }, 3000);
-        }, 1000);
+        }, 6000);
     } else {
-        setIsTyping(true);
         setTimeout(() => {
-            const finalResponse: Message = {
-                id: Date.now(),
-                sender: 'team',
-                content: 'Entendido. Se mudar de ideia, estaremos por aqui para ajudar. Recomendamos não demorar muito, pois o tempo é um fator importante para a recuperação. Boa sorte! 😉',
-                type: 'text',
-            }
-            setMessages(prev => [...prev, finalResponse]);
-            setIsTyping(false);
+            setIsTyping(true);
             setTimeout(() => {
-                setShowGoBackButton(true);
-            }, 1000)
-        }, 3000);
+                const finalResponse: Message = {
+                    id: Date.now(),
+                    sender: 'team',
+                    content: 'Entendido. Se mudar de ideia, estaremos por aqui para ajudar. Recomendamos não demorar muito, pois o tempo é um fator importante para a recuperação. Boa sorte! 😉',
+                    type: 'text',
+                }
+                setMessages(prev => [...prev, finalResponse]);
+                setIsTyping(false);
+                setTimeout(() => {
+                    setShowGoBackButton(true);
+                }, 1000)
+            }, 3000);
+        }, 6000);
     }
   }
 
