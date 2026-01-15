@@ -1,7 +1,7 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
-import { ShieldCheck, Loader2, Info, AlertTriangle, Copy, Check, Wand2 } from 'lucide-react';
+import { ShieldCheck, Loader2, Info, AlertTriangle, PartyPopper, ArrowRight } from 'lucide-react';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
@@ -20,8 +20,7 @@ import {
 import { cn } from '@/lib/utils';
 import Header from '@/components/header';
 import { Input } from '@/components/ui/input';
-import { generateSupportPrompt } from '@/ai/flows/generate-support-prompt-flow';
-import { Textarea } from '@/components/ui/textarea';
+import Link from 'next/link';
 
 const accountIdSchema = z.object({
   accountId: z.string()
@@ -33,9 +32,8 @@ const accountIdSchema = z.object({
 type AccountIdForm = z.infer<typeof accountIdSchema>;
 
 export default function CreatorStudioPage() {
-  const [isGenerating, setIsGenerating] = useState(false);
-  const [generatedPrompt, setGeneratedPrompt] = useState('');
-  const [isCopied, setIsCopied] = useState(false);
+  const [isVerifying, setIsVerifying] = useState(false);
+  const [isVerified, setIsVerified] = useState(false);
   const [showDialog, setShowDialog] = useState(false);
   const [dialogContent, setDialogContent] = useState({ title: '', description: '', isError: true });
 
@@ -44,23 +42,14 @@ export default function CreatorStudioPage() {
     defaultValues: { accountId: '' },
   });
 
-  const handleGenerate = async (values: AccountIdForm) => {
-    setIsGenerating(true);
-    setGeneratedPrompt('');
-    try {
-      const result = await generateSupportPrompt(values.accountId);
-      setGeneratedPrompt(result.supportText);
-    } catch (error) {
-      console.error(error);
-      setDialogContent({
-        title: 'Erro na Geração',
-        description: 'Não foi possível gerar o texto de suporte. Tente novamente.',
-        isError: true,
-      });
-      setShowDialog(true);
-    } finally {
-      setIsGenerating(false);
-    }
+  const handleVerify = (values: AccountIdForm) => {
+    if (isVerified) return;
+
+    setIsVerifying(true);
+    setTimeout(() => {
+      setIsVerifying(false);
+      setIsVerified(true);
+    }, 1000);
   };
   
   const onDialogClose = () => {
@@ -79,11 +68,6 @@ export default function CreatorStudioPage() {
     }
   };
 
-  const handleCopy = () => {
-    navigator.clipboard.writeText(generatedPrompt);
-    setIsCopied(true);
-    setTimeout(() => setIsCopied(false), 2000);
-  };
 
   return (
     <>
@@ -94,7 +78,10 @@ export default function CreatorStudioPage() {
             <AlertDialogContent>
               <AlertDialogHeader>
                 <AlertDialogTitle className="flex items-center gap-2 justify-center">
-                  <AlertTriangle className="text-destructive" />
+                  {dialogContent.isError ? 
+                    <AlertTriangle className="text-destructive" /> : 
+                    <PartyPopper className="text-green-500" />
+                  }
                   {dialogContent.title}
                 </AlertDialogTitle>
                 <AlertDialogDescription>
@@ -111,21 +98,21 @@ export default function CreatorStudioPage() {
 
           <div className="w-full max-w-4xl space-y-8 animate-in fade-in-50 duration-1000">
             <section className="text-center">
-              <h2 className="font-headline text-3xl md:text-4xl font-bold">Creator Studio 🎥</h2>
+              <h2 className="font-headline text-3xl md:text-4xl font-bold">Recupere sua Conta</h2>
               <p className="mt-2 text-lg text-muted-foreground">
-                Gere textos de apelação para seus conteúdos.
+                Insira o ID da sua conta Free Fire para iniciar a análise.
               </p>
             </section>
 
             <Card className="w-full">
               <CardHeader className="bg-card-foreground/5 rounded-t-lg border-b p-4">
                 <CardTitle className="font-bold text-base flex items-center">
-                  <span className="bg-primary text-primary-foreground rounded-full h-6 w-6 flex items-center justify-center text-sm mr-2">1</span> Inserir ID do Jogador
+                  <span className="bg-primary text-primary-foreground rounded-full h-6 w-6 flex items-center justify-center text-sm mr-2">1</span> Login
                 </CardTitle>
               </CardHeader>
               <CardContent className="p-6 space-y-4">
                 <Form {...form}>
-                  <form onSubmit={form.handleSubmit(handleGenerate, handleFormError)} className="space-y-4">
+                  <form onSubmit={form.handleSubmit(handleVerify, handleFormError)} className="space-y-4">
                     <FormField
                       control={form.control}
                       name="accountId"
@@ -135,25 +122,31 @@ export default function CreatorStudioPage() {
                           <div className="flex gap-2">
                             <FormControl>
                               <Input 
-                                placeholder="Insira o ID de jogador para gerar o prompt" 
+                                placeholder="Insira o ID de jogador aqui" 
                                 {...field} 
-                                className="text-base"
-                                disabled={isGenerating}
+                                className={cn(
+                                  "text-base", 
+                                  isVerified && "border-green-500 focus-visible:ring-green-500"
+                                )} 
+                                disabled={isVerified || isVerifying}
                               />
                             </FormControl>
                             <Button 
                               type="submit" 
-                              className="px-8 font-bold w-40"
-                              disabled={isGenerating}
-                            >
-                              {isGenerating ? (
-                                <Loader2 className="animate-spin" />
-                              ) : (
-                                <>
-                                  <Wand2 />
-                                  Gerar
-                                </>
+                              className={cn(
+                                "px-8 font-bold w-40",
+                                isVerified && "bg-green-600 hover:bg-green-700 text-white opacity-100"
                               )}
+                              disabled={isVerifying}
+                            >
+                              {isVerifying ? (
+                                <Loader2 className="animate-spin" />
+                              ) : isVerified ? (
+                                <>
+                                  <ShieldCheck />
+                                  Verificado
+                                </>
+                              ) : 'Login'}
                             </Button>
                           </div>
                           <FormMessage hidden />
@@ -165,23 +158,21 @@ export default function CreatorStudioPage() {
               </CardContent>
             </Card>
 
-            {generatedPrompt && (
+            {isVerified && (
               <Card className="w-full animate-in fade-in-50 duration-1000">
-                <CardHeader className="bg-card-foreground/5 rounded-t-lg border-b p-4 flex flex-row justify-between items-center">
+                <CardHeader className="bg-card-foreground/5 rounded-t-lg border-b p-4">
                   <CardTitle className="font-bold text-base flex items-center">
-                    <span className="bg-primary text-primary-foreground rounded-full h-6 w-6 flex items-center justify-center text-sm mr-2">2</span> Texto de Suporte Gerado
+                    <span className="bg-primary text-primary-foreground rounded-full h-6 w-6 flex items-center justify-center text-sm mr-2">2</span> Próximo Passo
                   </CardTitle>
-                  <Button variant="ghost" size="sm" onClick={handleCopy}>
-                    {isCopied ? <Check className="text-green-500" /> : <Copy />}
-                    {isCopied ? 'Copiado!' : 'Copiar'}
-                  </Button>
                 </CardHeader>
-                <CardContent className="p-6">
-                    <Textarea
-                        readOnly
-                        value={generatedPrompt}
-                        className="min-h-[250px] text-base bg-secondary/50"
-                    />
+                <CardContent className="p-6 flex flex-col items-center justify-center text-center">
+                    <p className="text-muted-foreground mb-4">Sua conta foi verificada com sucesso. Prossiga para a análise completa.</p>
+                    <Button asChild className="font-bold">
+                      <Link href="/analysis">
+                        Prosseguir para Análise
+                        <ArrowRight className="ml-2 h-5 w-5" />
+                      </Link>
+                    </Button>
                 </CardContent>
               </Card>
             )}
