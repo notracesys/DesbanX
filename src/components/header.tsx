@@ -1,12 +1,14 @@
 'use client';
 
-import Image from 'next/image';
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
 
 const Logo = () => (
-    <Link href="/" className="flex items-center gap-4">
-        <Image src="/logo.png" alt="DEXBAN FF Logo" width={120} height={34} />
+    <Link href="/" className="flex items-center">
+        <h1 className="text-2xl font-bold font-headline tracking-tighter">
+            <span>Desban</span>
+            <span className="text-primary">X</span>
+        </h1>
     </Link>
 );
 
