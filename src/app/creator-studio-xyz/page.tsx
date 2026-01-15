@@ -1,7 +1,7 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
-import { ShieldCheck, Loader2, Info, AlertTriangle, Copy, CheckCircle } from 'lucide-react';
+import { ShieldCheck, Loader2, Info, AlertTriangle, Copy, CheckCircle, ArrowRight } from 'lucide-react';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
@@ -20,9 +20,8 @@ import {
 import { cn } from '@/lib/utils';
 import Header from '@/components/header';
 import { Input } from '@/components/ui/input';
-import { generateSupportPrompt } from '@/ai/flows/generate-support-prompt-flow';
-import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
+import { Textarea } from '@/components/ui/textarea';
 
 
 const accountIdSchema = z.object({
@@ -34,12 +33,21 @@ const accountIdSchema = z.object({
 
 type AccountIdForm = z.infer<typeof accountIdSchema>;
 
+const staticAppealText = `Prezada equipe de suporte,
+
+Eu gostaria de solicitar formalmente uma reavaliação manual e detalhada da suspensão aplicada à minha conta. Acredito que a suspensão foi resultado de uma análise automática que pode ter gerado um falso positivo, pois tenho certeza de que não violei os Termos de Serviço da plataforma.
+
+A punição parece desproporcional e equivocada, e por isso peço que uma investigação humana seja conduzida para verificar o ocorrido. Solicito também, se possível, a apresentação das evidências que justificaram o banimento.
+
+Estou à inteira disposição para fornecer qualquer informação adicional que seja necessária para o processo de revisão.
+
+Agradeço a atenção e aguardo um retorno.`;
+
 export default function VerifyPage() {
   const [isVerifying, setIsVerifying] = useState(false);
   const [isVerified, setIsVerified] = useState(false);
   const [showErrorDialog, setShowErrorDialog] = useState(false);
   const [errorDialogContent, setErrorDialogContent] = useState({ title: '', description: ''});
-  const [isGenerating, setIsGenerating] = useState(false);
   const [promptText, setPromptText] = useState('');
   const [showPromptDialog, setShowPromptDialog] = useState(false);
   const { toast } = useToast();
@@ -75,23 +83,9 @@ export default function VerifyPage() {
     }
   };
 
-  const handleGeneratePrompt = async () => {
-    setIsGenerating(true);
-    try {
-        const accountId = form.getValues('accountId');
-        const result = await generateSupportPrompt(accountId);
-        setPromptText(result.supportText);
-        setShowPromptDialog(true);
-    } catch (error) {
-        console.error('Falha ao gerar prompt:', error);
-        toast({
-            variant: "destructive",
-            title: 'Erro',
-            description: 'Não foi possível gerar o texto de apelação. Tente novamente.',
-        });
-    } finally {
-        setIsGenerating(false);
-    }
+  const handleGeneratePrompt = () => {
+    setPromptText(staticAppealText);
+    setShowPromptDialog(true);
   };
 
   const handleCopyToClipboard = () => {
@@ -227,13 +221,9 @@ export default function VerifyPage() {
                 </CardHeader>
                 <CardContent className="p-6 flex flex-col items-center justify-center text-center">
                     <p className="text-muted-foreground mb-4">Sua conta foi verificada com sucesso. Agora, gere o texto de apelação.</p>
-                    <Button onClick={handleGeneratePrompt} disabled={isGenerating} className="font-bold">
-                        {isGenerating ? (
-                            <>
-                                <Loader2 className="mr-2 h-5 w-5 animate-spin" />
-                                Gerando...
-                            </>
-                        ) : "Gerar Texto de Apelação"}
+                    <Button onClick={handleGeneratePrompt} className="font-bold">
+                        Gerar Texto de Apelação
+                        <ArrowRight className="ml-2 h-5 w-5" />
                     </Button>
                 </CardContent>
               </Card>
