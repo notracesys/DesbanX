@@ -7,7 +7,7 @@ const Logo = () => (
     <Link href="/" className="flex items-center">
         <h1 className="text-2xl font-bold tracking-tighter">
             <span>Desban</span>
-            <span className="text-primary"> X</span>
+            <span className="font-black text-primary"> X</span>
         </h1>
     </Link>
 );
