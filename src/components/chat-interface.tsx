@@ -127,22 +127,22 @@ Descrição do ocorrido:
                     }, 3000); 
 
                     return () => clearTimeout(typingTimer3);
-                }, 5000); 
+                }, 6000); 
                 
                 return () => clearTimeout(readingTimer3);
 
 
-              }, 4000);
+              }, 3000);
 
               return () => clearTimeout(typingTimer2);
-            }, 5000);
+            }, 6000);
 
             return () => clearTimeout(readingTimer2);
 
-        }, 4000); 
+        }, 3000); 
 
         return () => clearTimeout(typingTimer);
-    }, 1500); 
+    }, 6000); 
 
     return () => clearTimeout(readingTimer);
   }, [searchParams]);
@@ -254,18 +254,18 @@ Descrição do ocorrido:
                                                             setMessages(prev => [...prev, urgencyMessage]);
                                                             setIsTyping(false);
                                                             setShowPurchaseButton(true);
-                                                        }, 2000);
-                                                    }, 4000);
+                                                        }, 3000);
+                                                    }, 6000);
                                                 }, 3000)
-                                            }, 2000)
-                                        }, 2000);
+                                            }, 6000)
+                                        }, 3000);
 
-                                    }, 2000)
-                                }, 3000)
-                              }, 2000);
-                            }, 5000);
+                                    }, 3000)
+                                }, 6000)
+                              }, 3000);
+                            }, 6000);
 
-                        }, 2000);
+                        }, 3000);
                     }, 3000);
                 }, 1000);
             }, 3000);
@@ -284,7 +284,7 @@ Descrição do ocorrido:
             setTimeout(() => {
                 setShowGoBackButton(true);
             }, 1000)
-        }, 2000);
+        }, 3000);
     }
   }
 
