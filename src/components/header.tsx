@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react';
 
 const Logo = () => (
     <Link href="/" className="flex items-center">
-        <h1 className="text-2xl font-bold font-headline tracking-tighter">
+        <h1 className="text-2xl font-bold tracking-tighter">
             <span>Desban</span>
             <span className="text-primary"> X</span>
         </h1>
