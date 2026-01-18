@@ -439,7 +439,7 @@ Descrição do ocorrido:
                                      before:bg-gradient-to-r
                                      before:from-transparent before:via-white/50 before:to-transparent"
                       >
-                          <Link href="https://pay.kirvano.com/c03ac9cc-9b2c-455d-a101-0816b338e5c0" target="_blank">
+                          <Link href="https://chk.eduzz.com/1W3ZA6VQW2" target="_blank">
                             Quero Recuperar Minha Conta
                             <ArrowRight className="ml-2 h-5 w-5" />
                           </Link>
@@ -468,5 +468,3 @@ Descrição do ocorrido:
     </>
   );
 }
-
-    
