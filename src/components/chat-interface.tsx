@@ -24,7 +24,7 @@ type Message = {
   sender: 'user' | 'team';
   content: string;
   status?: 'sent' | 'delivered' | 'read';
-  type?: 'text' | 'feedback';
+  type?: 'text' | 'feedback' | 'product';
 };
 
 const TypingIndicator = () => (
@@ -185,91 +185,105 @@ Descrição do ocorrido:
                 setIsTyping(false);
                 
                 setTimeout(() => {
-                    setShowImportantNotice(true);
-                    
+                    setIsTyping(true);
                     setTimeout(() => {
-                        setIsTyping(true);
+                        const productMessage: Message = {
+                            id: Date.now(),
+                            sender: 'team',
+                            content: '', // Not used for this type
+                            type: 'product',
+                        };
+                        setMessages(prev => [...prev, productMessage]);
+                        setIsTyping(false);
+                        
                         setTimeout(() => {
-                            const finalMessage: Message = {
-                                id: Date.now(),
-                                sender: 'team',
-                                content: 'Agora é o seguinte 👇\nSeu caso não é comum. Ele apresenta sinais claros de banimento automático: e esses são exatamente os casos que ainda valem a tentativa. ⚠️',
-                                type: 'text',
-                            };
-                            setMessages(prev => [...prev, finalMessage]);
-                            setIsTyping(false);
-
+                            setShowImportantNotice(true);
+                            
                             setTimeout(() => {
-                              setIsTyping(true);
-                              setTimeout(() => {
-                                const proofMessage: Message = {
-                                    id: Date.now(),
-                                    sender: 'team',
-                                    content: 'Várias pessoas chegaram até nós com o mesmo problema, achando que tinham perdido tudo.\nApós a análise e o processo feito pela DesbanX, muitas conseguiram recuperar suas contas. ✨',
-                                    type: 'text',
-                                };
-                                setMessages(prev => [...prev, proofMessage]);
-                                setIsTyping(false);
-
+                                setIsTyping(true);
                                 setTimeout(() => {
-                                    setIsTyping(true);
+                                    const finalMessage: Message = {
+                                        id: Date.now(),
+                                        sender: 'team',
+                                        content: 'Agora é o seguinte 👇\nSeu caso não é comum. Ele apresenta sinais claros de banimento automático: e esses são exatamente os casos que ainda valem a tentativa. ⚠️',
+                                        type: 'text',
+                                    };
+                                    setMessages(prev => [...prev, finalMessage]);
+                                    setIsTyping(false);
+
                                     setTimeout(() => {
-                                        const feedbackMessage: Message = {
+                                      setIsTyping(true);
+                                      setTimeout(() => {
+                                        const proofMessage: Message = {
                                             id: Date.now(),
                                             sender: 'team',
-                                            content: 'Veja alguns feedbacks 👇',
+                                            content: 'Várias pessoas chegaram até nós com o mesmo problema, achando que tinham perdido tudo.\nApós a análise e o processo feito pela DesbanX, muitas conseguiram recuperar suas contas. ✨',
                                             type: 'text',
                                         };
-                                        setMessages(prev => [...prev, feedbackMessage]);
+                                        setMessages(prev => [...prev, proofMessage]);
                                         setIsTyping(false);
-                                        
-                                        setTimeout(() => {
-                                            const feedbackImages: Message = {
-                                                id: Date.now(),
-                                                sender: 'team',
-                                                content: '', // Not used, but required by type
-                                                type: 'feedback',
-                                            };
-                                            setMessages(prev => [...prev, feedbackImages]);
 
+                                        setTimeout(() => {
+                                            setIsTyping(true);
                                             setTimeout(() => {
-                                                setIsTyping(true);
+                                                const feedbackMessage: Message = {
+                                                    id: Date.now(),
+                                                    sender: 'team',
+                                                    content: 'Veja alguns feedbacks 👇',
+                                                    type: 'text',
+                                                };
+                                                setMessages(prev => [...prev, feedbackMessage]);
+                                                setIsTyping(false);
+                                                
                                                 setTimeout(() => {
-                                                    const finalHook: Message = {
+                                                    const feedbackImages: Message = {
                                                         id: Date.now(),
                                                         sender: 'team',
-                                                        content: 'A diferença não foi sorte.\nFoi recorrer do jeito certo, com quem sabe o que está fazendo. 💪',
-                                                        type: 'text',
+                                                        content: '', // Not used, but required by type
+                                                        type: 'feedback',
                                                     };
-                                                    setMessages(prev => [...prev, finalHook]);
-                                                    setIsTyping(false);
+                                                    setMessages(prev => [...prev, feedbackImages]);
 
                                                     setTimeout(() => {
                                                         setIsTyping(true);
                                                         setTimeout(() => {
-                                                            const urgencyMessage: Message = {
+                                                            const finalHook: Message = {
                                                                 id: Date.now(),
                                                                 sender: 'team',
-                                                                content: 'Se você quer tentar recuperar sua conta enquanto ainda existe chance, esse é o momento. ⏳',
+                                                                content: 'A diferença não foi sorte.\nFoi recorrer do jeito certo, com quem sabe o que está fazendo. 💪',
                                                                 type: 'text',
                                                             };
-                                                            setMessages(prev => [...prev, urgencyMessage]);
+                                                            setMessages(prev => [...prev, finalHook]);
                                                             setIsTyping(false);
-                                                            setShowPurchaseButton(true);
-                                                        }, 3000);
-                                                    }, 6000);
-                                                }, 3000)
-                                            }, 6000)
-                                        }, 3000);
 
-                                    }, 3000)
-                                }, 6000)
-                              }, 3000);
+                                                            setTimeout(() => {
+                                                                setIsTyping(true);
+                                                                setTimeout(() => {
+                                                                    const urgencyMessage: Message = {
+                                                                        id: Date.now(),
+                                                                        sender: 'team',
+                                                                        content: 'Se você quer tentar recuperar sua conta enquanto ainda existe chance, esse é o momento. ⏳',
+                                                                        type: 'text',
+                                                                    };
+                                                                    setMessages(prev => [...prev, urgencyMessage]);
+                                                                    setIsTyping(false);
+                                                                    setShowPurchaseButton(true);
+                                                                }, 3000);
+                                                            }, 6000);
+                                                        }, 3000)
+                                                    }, 6000)
+                                                }, 3000);
+
+                                            }, 3000)
+                                        }, 6000)
+                                      }, 3000);
+                                    }, 6000);
+
+                                }, 3000);
                             }, 6000);
-
-                        }, 3000);
-                    }, 6000);
-                }, 1000); // 1s delay for the dialog to not feel instant
+                        }, 2000);
+                    }, 3000);
+                }, 3000);
             }, 3000);
         }, 6000);
     } else {
@@ -363,6 +377,32 @@ Descrição do ocorrido:
                                 <Image src="/feedback1.jpg" alt="Feedback de cliente 1" width={400} height={800} className="rounded-lg object-contain" />
                                 <Image src="/feedback2.jpg" alt="Feedback de cliente 2" width={400} height={800} className="rounded-lg object-contain" />
                             </div>
+                        )
+                      }
+                      if (msg.type === 'product') {
+                        return (
+                           <div key={msg.id} className="flex items-end gap-2 justify-start animate-in fade-in-50 duration-500">
+                              <Avatar className="h-8 w-8">
+                                  <AvatarImage src="/logo2.jpg" alt="DesbanX Logo" />
+                                  <AvatarFallback>DX</AvatarFallback>
+                              </Avatar>
+                              <div className="rounded-lg p-3 text-white max-w-[85%] md:max-w-lg bg-secondary">
+                                  <p className="font-bold mb-3 text-base">Você receberá o Método UNBAN STRATEGY:</p>
+                                  <Image 
+                                      src="https://picsum.photos/seed/unban-product/400/225"
+                                      alt="Produto Unban Strategy"
+                                      width={400} 
+                                      height={225}
+                                      className="rounded-md mb-3"
+                                      data-ai-hint="digital product box"
+                                  />
+                                  <ul className="space-y-2 text-sm list-disc list-inside">
+                                      <li>O passo a passo detalhado para montar um recurso convincente.</li>
+                                      <li>Os argumentos técnicos que usamos para reverter banimentos.</li>
+                                      <li>O modelo de texto exato que você vai adaptar e enviar.</li>
+                                  </ul>
+                              </div>
+                          </div>
                         )
                       }
                       return (
