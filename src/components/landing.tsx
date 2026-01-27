@@ -77,7 +77,7 @@ export default function Landing() {
                   Cancelar
                 </Button>
               </DialogClose>
-              <Button asChild disabled={!agreed} size="sm" className={cn(!agreed && "cursor-not-allowed")}>
+              <Button asChild disabled={!agreed} size="sm" className={cn("mb-2 sm:mb-0", !agreed && "cursor-not-allowed")}>
                 <Link href="/verify">
                   Prosseguir
                   <ArrowRight className="ml-2 h-4 w-4" />
