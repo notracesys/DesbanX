@@ -27,6 +27,7 @@ export default function SocialProofToast() {
     const showRandomToast = () => {
       const randomName = names[Math.floor(Math.random() * names.length)];
       toast({
+        duration: 4000,
         variant: 'social',
         title: (
           <div className="flex items-center gap-2">
