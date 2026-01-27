@@ -135,7 +135,7 @@ export default function VerifyPage() {
                               type="submit" 
                               className={cn(
                                 "px-8 font-bold w-40",
-                                isVerified && "bg-primary hover:bg-primary/90 text-primary-foreground opacity-100"
+                                isVerified && "bg-green-500 hover:bg-green-600 text-primary-foreground"
                               )}
                               disabled={isVerifying}
                             >
