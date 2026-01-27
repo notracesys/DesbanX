@@ -24,10 +24,10 @@ export default function Landing() {
 
   return (
     <div className="text-center animate-in fade-in-50 duration-1000">
-      <h1 className="font-headline text-3xl md:text-4xl font-bold tracking-tight uppercase">
+      <h1 className="font-headline text-2xl md:text-4xl font-bold tracking-tight uppercase">
         Sua conta foi banida? Nem tudo está perdido.
       </h1>
-      <p className="mt-6 max-w-2xl mx-auto text-lg md:text-xl text-muted-foreground">
+      <p className="mt-6 max-w-2xl mx-auto text-base md:text-xl text-muted-foreground">
         Muitas vezes, sua conta foi suspensa por um sistema automático, sem qualquer análise humana. Nós identificamos essas falhas e abrimos o caminho para a recuperação.
       </p>
       <div className="mt-10">
