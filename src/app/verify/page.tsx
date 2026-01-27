@@ -98,9 +98,9 @@ export default function VerifyPage() {
 
           <div className="w-full max-w-4xl space-y-8 animate-in fade-in-50 duration-1000">
             <section className="text-center">
-              <h2 className="font-headline text-3xl md:text-4xl font-bold">Recupere sua Conta</h2>
+              <h2 className="font-headline text-3xl md:text-4xl font-bold">Contextualize o Método</h2>
               <p className="mt-2 text-lg text-muted-foreground">
-                Insira o ID da sua conta Free Fire para iniciar a análise.
+                Informe o ID da conta banida para contextualizar a aplicação do método.
               </p>
             </section>
 
@@ -173,7 +173,7 @@ export default function VerifyPage() {
                         <ArrowRight className="ml-2 h-5 w-5" />
                       </Link>
                     </Button>
-                </CardContent>
+                </ContentCard>
               </Card>
             )}
           </div>
