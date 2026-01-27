@@ -64,7 +64,7 @@ export default function ChatInterface() {
     const priorWarnings = searchParams.get('priorWarnings');
     const banDescription = searchParams.get('banDescription');
 
-    const initialMessageContent = `Olá Equipe UNBAN STRATEGY.
+    const initialMessageContent = `Olá Equipe DesbanX.
 Minha conta foi banida há: ${suspensionTime || 'Não informado'}.
 Usei software de terceiros: ${thirdPartySoftware || 'Não informado'}.
 O motivo do banimento foi: ${banReason || 'Não informado'}.
@@ -106,7 +106,7 @@ Descrição do ocorrido:
                 const teamResponse2: Message = {
                   id: 3,
                   sender: 'team',
-                  content: `🤔 Muitos banimentos acontecem sem análise humana detalhada.\nQuando o caso é apresentado da forma certa, a plataforma pode reavaliar a decisão.💡\n\nÉ exatamente nesse ponto que a equipe UNBAN STRATEGY atua. 💪`,
+                  content: `🤔 Muitos banimentos acontecem sem análise humana detalhada.\nQuando o caso é apresentado da forma certa, a plataforma pode reavaliar a decisão.💡\n\nÉ exatamente nesse ponto que a equipe DesbanX atua. 💪`,
                    type: 'text',
                 };
                 setMessages((prev) => [...prev, teamResponse2]);
@@ -119,7 +119,7 @@ Descrição do ocorrido:
                         const teamResponse3: Message = {
                             id: 4,
                             sender: 'team',
-                            content: 'Você deseja que a equipe UNBAN STRATEGY inicie a análise completa do seu caso? 🤔',
+                            content: 'Você deseja que a equipe DesbanX inicie a análise completa do seu caso? 🤔',
                             type: 'text',
                         };
                         setMessages((prev) => [...prev, teamResponse3]);
@@ -205,7 +205,7 @@ Descrição do ocorrido:
                                 const proofMessage: Message = {
                                     id: Date.now(),
                                     sender: 'team',
-                                    content: 'Várias pessoas chegaram até nós com o mesmo problema, achando que tinham perdido tudo.\nApós a análise e o processo feito pela UNBAN STRATEGY, muitas conseguiram recuperar suas contas. ✨',
+                                    content: 'Várias pessoas chegaram até nós com o mesmo problema, achando que tinham perdido tudo.\nApós a análise e o processo feito pela DesbanX, muitas conseguiram recuperar suas contas. ✨',
                                     type: 'text',
                                 };
                                 setMessages(prev => [...prev, proofMessage]);
@@ -343,12 +343,12 @@ Descrição do ocorrido:
       <div className="flex flex-col h-[calc(100vh-4rem)]">
           <div className="bg-card border-b p-3 flex items-center gap-3">
               <Avatar>
-                  <AvatarImage src="/logo2.jpg" alt="UNBAN STRATEGY Logo" />
-                  <AvatarFallback>US</AvatarFallback>
+                  <AvatarImage src="/logo2.jpg" alt="DesbanX Logo" />
+                  <AvatarFallback>DX</AvatarFallback>
               </Avatar>
               <div>
                   <div className="flex items-center gap-2">
-                      <h2 className="font-bold">Equipe UNBAN STRATEGY</h2>
+                      <h2 className="font-bold">Equipe DesbanX</h2>
                   </div>
                   <p className="text-xs text-muted-foreground">Online</p>
               </div>
@@ -375,8 +375,8 @@ Descrição do ocorrido:
                       >
                           {msg.sender === 'team' && (
                               <Avatar className="h-8 w-8">
-                                  <AvatarImage src="/logo2.jpg" alt="UNBAN STRATEGY Logo" />
-                                  <AvatarFallback>US</AvatarFallback>
+                                  <AvatarImage src="/logo2.jpg" alt="DesbanX Logo" />
+                                  <AvatarFallback>DX</AvatarFallback>
                               </Avatar>
                           )}
                           <div
@@ -398,8 +398,8 @@ Descrição do ocorrido:
                   {isTyping && (
                        <div className="flex items-end gap-2 justify-start">
                           <Avatar className="h-8 w-8">
-                              <AvatarImage src="/logo2.jpg" alt="UNBAN STRATEGY Logo" />
-                              <AvatarFallback>US</AvatarFallback>
+                              <AvatarImage src="/logo2.jpg" alt="DesbanX Logo" />
+                              <AvatarFallback>DX</AvatarFallback>
                           </Avatar>
                           <div className="max-w-md rounded-lg p-2 bg-secondary">
                               <TypingIndicator />
