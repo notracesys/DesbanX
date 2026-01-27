@@ -2,7 +2,7 @@
 
 import Header from '@/components/header';
 import Landing from '@/components/landing';
-import BackgroundVideo from '@/components/background-video';
+import ParticleBackground from '@/components/particle-background';
 import BrowserCheckDialog from '@/components/browser-check-dialog';
 
 export default function Home() {
@@ -11,8 +11,8 @@ export default function Home() {
       <BrowserCheckDialog />
       <Header />
       <main className="flex-grow flex flex-col -mt-4">
-        <div className="relative h-[70vh] w-full">
-          <BackgroundVideo />
+        <div className="relative h-[70vh] w-full bg-background">
+          <ParticleBackground />
           <div className="absolute inset-0 bg-gradient-to-b from-transparent to-background" />
         </div>
         <div className="py-8">
