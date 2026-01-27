@@ -1,12 +1,15 @@
 'use client';
 
 import Link from 'next/link';
+import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 
 const Logo = () => (
-    <Link href="/" className="flex items-center">
-        <h1 className="text-2xl font-bold tracking-tighter text-primary">
-            UNBAN STRATEGY
-        </h1>
+    <Link href="/" className="flex items-center gap-3">
+        <Avatar className="h-9 w-9">
+            <AvatarImage src="/logo2.png" alt="@desbanx profile picture" />
+            <AvatarFallback>DX</AvatarFallback>
+        </Avatar>
+        <span className="font-semibold text-lg text-foreground">@desbanx</span>
     </Link>
 );
 
