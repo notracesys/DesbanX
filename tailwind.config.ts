@@ -132,14 +132,6 @@ export default {
           '0%, 100%': { borderColor: 'hsl(var(--primary) / 0.5)' },
           '50%': { borderColor: 'hsl(var(--primary))' },
         },
-        'toast-slide-in': {
-          from: { transform: 'translateX(calc(100% + 1rem))', opacity: '0' },
-          to: { transform: 'translateX(0)', opacity: '1' },
-        },
-        'toast-slide-out': {
-          from: { transform: 'translateX(0)', opacity: '1' },
-          to: { transform: 'translateX(calc(100% + 1rem))', opacity: '0' },
-        },
       },
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
@@ -149,8 +141,6 @@ export default {
         'shine': 'shine 2s linear infinite',
         'text-pulse': 'text-pulse 2s ease-in-out infinite',
         'border-pulse-red': 'border-pulse-red 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-        'toast-slide-in': 'toast-slide-in 0.5s cubic-bezier(0.16, 1, 0.3, 1)',
-        'toast-slide-out': 'toast-slide-out 0.5s cubic-bezier(0.7, 0, 0.84, 0)',
       },
     },
   },
