@@ -3,8 +3,8 @@ import './globals.css';
 import { Toaster } from '@/components/ui/toaster';
 
 export const metadata: Metadata = {
-  title: 'Desban X',
-  description: 'Análise e auxílio para recuperação de contas do Free Fire banidas injustamente.',
+  title: 'UNBAN STRATEGY',
+  description: 'Estratégias e ferramentas para recuperação de contas de jogos online.',
 };
 
 export default function RootLayout({
