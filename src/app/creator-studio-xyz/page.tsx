@@ -93,7 +93,7 @@ export default function VerifyPage() {
     toast({
         title: "Copiado!",
         description: "O texto de apelação foi copiado para sua área de transferência.",
-        action: <CheckCircle className="text-green-500" />,
+        action: <CheckCircle className="text-primary" />,
     })
   }
 
@@ -152,16 +152,16 @@ export default function VerifyPage() {
 
           <div className="w-full max-w-4xl space-y-8 animate-in fade-in-50 duration-1000">
             <section className="text-center">
-              <h2 className="font-headline text-3xl md:text-4xl font-bold">Recupere sua Conta</h2>
+              <h2 className="font-headline text-3xl md:text-4xl font-bold">Gerador de Apelação</h2>
               <p className="mt-2 text-lg text-muted-foreground">
-                Insira o ID da sua conta Free Fire para iniciar a análise.
+                Crie um texto de apelação formal para enviar ao suporte do jogo.
               </p>
             </section>
 
             <Card className="w-full">
               <CardHeader className="bg-card-foreground/5 rounded-t-lg border-b p-4">
                 <CardTitle className="font-bold text-base flex items-center">
-                  <span className="bg-primary text-primary-foreground rounded-full h-6 w-6 flex items-center justify-center text-sm mr-2">1</span> Login
+                  <span className="bg-primary text-primary-foreground rounded-full h-6 w-6 flex items-center justify-center text-sm mr-2">1</span> Verificação
                 </CardTitle>
               </CardHeader>
               <CardContent className="p-6 space-y-4">
@@ -180,7 +180,7 @@ export default function VerifyPage() {
                                 {...field} 
                                 className={cn(
                                   "text-base", 
-                                  isVerified && "border-green-500 focus-visible:ring-green-500"
+                                  isVerified && "border-primary focus-visible:ring-primary"
                                 )} 
                                 disabled={isVerified || isVerifying}
                               />
@@ -189,7 +189,7 @@ export default function VerifyPage() {
                               type="submit" 
                               className={cn(
                                 "px-8 font-bold w-40",
-                                isVerified && "bg-green-600 hover:bg-green-700 text-white opacity-100"
+                                isVerified && "bg-primary hover:bg-primary/90 text-primary-foreground opacity-100"
                               )}
                               disabled={isVerifying}
                             >
@@ -200,7 +200,7 @@ export default function VerifyPage() {
                                   <ShieldCheck />
                                   Verificado
                                 </>
-                              ) : 'Login'}
+                              ) : 'Verificar'}
                             </Button>
                           </div>
                           <FormMessage hidden />

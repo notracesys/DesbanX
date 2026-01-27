@@ -414,7 +414,7 @@ Descrição do ocorrido:
                   <div className="flex flex-col sm:flex-row gap-2 max-w-4xl mx-auto animate-in fade-in-50 duration-500">
                        <Button 
                           onClick={() => handleOptionClick('sim')}
-                          className="flex-1 font-bold bg-green-600 hover:bg-green-700 text-white"
+                          className="flex-1 font-bold"
                        >
                           Sim, quero tentar recuperar minha conta 👍
                       </Button>

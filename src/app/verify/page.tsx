@@ -80,7 +80,7 @@ export default function VerifyPage() {
                 <AlertDialogTitle className="flex items-center gap-2 justify-center">
                   {dialogContent.isError ? 
                     <AlertTriangle className="text-destructive" /> : 
-                    <PartyPopper className="text-green-500" />
+                    <PartyPopper className="text-primary" />
                   }
                   {dialogContent.title}
                 </AlertDialogTitle>
@@ -126,7 +126,7 @@ export default function VerifyPage() {
                                 {...field} 
                                 className={cn(
                                   "text-base", 
-                                  isVerified && "border-green-500 focus-visible:ring-green-500"
+                                  isVerified && "border-primary focus-visible:ring-primary"
                                 )} 
                                 disabled={isVerified || isVerifying}
                               />
@@ -135,7 +135,7 @@ export default function VerifyPage() {
                               type="submit" 
                               className={cn(
                                 "px-8 font-bold w-40",
-                                isVerified && "bg-green-600 hover:bg-green-700 text-white opacity-100"
+                                isVerified && "bg-primary hover:bg-primary/90 text-primary-foreground opacity-100"
                               )}
                               disabled={isVerifying}
                             >

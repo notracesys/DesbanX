@@ -14,7 +14,7 @@ export default function ObrigadoPage() {
         <div className="w-full max-w-2xl space-y-8 animate-in fade-in-50 duration-1000">
             <Card>
                 <CardHeader className="items-center text-center">
-                    <CheckCircle className="w-16 h-16 text-green-500 mb-4" />
+                    <CheckCircle className="w-16 h-16 text-primary mb-4" />
                     <CardTitle className="text-3xl font-headline">Pagamento Aprovado!</CardTitle>
                 </CardHeader>
                 <CardContent className="text-center space-y-6">
