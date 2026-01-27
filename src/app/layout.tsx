@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import './globals.css';
 import { Toaster } from '@/components/ui/toaster';
+import SocialProofToast from '@/components/social-proof-toast';
 
 export const metadata: Metadata = {
   title: 'UNBAN STRATEGY',
@@ -26,6 +27,7 @@ export default function RootLayout({
       <body className="font-body antialiased">
         {children}
         <Toaster />
+        <SocialProofToast />
       </body>
     </html>
   );
