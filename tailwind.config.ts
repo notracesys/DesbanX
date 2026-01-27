@@ -128,6 +128,10 @@ export default {
           '0%, 100%': { textShadow: '0 0 8px hsl(var(--primary))' },
           '50%': { textShadow: '0 0 20px hsl(var(--primary))' },
         },
+        'border-pulse-red': {
+          '0%, 100%': { borderColor: 'hsl(var(--primary) / 0.5)' },
+          '50%': { borderColor: 'hsl(var(--primary))' },
+        },
       },
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
@@ -136,6 +140,7 @@ export default {
         'dialog-hide': 'dialog-hide 0.2s ease-in-out',
         'shine': 'shine 2s linear infinite',
         'text-pulse': 'text-pulse 2s ease-in-out infinite',
+        'border-pulse-red': 'border-pulse-red 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
       },
     },
   },

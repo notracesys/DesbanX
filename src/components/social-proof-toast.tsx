@@ -27,10 +27,11 @@ export default function SocialProofToast() {
     const showRandomToast = () => {
       const randomName = names[Math.floor(Math.random() * names.length)];
       toast({
+        variant: 'social',
         title: (
-          <div className="flex items-center gap-3">
-            <ShoppingCart className="h-5 w-5 text-primary flex-shrink-0" />
-            <p className="text-sm font-medium text-foreground">
+          <div className="flex items-center gap-2">
+            <ShoppingCart className="h-4 w-4 text-primary flex-shrink-0" />
+            <p className="text-xs font-medium text-foreground">
               {randomName} acabou de adquirir o método.
             </p>
           </div>
