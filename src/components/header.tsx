@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 
 const Logo = () => (
-    <Link href="/" className="flex items-center gap-2">
+    <Link href="/" className="flex items-center gap-1">
         <Avatar className="h-9 w-9">
             <AvatarImage src="/logo2.png" alt="@desbanx profile picture" />
             <AvatarFallback>DX</AvatarFallback>
@@ -19,6 +19,13 @@ export default function Header() {
     <header className="sticky top-0 z-50 w-full border-b bg-background/50 backdrop-blur-lg">
       <div className="container mx-auto px-4 h-16 flex items-center justify-between">
         <Logo />
+        <div className="hidden sm:flex items-center gap-2">
+            <div className="relative flex h-3 w-3">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-3 w-3 bg-primary"></span>
+            </div>
+            <span className="text-sm text-muted-foreground">37 usuários ativos</span>
+        </div>
       </div>
     </header>
   );
