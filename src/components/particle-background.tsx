@@ -21,7 +21,7 @@ export default function ParticleBackground({
         className
       )}
     >
-      <source src="/background-video.mp4" type="video/mp4" />
+      <source src="/videofundo.mp4" type="video/mp4" />
     </video>
   );
 }
