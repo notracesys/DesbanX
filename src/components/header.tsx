@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 
 const Logo = () => (
-    <Link href="/" className="flex items-center gap-3">
+    <Link href="/" className="flex items-center gap-2">
         <Avatar className="h-9 w-9">
             <AvatarImage src="/logo2.png" alt="@desbanx profile picture" />
             <AvatarFallback>DX</AvatarFallback>
