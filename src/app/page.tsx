@@ -10,9 +10,9 @@ export default function Home() {
     <div className="flex min-h-full flex-col">
       <BrowserCheckDialog />
       <Header />
-      <main className="flex-grow">
+      <main className="flex-grow relative">
         <ParticleBackground />
-        <div className="container mx-auto px-4 flex h-full min-h-[calc(100vh-4rem)] items-end justify-center pb-12">
+        <div className="relative container mx-auto px-4 flex h-full min-h-[calc(100vh-4rem)] items-end justify-center pb-12">
           <Landing />
         </div>
       </main>
