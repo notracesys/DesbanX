@@ -6,7 +6,7 @@ import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 const Logo = () => (
     <Link href="/" className="flex items-center gap-1">
         <Avatar className="h-9 w-9">
-            <AvatarImage src="/logo2.png" alt="@desbanx profile picture" />
+            <AvatarImage src="/logo2.jpg" alt="@desbanx profile picture" />
             <AvatarFallback>DX</AvatarFallback>
         </Avatar>
         <span className="font-semibold text-lg text-foreground">@desbanx</span>
