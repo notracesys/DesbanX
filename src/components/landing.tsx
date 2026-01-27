@@ -25,10 +25,10 @@ export default function Landing() {
   return (
     <div className="text-center animate-in fade-in-50 duration-1000">
       <h1 className="font-headline text-4xl md:text-5xl font-bold tracking-tight uppercase">
-        Recupere sua conta de free fire
+        Sua conta foi banida? Nem tudo está perdido.
       </h1>
       <p className="mt-6 max-w-2xl mx-auto text-lg md:text-xl text-muted-foreground">
-        Muitas vezes, sua conta foi suspensa por um sistema automático, sem qualquer análise humana. Nossa ferramenta identifica essas falhas e abre o caminho para a recuperação.
+        Muitas vezes, sua conta foi suspensa por um sistema automático, sem qualquer análise humana. Nós identificamos essas falhas e abrimos o caminho para a recuperação.
       </p>
       <div className="mt-10">
         <Dialog onOpenChange={(open) => !open && setAgreed(false)}>
