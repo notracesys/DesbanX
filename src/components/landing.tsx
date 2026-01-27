@@ -23,7 +23,7 @@ export default function Landing() {
   const [agreed, setAgreed] = useState(false);
 
   return (
-    <div className="text-center animate-in fade-in-50 duration-1000 pt-16 md:pt-24">
+    <div className="text-center animate-in fade-in-50 duration-1000">
       <h1 className="font-headline text-4xl md:text-5xl font-bold tracking-tight uppercase">
         Sua conta foi banida? Nem tudo está perdido.
       </h1>

@@ -15,7 +15,7 @@ export default function Home() {
           <ParticleBackground />
           <div className="absolute inset-0 bg-gradient-to-b from-transparent to-background" />
         </div>
-        <div className="absolute inset-0 flex justify-center pt-32 md:pt-40">
+        <div className="absolute inset-0 flex justify-center pt-32">
           <div className="relative z-10 container mx-auto px-4">
             <Landing />
           </div>
