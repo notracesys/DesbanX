@@ -43,7 +43,7 @@ export default function ParticleBackground({
 
       constructor() {
         this.x = Math.random() * canvas.width;
-        this.y = Math.random() * canvas.height;
+        this.y = canvas.height + Math.random() * 200; // Start below the screen
         this.size = Math.random() * 2.5 + 0.5;
         this.speedY = Math.random() * 1 + 0.2;
         this.opacity = Math.random() * 0.6 + 0.1;
