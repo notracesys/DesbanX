@@ -23,12 +23,12 @@ export default function Landing() {
   const [agreed, setAgreed] = useState(false);
 
   return (
-    <div className="text-center animate-in fade-in-50 duration-1000">
-      <h1 className="font-headline text-4xl md:text-6xl font-bold tracking-tight uppercase">
+    <div className="text-center animate-in fade-in-50 duration-1000 pt-16 md:pt-24">
+      <h1 className="font-headline text-4xl md:text-5xl font-bold tracking-tight uppercase">
         Sua conta foi banida? Nem tudo está perdido.
       </h1>
-      <p className="mt-6 max-w-2xl mx-auto text-lg md:text-2xl text-muted-foreground">
-        Muitas vezes, sua conta foi suspensa por um sistema automático, sem qualquer análise humana. Nós identificamos essas falhas e abrimos o caminho para a recuperação.
+      <p className="mt-6 max-w-2xl mx-auto text-lg md:text-xl text-muted-foreground">
+        Recuperar sua conta não é uma questão de sorte. É uma questão de saber o que dizer. A maioria fracassa porque fala qualquer coisa, de qualquer jeito. Nós descobrimos o que funciona.
       </p>
       <div className="mt-10">
         <Dialog onOpenChange={(open) => !open && setAgreed(false)}>
