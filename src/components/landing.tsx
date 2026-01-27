@@ -42,7 +42,7 @@ export default function Landing() {
                          before:bg-gradient-to-r
                          before:from-transparent before:via-white/50 before:to-transparent"
             >
-              Recuperar Conta
+              Adquirir Método
               <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
           </DialogTrigger>
