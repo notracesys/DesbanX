@@ -88,7 +88,7 @@ export default function Landing() {
         </Dialog>
       </div>
 
-      <div className="mt-12 text-center">
+      <div className="mt-12 mb-12 text-center">
         <p className="text-muted-foreground mb-4">
           Sua conta não foi banida, mas você perdeu o acesso e quer recuperá-la?
         </p>
