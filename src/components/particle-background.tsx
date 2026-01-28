@@ -12,12 +12,12 @@ export default function ParticleBackground() {
       position: 'absolute',
       left: `${Math.random() * 100}vw`,
       top: `${Math.random() * 100}vh`,
-      width: `${Math.random() * 3 + 1.5}px`,
-      height: `${Math.random() * 3 + 1.5}px`,
+      width: `${Math.random() * 4 + 2}px`,
+      height: `${Math.random() * 4 + 2}px`,
       backgroundColor: 'rgba(255, 0, 0, 0.5)',
       borderRadius: '50%',
-      animation: `rise ${Math.random() * 5 + 5}s linear infinite`,
-      animationDelay: `-${Math.random() * 10}s`,
+      animation: `rise ${Math.random() * 2 + 3}s linear infinite`,
+      animationDelay: `-${Math.random() * 5}s`,
     }));
     setParticles(newParticles as React.CSSProperties[]);
   }, []);
