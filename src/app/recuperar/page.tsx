@@ -14,7 +14,7 @@ const recoveryOptions = [
     { name: 'VK', icon: MessageSquare, bodyText: 'Perdi o acesso da minha conta vinculada ao VK.' },
 ];
 
-const email = 'contato@desbanx.com';
+const email = 'desbanxsuporte@gmail.com';
 const subject = 'Recuperação de Conta - Acesso Perdido';
 
 export default function RecuperarPage() {
