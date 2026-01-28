@@ -34,7 +34,9 @@ export default function RecuperarPage() {
             <Card>
                 <CardHeader>
                     <CardTitle>Qual o meio de vínculo da sua conta?</CardTitle>
-                    <CardDescription>Clique na opção correspondente para enviar um e-mail pré-preenchido para nossa equipe de suporte.</CardDescription>
+                    <CardDescription>
+                        Clique na opção correspondente para enviar um e-mail pré-preenchido para nossa equipe de suporte. Você receberá uma resposta da nossa equipe em breve, por isso, fique de olho na sua caixa de entrada e na pasta de spam.
+                    </CardDescription>
                 </CardHeader>
                 <CardContent className="grid grid-cols-1 gap-4">
                     {recoveryOptions.map((option) => {
