@@ -343,7 +343,7 @@ Descrição do ocorrido:
       <div className="flex flex-col h-[calc(100vh-4rem)]">
           <div className="bg-card border-b p-3 flex items-center gap-3">
               <Avatar>
-                  <AvatarImage src="/equipedebanx.jpg" alt="Equipe DesbanX Logo" />
+                  <AvatarImage src="https://placehold.co/40x40/252629/F9FAFC?text=DX" alt="Equipe DesbanX Logo" />
                   <AvatarFallback>DX</AvatarFallback>
               </Avatar>
               <div>
@@ -375,7 +375,7 @@ Descrição do ocorrido:
                       >
                           {msg.sender === 'team' && (
                               <Avatar className="h-8 w-8">
-                                  <AvatarImage src="/equipedebanx.jpg" alt="Equipe DesbanX Logo" />
+                                  <AvatarImage src="https://placehold.co/40x40/252629/F9FAFC?text=DX" alt="Equipe DesbanX Logo" />
                                   <AvatarFallback>DX</AvatarFallback>
                               </Avatar>
                           )}
@@ -398,7 +398,7 @@ Descrição do ocorrido:
                   {isTyping && (
                        <div className="flex items-end gap-2 justify-start">
                           <Avatar className="h-8 w-8">
-                              <AvatarImage src="/equipedebanx.jpg" alt="Equipe DesbanX Logo" />
+                              <AvatarImage src="https://placehold.co/40x40/252629/F9FAFC?text=DX" alt="Equipe DesbanX Logo" />
                               <AvatarFallback>DX</AvatarFallback>
                           </Avatar>
                           <div className="max-w-md rounded-lg p-2 bg-secondary">
