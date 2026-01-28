@@ -1,30 +1,32 @@
 'use client';
 
-import React from 'react';
-import { cn } from '@/lib/utils';
+import React, { useState, useEffect } from 'react';
 
-interface ParticleBackgroundProps {
-  className?: string;
-}
+const NUM_PARTICLES = 100;
 
-export default function ParticleBackground({
-  className,
-}: ParticleBackgroundProps) {
+export default function ParticleBackground() {
+  const [particles, setParticles] = useState<React.CSSProperties[]>([]);
+
+  useEffect(() => {
+    const newParticles = Array.from({ length: NUM_PARTICLES }).map(() => ({
+      position: 'absolute',
+      left: `${Math.random() * 100}vw`,
+      top: `${Math.random() * 100}vh`,
+      width: `${Math.random() * 2 + 0.5}px`,
+      height: `${Math.random() * 2 + 0.5}px`,
+      backgroundColor: 'rgba(255, 255, 255, 0.5)',
+      borderRadius: '50%',
+      animation: `rise ${Math.random() * 20 + 20}s linear infinite`,
+      animationDelay: `-${Math.random() * 40}s`,
+    }));
+    setParticles(newParticles as React.CSSProperties[]);
+  }, []);
+
   return (
-    <div className="absolute inset-0 -z-10">
-        <video
-          autoPlay
-          loop
-          muted
-          playsInline
-          className={cn(
-            'absolute left-0 h-screen w-full object-cover top-[-170px] md:top-[80px]',
-            className
-          )}
-        >
-          <source src="/videofundo.mp4" type="video/mp4" />
-        </video>
-        <div className="absolute bottom-0 left-0 right-0 z-10 h-2/5 bg-gradient-to-t from-background to-transparent" />
+    <div className="absolute inset-0 -z-10 h-full w-full overflow-hidden bg-background">
+        {particles.map((style, index) => (
+          <div key={index} style={style} />
+        ))}
     </div>
   );
 }
