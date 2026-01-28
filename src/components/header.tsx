@@ -16,20 +16,20 @@ const Logo = () => (
 
 
 export default function Header() {
-  const [activeUsers, setActiveUsers] = useState(37);
+  const [activeUsers, setActiveUsers] = useState(137);
 
   useEffect(() => {
-    // Start with an initial random number
-    setActiveUsers(Math.floor(Math.random() * (50 - 30 + 1)) + 30);
+    // Start with an initial random number between 100 and 200
+    setActiveUsers(Math.floor(Math.random() * (200 - 100 + 1)) + 100);
 
     const interval = setInterval(() => {
       setActiveUsers(prevUsers => {
-        // Fluctuate by -2, -1, 0, 1, or 2
-        const change = Math.floor(Math.random() * 5) - 2;
+        // Fluctuate by -5 to 5
+        const change = Math.floor(Math.random() * 11) - 5;
         let newCount = prevUsers + change;
         // Keep it within a realistic range
-        if (newCount < 25) newCount = 25;
-        if (newCount > 55) newCount = 55;
+        if (newCount < 100) newCount = 100;
+        if (newCount > 200) newCount = 200;
         return newCount;
       });
     }, 3500); // Update every 3.5 seconds
