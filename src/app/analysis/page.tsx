@@ -88,7 +88,7 @@ export default function AnalysisPage() {
         <section className="text-center mb-12 animate-in fade-in-50 duration-1000">
             <h1 className="font-headline text-3xl md:text-4xl font-bold">Questionário de Análise</h1>
             <p className="mt-2 text-lg text-muted-foreground">
-                Responda às perguntas abaixo para que nossa IA possa analisar seu caso.
+                Responda às perguntas abaixo para que nossa equipe possa analisar seu caso.
             </p>
         </section>
 
