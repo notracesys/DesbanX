@@ -93,7 +93,7 @@ export default function Landing() {
           Sua conta não foi banida, mas você perdeu o acesso e quer recuperá-la?
         </p>
         <Button asChild variant="outline">
-          <Link href="/creator-studio-xyz">
+          <Link href="/recuperar">
             Clique aqui para recuperar
             <ArrowRight className="ml-2 h-4 w-4" />
           </Link>
