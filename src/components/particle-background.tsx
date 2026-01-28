@@ -18,13 +18,13 @@ export default function ParticleBackground({
           muted
           playsInline
           className={cn(
-            'absolute left-0 h-screen w-full object-cover top-[-170px] md:top-[-100px]',
+            'absolute left-0 h-screen w-full object-cover top-[-170px] md:top-[80px]',
             className
           )}
         >
           <source src="/videofundo.mp4" type="video/mp4" />
         </video>
-        <div className="absolute bottom-0 left-0 right-0 h-2/5 bg-gradient-to-t from-black to-transparent" />
+        <div className="absolute bottom-0 left-0 right-0 z-10 h-2/5 bg-gradient-to-t from-background to-transparent" />
     </div>
   );
 }
