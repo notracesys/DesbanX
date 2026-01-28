@@ -17,7 +17,7 @@ export default function ParticleBackground({
       muted
       playsInline
       className={cn(
-        'absolute left-0 -top-[150px] w-full h-screen object-cover md:-top-[300px]',
+        'absolute left-0 -top-[200px] h-screen w-full object-cover md:-top-[200px]',
         className
       )}
     >
