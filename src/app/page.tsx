@@ -13,7 +13,7 @@ export default function Home() {
       <div className="relative flex min-h-full flex-col">
         <Header />
         <main className="flex-grow">
-          <div className="container mx-auto px-4 flex h-full min-h-[calc(100vh-4rem)] items-end justify-center pb-12">
+          <div className="container mx-auto px-4 flex flex-col items-center justify-center pt-20 md:pt-32 text-center">
             <Landing />
           </div>
         </main>

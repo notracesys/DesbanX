@@ -14,10 +14,10 @@ export default function ParticleBackground() {
       top: `${Math.random() * 100}vh`,
       width: `${Math.random() * 2 + 0.5}px`,
       height: `${Math.random() * 2 + 0.5}px`,
-      backgroundColor: 'rgba(255, 255, 255, 0.5)',
+      backgroundColor: 'rgba(255, 0, 0, 0.5)',
       borderRadius: '50%',
-      animation: `rise ${Math.random() * 20 + 20}s linear infinite`,
-      animationDelay: `-${Math.random() * 40}s`,
+      animation: `rise ${Math.random() * 5 + 5}s linear infinite`,
+      animationDelay: `-${Math.random() * 10}s`,
     }));
     setParticles(newParticles as React.CSSProperties[]);
   }, []);
