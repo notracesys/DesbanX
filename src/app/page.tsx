@@ -10,7 +10,7 @@ export default function Home() {
     <div className="relative min-h-full">
       <BrowserCheckDialog />
       <ParticleBackground />
-      <div className="relative z-10 flex min-h-full flex-col">
+      <div className="relative flex min-h-full flex-col">
         <Header />
         <main className="flex-grow">
           <div className="container mx-auto px-4 flex h-full min-h-[calc(100vh-4rem)] items-end justify-center pb-12">

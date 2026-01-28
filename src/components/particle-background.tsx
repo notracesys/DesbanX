@@ -11,20 +11,20 @@ export default function ParticleBackground({
   className,
 }: ParticleBackgroundProps) {
   return (
-    <div className="absolute inset-0">
+    <div className="absolute inset-0 -z-10">
         <video
           autoPlay
           loop
           muted
           playsInline
           className={cn(
-            'absolute left-0 h-screen w-full object-cover top-[-30px] md:top-[-30px]',
+            'absolute left-0 h-screen w-full object-cover top-[-170px] md:top-[-100px]',
             className
           )}
         >
           <source src="/videofundo.mp4" type="video/mp4" />
         </video>
-        <div className="absolute bottom-0 left-0 right-0 h-2/5 bg-gradient-to-t from-black to-transparent z-10" />
+        <div className="absolute bottom-0 left-0 right-0 h-2/5 bg-gradient-to-t from-black to-transparent" />
     </div>
   );
 }
