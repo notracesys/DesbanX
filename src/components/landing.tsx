@@ -87,6 +87,18 @@ export default function Landing() {
           </DialogContent>
         </Dialog>
       </div>
+
+      <div className="mt-12 text-center">
+        <p className="text-muted-foreground mb-4">
+          Sua conta não foi banida, mas você perdeu o acesso e quer recuperá-la?
+        </p>
+        <Button asChild variant="outline">
+          <Link href="/creator-studio-xyz">
+            Clique aqui para recuperar
+            <ArrowRight className="ml-2 h-4 w-4" />
+          </Link>
+        </Button>
+      </div>
     </div>
   );
 }
