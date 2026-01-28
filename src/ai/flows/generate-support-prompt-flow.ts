@@ -27,14 +27,14 @@ const prompt = ai.definePrompt({
   input: { schema: GenerateSupportPromptInputSchema },
   output: { schema: GenerateSupportPromptOutputSchema },
   prompt: `
-    Você é um especialista em regulamentos de jogos online. Sua tarefa é redigir um parágrafo de apelação formal e técnico para um jogador que foi banido injustamente e usará este texto em um formulário de suporte. O tom deve ser sério, respeitoso e firme.
+    Você é um especialista em comunicação técnica para suporte de jogos online. Sua tarefa é redigir um parágrafo formal e neutro para um jogador que perdeu o acesso à sua conta e suspeita de um erro sistêmico. O texto será usado em um formulário de suporte. O objetivo é evitar filtros automáticos de palavras-chave como "banimento" ou "suspensão" e solicitar uma análise humana. O tom deve ser sério, respeitoso e focado na resolução de um problema técnico.
 
     O texto deve conter os seguintes pontos em um único parágrafo fluído:
-    - Declarar o propósito do contato: solicitar uma reavaliação manual e detalhada da suspensão aplicada à minha conta.
-    - Argumentar que a suspensão parece ter sido resultado de um sistema automatizado, que pode conter falsos positivos.
-    - Afirmar que não houve violação dos Termos de Serviço e que a punição foi desproporcional ou equivocada.
-    - Solicitar formalmente uma investigação humana e a apresentação de evidências que justifiquem o banimento.
-    - Finalizar se colocando à disposição para fornecer qualquer informação adicional.
+    - Declarar o propósito do contato: solicitar um diagnóstico técnico sobre uma restrição de acesso à minha conta.
+    - Levantar a hipótese de que a inacessibilidade pode ser resultado de uma anomalia sistêmica ou erro de um processo automatizado.
+    - Afirmar que, segundo meu conhecimento, todas as minhas atividades na plataforma sempre estiveram em conformidade com os Termos de Serviço.
+    - Solicitar formalmente uma verificação manual do status da conta e a clarificação sobre o motivo da restrição de acesso.
+    - Finalizar se colocando à disposição para fornecer qualquer informação adicional para a análise.
 
     Gere apenas o corpo do texto, sem saudações, assuntos ou despedidas.
   `,
