@@ -22,7 +22,6 @@ import Header from '@/components/header';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { toast } from '@/hooks/use-toast';
-import { generateSupportPrompt } from '@/ai/flows/generate-support-prompt-flow';
 
 const accountIdSchema = z.object({
   accountId: z.string()
@@ -32,6 +31,8 @@ const accountIdSchema = z.object({
 });
 
 type AccountIdForm = z.infer<typeof accountIdSchema>;
+
+const staticSupportPrompt = "Prezados, escrevo para solicitar um diagnóstico técnico referente a uma súbita impossibilidade de acessar minha conta. Ao tentar conectar, encontro uma restrição inesperada que não consigo resolver. Acredito que possa se tratar de uma anomalia sistêmica, pois tenho ciência de que minhas atividades sempre estiveram em conformidade com os Termos de Serviço. Solicito, por gentileza, uma verificação manual do estado da minha conta e um esclarecimento sobre a natureza desta restrição. Fico à disposição para auxiliar na investigação.";
 
 export default function CreatorStudioPage() {
   const [isVerifying, setIsVerifying] = useState(false);
@@ -60,22 +61,13 @@ export default function CreatorStudioPage() {
     }, 1000);
   };
 
-  const handleGeneratePrompt = async (accountId: string) => {
+  const handleGeneratePrompt = () => {
     setIsGenerating(true);
-    try {
-      const result = await generateSupportPrompt(accountId);
-      setGeneratedPrompt(result.supportText);
+    setTimeout(() => {
+      setGeneratedPrompt(staticSupportPrompt);
       setShowPromptDialog(true);
-    } catch (error) {
-      console.error("Error generating prompt:", error);
-      toast({
-        variant: "destructive",
-        title: "Erro ao gerar texto",
-        description: "Não foi possível gerar o texto de suporte. Tente novamente.",
-      });
-    } finally {
       setIsGenerating(false);
-    }
+    }, 500);
   };
 
   const copyToClipboard = () => {
@@ -195,7 +187,7 @@ export default function CreatorStudioPage() {
                 <CardContent className="p-6 flex flex-col items-center justify-center text-center">
                     <p className="text-muted-foreground mb-4">Sua conta foi verificada. Agora, clique abaixo para gerar o texto de suporte personalizado.</p>
                     <Button 
-                        onClick={() => handleGeneratePrompt(form.getValues('accountId'))} 
+                        onClick={handleGeneratePrompt} 
                         className="font-bold"
                         disabled={isGenerating}
                     >
