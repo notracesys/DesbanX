@@ -9,7 +9,7 @@ import Link from 'next/link';
 const recoveryOptions = [
     { name: 'Convidado', icon: User, bodyText: 'Perdi o acesso da minha conta de Convidado.', href: null },
     { name: 'Google', icon: Mail, bodyText: 'Perdi o acesso da minha conta vinculada ao Google.', href: 'https://chk.eduzz.com/39ZQX63Z9E' },
-    { name: 'Facebook', icon: Facebook, bodyText: 'Perdi o acesso da minha conta vinculada ao Facebook.', href: null },
+    { name: 'Facebook', icon: Facebook, bodyText: 'Perdi o acesso da minha conta vinculada ao Facebook.', href: 'https://chk.eduzz.com/60EEXPY303' },
     { name: 'Twitter', icon: Twitter, bodyText: 'Perdi o acesso da minha conta vinculada ao Twitter.', href: null },
     { name: 'VK', icon: MessageSquare, bodyText: 'Perdi o acesso da minha conta vinculada ao VK.', href: null },
 ];
@@ -35,7 +35,7 @@ export default function RecuperarPage() {
                 <CardHeader>
                     <CardTitle>Qual o meio de vínculo da sua conta?</CardTitle>
                     <CardDescription>
-                        Clique na opção correspondente para iniciar o processo de recuperação. Para contas Google, você será levado ao checkout do método. Para as demais, enviará um e-mail para nossa equipe.
+                        Clique na opção correspondente para iniciar o processo de recuperação. Para contas Google e Facebook, você será levado ao checkout do método. Para as demais, enviará um e-mail para nossa equipe.
                     </CardDescription>
                 </CardHeader>
                 <CardContent className="grid grid-cols-1 gap-4">
